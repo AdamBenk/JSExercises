@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "array": "node array.js"
+    "array": "node array/array.js"
   },
   "repository": {
     "type": "git",
