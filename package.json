@@ -4,7 +4,7 @@
   "description": "JavaScript Exercises for Adam",
   "main": "index.js",
   "scripts": {
-    "test": "test",
+    "test": "jest",
     "array": "node array.js"
   },
   "repository": {
