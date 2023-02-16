@@ -13,7 +13,7 @@ You can find info about stack and queue, here:
 https://www.telerik.com/blogs/stack-queue-javascript
 
 ### The Task
-You need to complete your tasks in this file, no need to modify any other files.
+You need to complete your tasks in array.js in array folder, no need to modify any other files.
 
 ### Run the code
 To check your functions in browser, run array.html in a browser, it will import the required javascript file
