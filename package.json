@@ -1,0 +1,29 @@
+{
+  "name": "jsexercises",
+  "version": "0.0.1",
+  "description": "JavaScript Exercises for Adam",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "array": "node array.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdamBenk/JSExercises.git"
+  },
+  "keywords": [
+    "javascript",
+    "beginner",
+    "exercises",
+    "practice"
+  ],
+  "author": "Tamas Kovari (zakzag.dev@gmail.com)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdamBenk/JSExercises/issues"
+  },
+  "homepage": "https://github.com/AdamBenk/JSExercises#readme",
+  "devDependencies": {
+    "jest": "^29.4.3"
+  }
+}
