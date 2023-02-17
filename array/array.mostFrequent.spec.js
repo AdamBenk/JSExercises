@@ -15,11 +15,11 @@ describe("Array", () => {
         })
 
         it("should ignore array elements if they are not strings", () => {
-            expect(arrayFns.mostFrequent([{}, [], new RegExp("//"), new Number(5)], "3")).toBe("3");
+            expect(arrayFns.mostFrequent([{}, [], new RegExp("//"), new Number(5), "3"])).toBe("3");
         });
 
         it("should ignore undefined and null", () => {
-            expect(arrayFns.mostFrequent([undefined, null,"4" ,"4" ,"2"])).toBe("4");
+            expect(arrayFns.mostFrequent([undefined, undefined, undefined, null,"4" ,"4" ,"2"])).toBe("4");
         });
     })
 });

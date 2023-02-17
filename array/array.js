@@ -18,15 +18,15 @@
     /*
         Write a function that returns the most frequent string item in an array
         If an array item is not a string then ignore it!
-
+        If the input parameter "arr" is not an array but anything else, return undefined
+        if the length of the input param "arr" is 0, return undefined
 
         Example:
-        console.log(mostFrequent([1,2,3,4,5,6,7,4,5,43,343,4,3,24,31,3,4,21,3,3,1,1,3,3,4,9,7,5,6,7,5,8 ,9,5,6,7,6]))
-        returns 3, because 3 is the most frequent item
+        console.log(mostFrequent(["1","2","3","4","5","6","7","3","3","3"]))
+        returns "3", because "3" is the most frequent item
      */
     function mostFrequent(arr) {
-        // finish code
-        return 1;
+        // complete code
     }
 
     /*
