@@ -8,11 +8,11 @@ describe("Array", () => {
 
         it("should return undefined if there's no item in the array", () => {
             expect(arrayFns.mostFrequent([])).toBe(undefined);
-        })
+        });
 
         it("should return undefined if there's no remaining item after ignoring invalid ones", () => {
             expect(arrayFns.mostFrequent([undefined, null, 2, null])).toBe(undefined);
-        })
+        });
 
         it("should ignore array elements if they are not strings", () => {
             expect(arrayFns.mostFrequent([{}, [], new RegExp("//"), new Number(5), "3"])).toBe("3");

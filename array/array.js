@@ -18,7 +18,6 @@
     /*
         Write a function that returns the most frequent string item in an array
         If an array item is not a string then ignore it!
-        If the input parameter "arr" is not an array but anything else, return undefined
         if the length of the input param "arr" is 0, return undefined
 
         Example:
@@ -26,7 +25,7 @@
         returns "3", because "3" is the most frequent item
      */
     function mostFrequent(arr) {
-        // complete code
+        
     }
 
     /*
@@ -104,7 +103,7 @@
     }
 
 // use any input or modify the code below whatever you like
-    const input = [1,2,3,4,5,6]
+    const input = ["a", "b", "c", undefined, 'd', 'b'];
 
     console.info("mostFrequent:", mostFrequent(input));
     console.info("reverse", reverse(input));
@@ -112,7 +111,6 @@
     console.info("compact", compact(input));
     console.info("removeItems", removeItems(input, 1,2,3, [])); // change parameters whatever you see fit!
     console.info("addAll", addAll(input));
-
 
     return {
         mostFrequent: mostFrequent,
