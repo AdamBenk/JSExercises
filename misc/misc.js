@@ -162,7 +162,7 @@
 
     if (typeof window !== "undefined") {
         const wOD = new Date(2022,10,2);
-        console.info(weekOfDays(wOD));
+        console.info("Day on date 02/11/2022 is", weekOfDay(wOD));
     }
 
     // DO NOT COMMENT OUT BELOW LINES
