@@ -1,7 +1,11 @@
 # JavaScript exercises
 
-## Arrays
-These exercises makes you understand how array and array methods work in JS.
+## Micellaneous Functions
+This exercise helps you understand how  we use built-in functions, and statements like:
+- switch-case
+- functions as function parameters
+- array methods: forEach, filter, 
+- string methods: 
 
 ### Prerequisites for these exercises:
 - Array class and its methods/properties
@@ -9,21 +13,8 @@ These exercises makes you understand how array and array methods work in JS.
 - functions as function parameters
 - Concept of stack and queue
 
-
-You can find info about stack and queue, here:
-https://www.telerik.com/blogs/stack-queue-javascript
-
 ### The Task
 You need to complete your tasks in array.js in array folder, no need to modify any other files.
-
-## Micellaneous Functions
-This exercise helps you understand how  we use built-in functions, and statements like:
-- switch-case
-- functions as function parameters
-- array methods: forEach, filter, 
-
-
-## Important 
 
 ### Run the code
 To check your functions in browser, run array.html in a browser, it will import the required javascript file

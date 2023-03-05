@@ -25,7 +25,27 @@
         returns "3", because "3" is the most frequent item
      */
     function mostFrequent(arr) {
-        
+        const filtered = arr.filter(item => typeof item === "string");
+
+        if (filtered.length === 0) {
+            return undefined;
+        }
+
+        const temp = {};
+        let mostF = arr[0];
+
+        arr.filter(item => typeof item === "string").forEach((item) => {
+           temp[item] = temp[item] ? temp[item] + 1 : 1;
+        });
+
+        for (const item in temp) {
+           if (temp[item] > temp[mostF] || temp[mostF] === undefined) {
+               mostF = item;
+           }
+        }
+
+        // finish code
+        return mostF;
     }
 
     /*
@@ -44,7 +64,18 @@
         The return array should be a different variable.
      */
     function reverse(arr) {
+        if (!(arr instanceof Array)) {
+            return undefined;
+        }
+
         // finish code
+        const result = [];
+
+        arr.forEach(item => {
+           result.unshift(item);
+        });
+
+        return result;
     }
 
     /*
@@ -53,7 +84,15 @@
         So using the example above console.log(a1) would print [5,4,3,2,1]
      */
     function reverse2(arr) {
-        // finish code
+        if (!(arr instanceof Array)) {
+            return undefined;
+        }
+
+        const arr2 = reverse(arr);
+
+        while(arr.length) { arr.pop(); }
+
+        arr2.forEach(item => arr.push(item));
     }
 
     /*
@@ -64,7 +103,17 @@
 
      */
     function compact(arr) {
-        // finish code
+        if (!(arr instanceof Array)) {
+            return undefined;
+        }
+
+        return  arr.filter((item, index) => (
+                (typeof item !== "undefined") &&
+                (item !== null) &&
+                (item !== "") &&
+                ((arr.indexOf(item) === arr.lastIndexOf(item)) || arr.indexOf(item) === -1 || arr.indexOf(item) === index)
+            )
+        );
     }
 
     /*
@@ -101,16 +150,6 @@
     function addAll(arr) {
         // finish code
     }
-
-// use any input or modify the code below whatever you like
-    const input = ["a", "b", "c", undefined, 'd', 'b'];
-
-    console.info("mostFrequent:", mostFrequent(input));
-    console.info("reverse", reverse(input));
-    console.info("reverse2", reverse2(input));
-    console.info("compact", compact(input));
-    console.info("removeItems", removeItems(input, 1,2,3, [])); // change parameters whatever you see fit!
-    console.info("addAll", addAll(input));
 
     return {
         mostFrequent: mostFrequent,
