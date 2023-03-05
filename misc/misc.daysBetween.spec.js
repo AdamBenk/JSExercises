@@ -6,7 +6,7 @@ describe("Misc", () => {
             const date1 = new Date(2022, 3, 3);
             const date2 = new Date(2023, 3, 3);
 
-            expect(miscFn.daysBetween(date1, date2));
+            expect(miscFns.daysBetween(date1, date2));
         });
     })
 });
