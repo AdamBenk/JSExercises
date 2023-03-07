@@ -4,12 +4,12 @@ describe("Misc", () => {
     describe("function weekOfDays", () => {
         it("should return proper string for each days", () => {
             expect(miscFns.weekOfDay(new Date(2022,10,2)).toLowerCase()).toBe("wednesday");
-            expect(miscFns.weekOfDay(new Date(2022,2,5)).toLowerCase()).toBe("sunday");
-            expect(miscFns.weekOfDay(new Date(2022,2,4)).toLowerCase()).toBe("saturday");
-            expect(miscFns.weekOfDay(new Date(2022,2,3)).toLowerCase()).toBe("friday");
-            expect(miscFns.weekOfDay(new Date(2022,2,2)).toLowerCase()).toBe("thursday");
-            expect(miscFns.weekOfDay(new Date(2022,2,1)).toLowerCase()).toBe("wednesday");
-            expect(miscFns.weekOfDay(new Date(2022,1,28)).toLowerCase()).toBe("tuesday");
+            expect(miscFns.weekOfDay(new Date(2022,2,5)).toLowerCase()).toBe("saturday");
+            expect(miscFns.weekOfDay(new Date(2022,2,4)).toLowerCase()).toBe("friday");
+            expect(miscFns.weekOfDay(new Date(2022,2,3)).toLowerCase()).toBe("thursday");
+            expect(miscFns.weekOfDay(new Date(2022,2,2)).toLowerCase()).toBe("wednesday");
+            expect(miscFns.weekOfDay(new Date(2022,2,1)).toLowerCase()).toBe("tuesday");
+            expect(miscFns.weekOfDay(new Date(2022,1,28)).toLowerCase()).toBe("monday");
 
         });
 

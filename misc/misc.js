@@ -36,7 +36,29 @@
      *  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof
      */
     function weekOfDay(date) {
-        return; // returns string : "Monday" or "Tuesday" ... "Sunday"
+        
+        if (date instanceof Date) {
+            switch (date.getDay()) {
+                case 0:
+                    return "Sunday"; 
+                case 1: 
+                    return "Monday";
+                case 2:
+                    return "Tuesday";
+                case 3:
+                    return "Wednesday";
+                case 4:
+                    return "Thursday";
+                case 5:
+                    return "Friday";
+                case 6:
+                    return "Saturday";
+                }
+        } else {
+            return "INVALID"
+        }
+        
+       // returns string : "Monday" or "Tuesday" ... "Sunday"
     }
 
     /**
@@ -61,7 +83,9 @@
      * 
      */
     function isWeekend(date) {
-        return; // boolean: true or false
+        /*console.log(date, date.getUTCDay(), date.getDay(), weekOfDay(date))*/
+        return date instanceof Date ? date.getDay() === 0 || date.getDay() === 6 : "INVALID"; 
+        // boolean: true or false
     }
 
     /**
@@ -81,7 +105,17 @@
      * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof
      */
     function compareDates(date1, date2) {
-        return; // return number: 1 or -1 or 0
+        
+        if (date1 instanceof Date && date2 instanceof Date && date1.getTime() > date2.getTime()) {
+            return 1;
+        } else if (date1 instanceof Date && date2 instanceof Date && date1.getTime() < date2.getTime()) {
+            return -1;
+        } else if (date1 instanceof Date && date2 instanceof Date && date1.getTime() === date2.getTime()) {
+            return 0;
+        } else {
+            return 0;
+        }
+        // return number: 1 or -1 or 0
     }
 
     /**
@@ -94,7 +128,23 @@
      * HINT: consider using getFullYear, getMonth, getDate, and padStart
      */
     function formatDate(date) {
-        return; // return string: like "2000-11-12"
+        
+        let numberOfMonth;
+        if (date instanceof Date && date.getMonth() < 9) {
+            numberOfMonth = "0" + (date.getMonth() + 1).toString();
+        } else if (date instanceof Date) {
+            numberOfMonth = (date.getMonth() + 1).toString();
+        }
+
+        let numberOfDay;
+        if (date instanceof Date && date.getDate() < 9) {
+            numberOfDay = "0" + date.getDate().toString();
+        } else if (date instanceof Date) {
+            numberOfDay = date.getDate().toString();
+        }
+
+        return date instanceof Date ? date.getFullYear() + "-" + numberOfMonth + "-" + numberOfDay : "INVALID"; 
+        // return string: like "2000-11-12"
     }
 
     /**
@@ -162,7 +212,7 @@
 
     if (typeof window !== "undefined") {
         const wOD = new Date(2022,10,2);
-        console.info("Day on date 02/11/2022 is", weekOfDay(wOD));
+        /*console.info("Day on date 02/11/2022 is", weekOfDay(wOD));*/
     }
 
     // DO NOT COMMENT OUT BELOW LINES

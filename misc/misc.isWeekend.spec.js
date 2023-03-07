@@ -5,12 +5,12 @@ describe("Misc", () => {
         it("should return proper data for all the 7 days", () => {
             expect(miscFns.isWeekend(new Date(2022,10,2))).toBe(false);
             expect(miscFns.isWeekend(new Date(2022,2,5))).toBe(true);
-            expect(miscFns.isWeekend(new Date(2022,2,4))).toBe(true);
+            expect(miscFns.isWeekend(new Date(2022,2,4))).toBe(false);
             expect(miscFns.isWeekend(new Date(2022,2,3))).toBe(false);
             expect(miscFns.isWeekend(new Date(2022,2,2))).toBe(false);
             expect(miscFns.isWeekend(new Date(2022,2,1))).toBe(false);
             expect(miscFns.isWeekend(new Date(2022,1,28))).toBe(false);
-            expect(miscFns.isWeekend(new Date(2022,1,27))).toBe(false);
+            expect(miscFns.isWeekend(new Date(2022,1,27))).toBe(true);
 
         });
 
