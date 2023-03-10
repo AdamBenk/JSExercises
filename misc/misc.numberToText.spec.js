@@ -38,7 +38,7 @@ describe("Misc", () => {
             expect(miscFns.numberToText(6)).toBe("six");
             expect(miscFns.numberToText(7)).toBe("seven");
             expect(miscFns.numberToText(8)).toBe("eight");
-            expect(miscFns.numberToText(9)).toBe("ten");
+            expect(miscFns.numberToText(9)).toBe("nine");
         });
 
         it("should return properly for 2 digit exceptions", () => {
