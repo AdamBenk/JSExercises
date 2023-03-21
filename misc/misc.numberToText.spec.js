@@ -50,7 +50,7 @@ describe("Misc", () => {
             expect(miscFns.numberToText(10)).toBe("ten");
             expect(miscFns.numberToText(20)).toBe("twenty");
             expect(miscFns.numberToText(30)).toBe("thirty");
-            expect(miscFns.numberToText(40)).toBe("fourty");
+            expect(miscFns.numberToText(40)).toBe("forty");
             expect(miscFns.numberToText(50)).toBe("fifty");
             expect(miscFns.numberToText(60)).toBe("sixty");
             expect(miscFns.numberToText(70)).toBe("seventy");

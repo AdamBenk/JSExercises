@@ -80,11 +80,13 @@
      * 
      */
     function isWeekend(date) {
+        if (!(date instanceof Date)) {
+            return "INVALID";
+        }
+
         const day = date.getDay();
 
-        return (date instanceof Date) ?
-            day === 0 || day === 6 :
-            "INVALID";
+        return day === 0 || day === 6;
         // boolean: true or false
     }
 
@@ -197,277 +199,48 @@
      * HINT: use string concatenation
      * HINT: you might consider using string reduce
      */
-    /*function numberToText(num) {
-        if (!(typeof num === "number") || num < 0 || num > 9999) {
-            return "INVALID";
-        }
 
-        let Ones = num % 10;
-        let Tens = Math.floor(num % 100 / 10); 
-        let Hundreds = Math.floor(num % 1000 / 100);
-        let Thousands = Math.floor(num % 10000 / 1000);
-
-        let firstDigit;
-        if (Ones === 0) {
-            firstDigit = "";
-        }
-        if (Ones === 1) {
-            firstDigit = "one";
-        }
-        if (Ones === 2) {
-            firstDigit = "two";
-        }
-        if (Ones === 3) {
-            firstDigit = "three";
-        }
-        if (Ones === 4) {
-            firstDigit = "four";
-        }
-        if (Ones === 5) {
-            firstDigit = "five";
-        }
-        if (Ones === 6) {
-            firstDigit = "six";
-        }
-        if (Ones === 7) {
-            firstDigit = "seven";
-        }
-        if (Ones === 8) {
-            firstDigit = "eight";
-        }
-        if (Ones === 9) {
-            firstDigit = "nine";
-        }
-
-        let secondDigit;
-        if (Tens === 0) {
-            secondDigit = "";
-        } 
-        if (Tens === 1) {
-            secondDigit = "";
-        } 
-        if (Tens === 2) {
-            secondDigit = "twenty";
-        } 
-        if (Tens === 3) {
-            secondDigit = "thirty";
-        } 
-        if (Tens === 4) {
-            secondDigit = "fourty";
-        } 
-        if (Tens === 5) {
-            secondDigit = "fifty";
-        } 
-        if (Tens === 6) {
-            secondDigit = "sixty";
-        } 
-        if (Tens === 7) {
-            secondDigit = "seventy";
-        } 
-        if (Tens === 8) {
-            secondDigit = "eighty";
-        } 
-        if (Tens === 9) {
-            secondDigit = "ninety";
-        } 
-        
-        let firstDash;
-        if (secondDigit !== "" && firstDigit !== "") {
-            firstDash = "-";
-        } else {
-            firstDash = ""
-        }
-
-        let thirdDigit;
-        if (Hundreds === 0) {
-            thirdDigit = "";
-        }
-        if (Hundreds === 1) {
-            thirdDigit = "onehundred";
-        }
-        if (Hundreds === 2) {
-            thirdDigit = "twohundred";
-        } 
-        if (Hundreds === 3) {
-            thirdDigit = "threehundred";
-        } 
-        if (Hundreds === 4) {
-            thirdDigit = "fourhundred";
-        } 
-        if (Hundreds === 5) {
-            thirdDigit = "fivehundrred";
-        } 
-        if (Hundreds === 6) {
-            thirdDigit = "sixhundred";
-        } 
-        if (Hundreds === 7) {
-            thirdDigit = "sevenhundred";
-        } 
-        if (Hundreds === 8) {
-            thirdDigit = "eigthhundred";
-        } 
-        if (Hundreds === 9) {
-            thirdDigit = "ninehundred";
-        } 
-
-        let secondDash;
-        if (thirdDigit !== "" && secondDigit !== "") {
-            secondDash = "-";
-        } else {
-            secondDash = ""
-        }
-
-        let fourthDigit;
-        if (Thousands === 0) {
-            fourthDigit = "";
-        }
-        if (Thousands === 1) {
-            fourthDigit = "onethousand";
-        }
-        if (Thousands === 2) {
-            fourthDigit = "twothousand";
-        } 
-        if (Thousands === 3) {
-            fourthDigit = "threethousand";
-        } 
-        if (Thousands === 4) {
-            fourthDigit = "fourthousand";
-        } 
-        if (Thousands === 5) {
-            fourthDigit = "fivethousand";
-        } 
-        if (Thousands === 6) {
-            fourthDigit = "sixthousand";
-        } 
-        if (Thousands === 7) {
-            fourthDigit = "seventhousand";
-        } 
-        if (Thousands === 8) {
-            fourthDigit = "eigththousand";
-        } 
-        if (Thousands === 9) {
-            fourthDigit = "ninethousand";
-        } 
-
-        let thirdDash;
-        if (fourthDigit !== "" && thirdDigit !== "") {
-            thirdDash = "-";
-        } else {
-            thirdDash = ""
-        }
-
-        const exceptionsTeens = 
-            Ones === 0 ||
-                Ones === 1 || 
-                    Ones === 2 ||
-                        Ones === 3 || 
-                            Ones === 5 || 
-                                Ones === 8; 
-        let lastTwoDigits; 
-        if (Tens === 1 && Ones === 0) {
-            lastTwoDigits = "ten"
-        }
-        if (Tens === 1 && Ones === 1) {
-            lastTwoDigits = "eleven"
-        }
-        if (Tens === 1 && Ones === 2) {
-            lastTwoDigits = "twelve"
-        }
-        if (Tens === 1 && Ones === 3) {
-            lastTwoDigits = "thirteen"
-        } 
-        if (Tens === 1 && Ones === 5) {
-            lastTwoDigits = "fifteen"
-        } 
-        if (Tens === 1 && Ones === 8) {
-            lastTwoDigits = "eighteen"
-        } 
-        if (Tens === 1 && !exceptionsTeens) {
-            lastTwoDigits = firstDigit + "teen"
-        }
-
-        let exceptionDash; 
-        if (thirdDigit !== "") {
-            exceptionDash = "-";
-        } else {
-            exceptionDash = "";
-        }
-        
-        if (num === 0) {
-            return "zero"
-        }
-        if (num === 100) {
-            return "hundred"
-        }
-        if (num === 1000) {
-            return "thousand";
-        }
-        if (Tens === 1) { 
-            return fourthDigit.concat(thirdDash, thirdDigit, exceptionDash, lastTwoDigits);
-        } else {
-            return fourthDigit.concat(thirdDash, thirdDigit, secondDash, secondDigit, firstDash, firstDigit);
-        }
-       
-           
- // return a string with written numbers
-    }*/
 
     function numberToText(num) {
+        const numbers = {
+            "0": "zero" ,
+            "1": "one",
+            "2": "two",
+            "3": "three",
+            "4": "four",
+            "5": "five",
+            "6": "six",
+            "7": "seven",
+            "8": "eight",
+            "9": "nine"
+        };
+
         if (!(typeof num === "number") || num < 0 || num > 9999) {
             return "INVALID";
         }
-        
-        const digits = String(num).split('') .map(Number)
           
-        let newArray =[];
-        digits.forEach(digit => {
-            if (digit === 0) {
-                newArray.push("zero");
-            }
-            if (digit === 1) {
-                newArray.push("one");
-            }
-            if (digit === 2) {
-                newArray.push("two");
-            }
-            if (digit === 3) {
-                newArray.push("three");
-            }
-            if (digit === 4) {
-                newArray.push("four");
-            }
-            if (digit === 5) {
-                newArray.push("five");
-            }
-            if (digit === 6) {
-                newArray.push("six");
-            }
-            if (digit === 7) {
-                newArray.push("seven");
-            }
-            if (digit === 8) {
-                newArray.push("eight");
-            }
-            if (digit === 9) {
-                newArray.push("nine");
-            }
-        })
+        let newArray = num.toString().split('').map(digit => numbers[digit]);
 
         let newArray2 = [];
-        if (newArray[newArray.length - 2] === "one") {
+        const tens = newArray[newArray.length - 2];
+        const ones = newArray[newArray.length - 1];
+        const hundreds = newArray[newArray.length - 3];
+        const thousands = newArray[newArray.length - 3];
+
+        if (tens === "one") {
             newArray2.unshift(writeTeens(newArray[newArray.length - 2], newArray[newArray.length - 1]));
         }
-        if (newArray[newArray.length - 2] !== "one" && newArray[newArray.length - 1] !== "zero") {
-            newArray2.unshift(newArray[newArray.length - 1]);
+        if (tens !== "one" && ones !== "zero") {
+            newArray2.unshift(ones);
         }
-        if (newArray[newArray.length - 2] !== "one" && newArray[newArray.length - 2] !== "zero" && newArray[newArray.length - 2] !== undefined) {
+        if (tens !== "one" && tens !== "zero" && tens !== undefined) {
             newArray2.unshift(writeTens(newArray[newArray.length - 2]));
         }
-        if (newArray[newArray.length - 3] !== undefined) {
-            newArray2.unshift(newArray[newArray.length - 3].concat("hundred"));
+        if (hundreds !== undefined) {
+            newArray2.unshift(hundreds).concat("hundred");
         }
-        if (newArray[newArray.length - 4] !== undefined) {
-            newArray2.unshift(newArray[newArray.length - 4].concat("thousand"));
+        if (thousands !== undefined) {
+            newArray2.unshift(thousands).concat("thousand");
         }
 
         if (num === 0) {
@@ -521,7 +294,7 @@
             return "thirty";
         }
         if (tens === "four") {
-            return "fourty";
+            return "forty";
         }
         if (tens === "five") {
             return "fifty";
@@ -562,7 +335,7 @@
      * Mora: kincskereso kiskodmon
      * 
      */
-    function forEach(arr, callback) {        
+    function forEach(arr, callback) {
         for (i = 0; i < arr.length; i++) {
             callback(arr[i]);
         } 
