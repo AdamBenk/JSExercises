@@ -42,6 +42,13 @@
      * - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor
      */
     class BaseMenuItem {
+        
+        constructor(label, href, className) {
+            this.label = label;
+            this.href = href;
+            this.className = className;
+        }
+
         // finish class here
     }
 
@@ -76,9 +83,20 @@
      *   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/super
      *   https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters
      */
-    class MenuItem {
-
+    class MenuItem extends BaseMenuItem {
+        
+        constructor(label, href, className, template = "<li class=\"{{class}}\">a href=\"{{href property}}\">{{label property}}</a></li>") {
+            super(label, href, className)
+            this.template = template;
+        }
+        
+        render() {
+            this.template.replace("{{class}}", this.className)
+            this.template.replace("{{href property}}", this.href)
+            this.template.replace("{{label property}}", this.label)
+        } 
     }
+ 
 
     /**
      * Exercise #3
@@ -121,7 +139,26 @@
      *
      */
     class Menu {
+        
+        menuitemsPlaceholder;
+        items = [];
 
+        constructor(cssClass, template = "<ul>{{menuitems}}</ul>") {
+            this.cssClass = cssClass;
+            this.template = template;
+        }
+        
+        addItem(item) {
+            if (item instanceof MenuItem) {
+                this.items.push(item);
+            } else {
+                console.error("screwed up");
+            }
+        }
+
+        render() {
+            this.template.replace("{{menuitems}}", this.menuitemsPlaceholder);
+        } 
     }
 
     /**
@@ -177,8 +214,21 @@
      *
      * Use Menu methods if possible, call superclass constructors, etc.
      */
-    class ExtendedMenu {
+    class ExtendedMenu extends Menu{ 
 
+        addItems(Items) {
+            if (Array.isArray(Items) && Items.forEach(item => item instanceof MenuItem)) {
+                Menu.items = Items;
+            } 
+        }
+
+        setItems(Items) {
+            this.items = this.Items;
+        }
+
+        removeItems(pos) {
+            Items.splice(pos, 1);
+        }
     }
 
     // DO NOT COMMENT OUT LINES BELOW

@@ -12,7 +12,7 @@ describe("OOP1", () => {
             expect(menuItem.label).toBe(testLabel)
             expect(menuItem.href).toBe(testUrl)
             expect(menuItem.className).toBe(testClass);
-            expect(menuItem.template).toBe();
+            expect(menuItem.template).toBe("<li class=\"{{class}}\">a href=\"{{href property}}\">{{label property}}</a></li>");
         });
     })
 });

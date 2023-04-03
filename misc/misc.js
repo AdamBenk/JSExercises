@@ -222,10 +222,10 @@
         let newArray = num.toString().split('').map(digit => numbers[digit]);
 
         let newArray2 = [];
-        const tens = newArray[newArray.length - 2];
         const ones = newArray[newArray.length - 1];
+        const tens = newArray[newArray.length - 2];
         const hundreds = newArray[newArray.length - 3];
-        const thousands = newArray[newArray.length - 3];
+        const thousands = newArray[newArray.length - 4];
 
         if (tens === "one") {
             newArray2.unshift(writeTeens(newArray[newArray.length - 2], newArray[newArray.length - 1]));
@@ -237,10 +237,10 @@
             newArray2.unshift(writeTens(newArray[newArray.length - 2]));
         }
         if (hundreds !== undefined) {
-            newArray2.unshift(hundreds).concat("hundred");
+            newArray2.unshift(hundreds.concat("hundred"));
         }
         if (thousands !== undefined) {
-            newArray2.unshift(thousands).concat("thousand");
+            newArray2.unshift(thousands.concat("thousand"));
         }
 
         if (num === 0) {
