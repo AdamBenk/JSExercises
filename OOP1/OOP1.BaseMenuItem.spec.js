@@ -7,7 +7,6 @@ describe("OOP1", () => {
             const testUrl = "testUrl";
             const testClass = "testClass";
             const testTmp = "<li class=\"{{class}}\">a href=\"{{href property}}\">{{label property}}</a></li>";
-            ;
 
             const menuItem = new oop.MenuItem(testLabel, testUrl, testClass);
 
