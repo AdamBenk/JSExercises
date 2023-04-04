@@ -42,7 +42,10 @@
      * - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/constructor
      */
     class BaseMenuItem {
-        
+        label;
+        href;
+        className;
+
         constructor(label, href, className) {
             this.label = label;
             this.href = href;
@@ -86,14 +89,15 @@
     class MenuItem extends BaseMenuItem {
         
         constructor(label, href, className, template = "<li class=\"{{class}}\">a href=\"{{href property}}\">{{label property}}</a></li>") {
-            super(label, href, className)
+            super(label, href, className);
             this.template = template;
         }
         
         render() {
-            this.template.replace("{{class}}", this.className)
-            this.template.replace("{{href property}}", this.href)
-            this.template.replace("{{label property}}", this.label)
+            return this.template
+                .replace("{{class}}", this.className)
+                .replace("{{href property}}", this.href)
+                .replace("{{label property}}", this.label);
         } 
     }
  
@@ -108,10 +112,10 @@
      *  class: string, it represents the css class that will be applied to the menu
      *  template: string, and it will set the value of the template property of the object. It template is not
      *                    passed, it will have a default value "<ul>{{menuitems}}</ul>"
-     * constructor(class, template)
+     * constructor(className, template)
      *
      * it has properties:
-     * - class: string            The css class that menu have when rendered
+     * - className: string        The css class that menu have when rendered
      *
      * - menuitemsPlaceholder: string   the name of the placeholder in the template that will be replaced
      *                            with the menuitems, by default let it be "menuitems"
@@ -139,12 +143,13 @@
      *
      */
     class Menu {
-        
-        menuitemsPlaceholder;
+        className;
+        menuitemsPlaceholder = "menuitems";
+        template;
         items = [];
 
-        constructor(cssClass, template = "<ul>{{menuitems}}</ul>") {
-            this.cssClass = cssClass;
+        constructor(className, template = "<ul class=\"{{className}}\">{{menuitems}}</ul>") {
+            this.className = className;
             this.template = template;
         }
         
@@ -157,7 +162,9 @@
         }
 
         render() {
-            this.template.replace("{{menuitems}}", this.menuitemsPlaceholder);
+            return this.template
+                .replace("{{className}}", this.className)
+                .replace("{{menuitems}}", this.items);
         } 
     }
 
@@ -210,7 +217,6 @@
      *
      * - removeItem(pos: number)             removes an item from the items property defined by position (pos)
      *
-     * -
      *
      * Use Menu methods if possible, call superclass constructors, etc.
      */
@@ -222,12 +228,12 @@
             } 
         }
 
-        setItems(Items) {
-            this.items = this.Items;
+        setItems(items) {
+            this.items = items;
         }
 
         removeItems(pos) {
-            Items.splice(pos, 1);
+            this.items.splice(pos, 1);
         }
     }
 
