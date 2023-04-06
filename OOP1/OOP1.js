@@ -147,6 +147,7 @@
         menuitemsPlaceholder = "menuitems";
         template;
         items = [];
+        
 
         constructor(className, template = "<ul class=\"{{className}}\">{{menuitems}}</ul>") {
             this.className = className;
@@ -162,9 +163,10 @@
         }
 
         render() {
+            const renderedItem = this.items.reduce((accumulator, currentValue) => accumulator + currentValue.render(), "");
             return this.template
                 .replace("{{className}}", this.className)
-                .replace("{{menuitems}}", this.items);
+                .replace("{{menuitems}}", renderedItem);
         } 
     }
 
@@ -220,19 +222,19 @@
      *
      * Use Menu methods if possible, call superclass constructors, etc.
      */
-    class ExtendedMenu extends Menu{ 
+    class ExtendedMenu extends Menu { 
 
-        addItems(Items) {
-            if (Array.isArray(Items) && Items.forEach(item => item instanceof MenuItem)) {
-                Menu.items = Items;
-            } 
+        addItems(items) {
+            if (items.forEach(item => super.addItem(item))) {
+                this.items.concat(items);
+            }
         }
 
         setItems(items) {
             this.items = items;
         }
 
-        removeItems(pos) {
+        removeItem(pos) {
             this.items.splice(pos, 1);
         }
     }
