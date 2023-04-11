@@ -59,27 +59,7 @@
      * deleted is false by default!
      */
     class Article {
-        title;
-        lead;
-        created;
-        modified;
-        createdBy;
-        modifiedBy;
-        body;
-        section;
-        deleted;
 
-        constructor(title, lead, body, section) {
-            this.title = title;
-            this.lead = lead;
-            this.body = body;
-            this.section = section;
-            this.createdBy = "";
-            this.modifiedBy = [];
-            this.created = new Date();
-            this.modified = new Date();
-            this.deleted = false;
-        }
     }
 
     /* Exercise #2
@@ -91,17 +71,7 @@
      *
      */
     function setAuthor(article, author) {
-        if (!(article instanceof Article)) {
-            throw Error("article is not an Article object");
-        }
-        article.createdBy = author;
 
-        if (article.modifiedBy.length) {
-            article.modifiedBy = [author];
-        } else {
-            article.modifiedBy.push(author);
-        }
-        return article;
     }
 
     /* Exercise #3
@@ -116,15 +86,7 @@
      * - the function returns the modified article object
      */
     function modifyArticle(article, title, lead, body, section, modifier) {
-        if (title !== undefined) { article.title = title; }
-        if (lead !== undefined) { article.lead = lead; }
-        if (body !== undefined) { article.body = body; }
-        if (section !== undefined) { article.section = section; }
 
-        article.modifiedBy.push(modifier);
-        article.modified = new Date();
-
-        return article;
     }
 
     /* Exercise #4
@@ -133,9 +95,7 @@
      * It returns the modified article, deleted flag set to true
      */
     function deleteArticle(article) {
-        article.deleted = true;
 
-        return article;
     }
 
 
@@ -151,19 +111,7 @@
      * if the article is not an Article type object then throw an error  with error message!
      */
     function addArticle(articleList, article) {
-        if (!(articleList instanceof Array)) {
-            throw Error("article list is not an array")
-        }
 
-        if (!(article instanceof Article)) {
-            throw Error("article is not an Article object");
-        }
-
-        if (!articleList.includes(article)) {
-            articleList.push(article);
-        }
-
-        return articleList;
     }
 
     /* Exercise #6
@@ -175,11 +123,7 @@
      * The function returns an array containing all the articles from articleList that belongs to the particular section
      */
     function findBySection(articleList, section) {
-        if (!(articleList instanceof Array)) {
-            throw Error("article list is not an array")
-        }
 
-        return articleList.filter(article => article.section === section);
     }
 
 
@@ -203,29 +147,7 @@
      * delete() - it sets the deleted flag of the article, described above.
      */
     class ExtendedArticle extends Article {
-        setAuthor(author) {
-            this.createdBy = author;
 
-            if (this.modifiedBy.length) {
-                this.modifiedBy = [author];
-            } else {
-                this.modifiedBy.push(author);
-            }
-        }
-
-        modify(title, lead, body, section, modifier) {
-            if (title !== undefined) { this.title = title; }
-            if (lead !== undefined) { this.lead = lead; }
-            if (body !== undefined) { this.body = body; }
-            if (section !== undefined) { this.section = section; }
-
-            this.modifiedBy.push(modifier);
-            this.modified = new Date();
-        }
-
-        delete() {
-            this.deleted = true;
-        }
     }
 
 
@@ -249,23 +171,7 @@
      *      returns a list of articles (array) that belongs to the specific section ("news", "sport" etc.)
      */
     class ArticleList {
-        addArticle(article) {
-            if (!(article instanceof Article)) {
-                throw Error("article is not an Article object");
-            }
-
-            if (!this.articles.includes(article)) {
-                this.articles.push(article);
-            }
-        }
-
-        deleteArticle(pos) {
-            this.articles.splice(pos, 1);
-        }
-
-        findBySection(section) {
-            this.articles.filter(article => article.section === section);
-        }
+       
     }
 
     // DO NOT COMMENT OUT LINES BELOW
