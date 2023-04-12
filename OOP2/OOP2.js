@@ -64,7 +64,7 @@
 
     /* Exercise #2
      * Write a function that sets the creator and modifier of an article.
-     * If the article is not an Article type object, call console.error and do nothing and return
+     * If the article is not an Article type object, throw an error with error message
      * It requires an article to modify, and the author as a string, returns a modified article, createdBy and modifiedBy
      * field set to author. Note, that modifiedBy is an array of strings!
      * If article passed already has modifiedBy not empty, clear the field (empty array), and add only the passed author to the list
@@ -146,32 +146,32 @@
      * modify(title, lead, body, section, modifier) - it alters the article described above, see modifyArticle function
      * delete() - it sets the deleted flag of the article, described above.
      */
-    class ExtendedArticle extends Article {
+    class ExtendedArticle {
 
     }
 
 
-     /* Exercise #8
-     * Create a new class called ArticleList that will contain the articles for our Newspaper Application.
-     * ArticleList class has the following properties:
-     *
-     * - articles: Article[]   - array of the articles for the Newspaper Application
-     *
-     * Methods:
-     * - addArticle(article)
-     *      adds a new article to the list.
-     *      if the article already added before, don't add it to the list!
-     *      if the article is not an Article type object then throw an error  with error message!
-     *
-     *
-     * - deleteArticle(pos: number)
-     *      deletes an article from the list defined by its position
-     *
-     * - findBySection(section: string)
-     *      returns a list of articles (array) that belongs to the specific section ("news", "sport" etc.)
-     */
+    /* Exercise #8
+    * Create a new class called ArticleList that will contain the articles for our Newspaper Application.
+    * ArticleList class has the following properties:
+    *
+    * - articles: Article[]   - array of the articles for the Newspaper Application
+    *
+    * Methods:
+    * - addArticle(article)
+    *      adds a new article to the list.
+    *      if the article already added before, don't add it to the list!
+    *      if the article is not an Article type object then throw an error  with error message!
+    *
+    *
+    * - deleteArticle(pos: number)
+    *      deletes an article from the list defined by its position
+    *
+    * - findBySection(section: string)
+    *      returns a list of articles (array) that belongs to the specific section ("news", "sport" etc.)
+    */
     class ArticleList {
-       
+
     }
 
     // DO NOT COMMENT OUT LINES BELOW
