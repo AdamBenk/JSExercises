@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!--
+   this html code is where your javascript code is working on
+    you can use the console to test your code.
+ -->
+
+<html>
+<head>
+    <title>JavaScript DOM Exercises</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        .red {
+            color: red;
+        }
+
+        .gray {
+            filter: grayscale(100%);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .progress {
+            width: 100%;
+            background-color: #ddd;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background-color: #4CAF50;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+        }
+
+        .container {
+            margin: 0px;
+            padding: 0px;
+            border: 1px solid #ddd;
+        }
+
+        .container h1 {
+            margin: 0;
+            padding: 10px;
+            background-color: aliceblue;
+            display: block;
+        }
+
+        .container .text {
+            padding: 10px;
+        }
+
+        .container .buttonContainer {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="main">
+    <h1>JavaScript DOM Exercises</h1>
+    <section class="container" id="exercise1">
+        <h1>Style manipulation</h1>
+        <div id="paragraphContainer">
+            <p id="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <div class="buttonContainer">
+            <button id="colorButton">Change Text Color</button>
+            <button id="addButton">Add Paragraph</button>
+            <button id="classButton">Add CSS Class</button>
+            <button id="removeButton">Remove Paragraph</button>
+            <button id="textButton">Update Text Content</button>
+        </div>
+
+    </section>
+
+    <section class="container">
+        <div id="imageDiv"></div>
+        <button id="imageButton">Add Image</button>
+    </section>
+
+    <section class="container">
+        <div id="backgroundDiv"></div>
+        <button id="backgroundButton">Change Background</button>
+    </section>
+
+    <section class="container">
+        <div id="borderDiv"></div>
+        <button id="borderButton">Add Border</button>
+    </section>
+
+    <section class="container">
+        <div id="linkDiv"></div>
+        <button id="linkButton">Add Link</button>
+    </section>
+    <section class="container">
+        <div id="inputDiv"></div>
+        <input id="input" type="text" value="Initial Value">
+        <button id="inputButton">Add Input</button>
+    </section>
+
+
+    <p id="fontSize">This is a paragraph with a font size of 16px.</p>
+    <button id="fontButton">Change Font Size</button>
+    <ul id="list"></ul>
+    <select id="select"></select>
+    <img id="grayImage" src="https://www.w3schools.com/w3images/fjords.jpg" alt="Fjords">
+    <button id="grayButton">Add Grayscale Filter</button>
+    <div id="hiddenDiv" class="hidden">
+        <p>This is a hidden paragraph.</p>
+    </div>
+    <div id="progressDiv" class="progress">
+        <div id="progressBar" class="progress-bar"></div>
+    </div>
+    <div id="canvasDiv">
+        <canvas id="canvas" width="200" height="200"></canvas>
+    </div>
+</div>
+<script src="DOM1.js"></script>
+
+</body>
+</html>

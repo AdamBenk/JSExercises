@@ -1,0 +1,54 @@
+// Exercise 8: Update link on button click
+const link = document.getElementById('link');
+const linkButton = document.getElementById('linkButton');
+linkButton.addEventListener('click', () => {
+link.setAttribute('href', 'https://www.facebook.com');
+});
+
+// Exercise 9: Update input value on button click
+const input = document.getElementById('input');
+const inputButton = document.getElementById('inputButton');
+inputButton.addEventListener('click', () => {
+input.value = 'New Value';
+});
+
+// Exercise 10: Change font size on button click
+const fontSize = document.getElementById('fontSize');
+const fontButton = document.getElementById('fontButton');
+fontButton.addEventListener('click', () => {
+fontSize.style.fontSize = '24px';
+});
+
+// Exercise 11: Add items to list using innerHTML
+const list = document.getElementById('list');
+list.innerHTML = '<li>Item 1</li><li>Item 2</li><li>Item 3</li>';
+
+// Exercise 12: Add options to select using createElement and appendChild
+const select = document.getElementById('select');
+for (let i = 1; i <= 5; i++) {
+const option = document.createElement('option');
+option.setAttribute('value', i);
+option.textContent = `Option ${i}`;
+select.appendChild(option);
+}
+
+// Exercise 13: Add grayscale filter to image using document.style
+const grayImage = document.getElementById('grayImage');
+const grayButton = document.getElementById('grayButton');
+grayButton.addEventListener('click', () => {
+grayImage.style.filter = 'grayscale(100%)';
+});
+
+// Exercise 14: Show hidden div using class manipulation
+const hiddenDiv = document.getElementById('hiddenDiv');
+hiddenDiv.classList.remove('hidden');
+
+// Exercise 15: Update progress bar using setAttribute
+const progressBar = document.getElementById('progressBar');
+progressBar.setAttribute('style', 'width: 50%');
+
+// Exercise 16: Draw rectangle on canvas using JavaScript
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+ctx.fillStyle = 'red';
+ctx.fillRect(10, 10, 100, 100);
