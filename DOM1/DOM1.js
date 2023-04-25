@@ -72,10 +72,7 @@
   3. Change the font face of the paragraph text to Arial. (hint: use the style property)
 
  */
-function onColorButtonClick() {
-    const text = document.getElementById('text');
-    text.style.color = 'red';
-}
+function onColorButtonClick() { }
 
 /* Exercise 2:
   Add a new paragraph to the div with id: "paragraphContainer" when the button with id: "addButton" is clicked.
@@ -86,14 +83,7 @@ function onColorButtonClick() {
   3. Append the text node to the paragraph element. (hint: use the appendChild method)
   4. Append the paragraph element to the div with id: "paragraphContainer". (hint: use the appendChild method)
  */
-function onAddButtonClick() {
-    const newParagraph = document.createElement('p');
-    const paragraphContainer = document.getElementById('paragraphContainer');
-
-    newParagraph.innerHTML = 'This is a new paragraph.';
-
-    paragraphContainer.appendChild(newParagraph);
-}
+function onAddButtonClick() { }
 
 /*  Exercise 3:
     Add the class "red" to all paragraphs when the button with id: "classButton" is clicked.
@@ -102,12 +92,7 @@ function onAddButtonClick() {
     1. Get all paragraphs from
     2. Iterate over the list of paragraphs and add the class "red" to each paragraph. (hint: use the classList property)
  */
-function onClassButtonClick() {
-    const paragraphs = document.querySelectorAll('#exercise1 p');
-    paragraphs.forEach(paragraph => {
-        paragraph.classList.add('red');
-    });
-}
+function onClassButtonClick() { }
 
 /*
     Exercise 4:
@@ -117,10 +102,7 @@ function onClassButtonClick() {
     1. Get the last paragraph from the div with id: "main".
     2. Remove the last paragraph from the div with id: "main".
  */
-function onRemoveButtonClick() {
-    const lastParagraph = document.querySelector('#main p:last-child');
-    lastParagraph.remove();
-}
+function onRemoveButtonClick() { }
 
 /*
     Exercise 5:
@@ -130,10 +112,7 @@ function onRemoveButtonClick() {
     1. Get the paragraph with id: "text".
     2. Update the text content of the paragraph with id: "text" to "New text content".
  */
-function onTextButtonClick() {
-    const text = document.getElementById('text');
-    text.textContent = 'New text content';
-}
+function onTextButtonClick() { }
 
 /*
     Exercise 6:
@@ -145,12 +124,7 @@ function onTextButtonClick() {
     3. Set the alt attribute of the image element to "Lights".
     4. Append the image element to the div with id: "imageDiv".
  */
-function onAddImageClick() {
-    const image = document.createElement('img');
-    image.setAttribute('src', 'https://www.w3schools.com/w3images/lights.jpg');
-    image.setAttribute('alt', 'Lights');
-    document.getElementById('imageDiv').appendChild(image);
-}
+function onAddImageClick() { }
 
 /*
   Exercise 7:
@@ -160,10 +134,7 @@ function onAddImageClick() {
     1. Get the div with id: "backgroundDiv".
     2. Change the background color of the div with id: "backgroundDiv" to yellow.
  */
-function onBackgroundButtonClick() {
-    const backgroundDiv = document.getElementById('backgroundDiv');
-    backgroundDiv.style.backgroundColor = 'yellow';
-}
+function onBackgroundButtonClick() { }
 
 // ------- [ END CODE IMPLEMENTATION ] ------- //
 
