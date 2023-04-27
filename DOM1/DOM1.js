@@ -72,7 +72,15 @@
   3. Change the font face of the paragraph text to Arial. (hint: use the style property)
 
  */
-function onColorButtonClick() { }
+function onColorButtonClick() { 
+  
+  const colorChange = document.querySelector("#colorButton");
+  colorChange.addEventListener("click", () => { 
+    const paragraphColor = document.getElementById("text"); 
+    paragraphColor.style.color = "blue"; 
+    paragraphColor.style.font = "Arial";
+  });
+}
 
 /* Exercise 2:
   Add a new paragraph to the div with id: "paragraphContainer" when the button with id: "addButton" is clicked.
@@ -83,7 +91,17 @@ function onColorButtonClick() { }
   3. Append the text node to the paragraph element. (hint: use the appendChild method)
   4. Append the paragraph element to the div with id: "paragraphContainer". (hint: use the appendChild method)
  */
-function onAddButtonClick() { }
+function onAddButtonClick() { 
+  
+  const addBtn = document.querySelector("#addButton");
+  addBtn.addEventListener("click", () => { 
+    /*const newPara = document.createElement("paragraph"); 
+    const newTextToPara = document.createTextNode("This is a new paragraph."); 
+    const matchTextToPara = newPara.appendChild(newTextToPara);
+    paragraphContainer.appendChild(matchTextToPara);*/
+    paragraphContainer.appendChild(document.createElement("paragraph").appendChild(document.createTextNode("This is a new paragraph.")));
+  });
+}
 
 /*  Exercise 3:
     Add the class "red" to all paragraphs when the button with id: "classButton" is clicked.
@@ -92,7 +110,18 @@ function onAddButtonClick() { }
     1. Get all paragraphs from
     2. Iterate over the list of paragraphs and add the class "red" to each paragraph. (hint: use the classList property)
  */
-function onClassButtonClick() { }
+function onClassButtonClick() { 
+
+  const addClassBtn = document.querySelector("#classButton");
+  addClassBtn.addEventListener("click", () => { 
+    const allParas = document.querySelectorAll("P"); 
+    allParas.forEach((element) => {
+      element.classList.add("red");
+    });
+    /*const allParas = document.getElementsByTagName("p"); 
+    Array.from(allParas).forEach(item => item.classList.add("red"));*/
+  });
+}
 
 /*
     Exercise 4:
@@ -102,7 +131,15 @@ function onClassButtonClick() { }
     1. Get the last paragraph from the div with id: "main".
     2. Remove the last paragraph from the div with id: "main".
  */
-function onRemoveButtonClick() { }
+function onRemoveButtonClick() { 
+
+  const removeBtn = document.querySelector("#removeButton");
+  removeBtn.addEventListener("click", () => { 
+    const allParagraphs = document.getElementById("main").querySelectorAll("p");
+    const lastPara = allParagraphs[allParagraphs.length - 1];
+    lastPara.remove();
+  });
+}
 
 /*
     Exercise 5:
@@ -112,7 +149,13 @@ function onRemoveButtonClick() { }
     1. Get the paragraph with id: "text".
     2. Update the text content of the paragraph with id: "text" to "New text content".
  */
-function onTextButtonClick() { }
+function onTextButtonClick() { 
+
+  const textBtn = document.querySelector("#textButton");
+  textBtn.addEventListener("click", () => { 
+    document.getElementById("text").textContent = "New text content"; 
+  });
+}
 
 /*
     Exercise 6:
@@ -124,7 +167,16 @@ function onTextButtonClick() { }
     3. Set the alt attribute of the image element to "Lights".
     4. Append the image element to the div with id: "imageDiv".
  */
-function onAddImageClick() { }
+function onAddImageClick() { 
+
+  const imageBtn = document.querySelector("#imageButton");
+  imageBtn.addEventListener("click", () => { 
+    const newImg = document.createElement("img");
+    newImg.src = "https://www.w3schools.com/w3images/lights.jpg";
+    newImg.alt = "Lights";
+    imageDiv.appendChild(newImg);
+  });
+}
 
 /*
   Exercise 7:
@@ -134,7 +186,15 @@ function onAddImageClick() { }
     1. Get the div with id: "backgroundDiv".
     2. Change the background color of the div with id: "backgroundDiv" to yellow.
  */
-function onBackgroundButtonClick() { }
+function onBackgroundButtonClick() { 
+
+  const bgrndBtn = document.querySelector("#backgroundButton");
+  bgrndBtn.addEventListener("click", () => { 
+    const bgrndDiv = document.getElementById("backgroundDiv");
+    bgrndDiv.style.height = "20px";
+    bgrndDiv.style.background = "yellow";
+  });
+}
 
 // ------- [ END CODE IMPLEMENTATION ] ------- //
 
