@@ -73,14 +73,14 @@
 
  */
 function onColorButtonClick() { 
-  
-  const colorChange = document.querySelector("#colorButton");
-  colorChange.addEventListener("click", () => { 
+
     const paragraphColor = document.getElementById("text"); 
+    const a = document.getElementById("paragraphContainer");
+    console.info(a.querySelectorAll("p"));
+    console.info(document.querySelectorAll("p"));
     paragraphColor.style.color = "blue"; 
     paragraphColor.style.font = "Arial";
-  });
-}
+  }
 
 /* Exercise 2:
   Add a new paragraph to the div with id: "paragraphContainer" when the button with id: "addButton" is clicked.
@@ -93,14 +93,11 @@ function onColorButtonClick() {
  */
 function onAddButtonClick() { 
   
-  const addBtn = document.querySelector("#addButton");
-  addBtn.addEventListener("click", () => { 
-    /*const newPara = document.createElement("paragraph"); 
+    const newPara = document.createElement("p"); 
     const newTextToPara = document.createTextNode("This is a new paragraph."); 
     const matchTextToPara = newPara.appendChild(newTextToPara);
-    paragraphContainer.appendChild(matchTextToPara);*/
-    paragraphContainer.appendChild(document.createElement("paragraph").appendChild(document.createTextNode("This is a new paragraph.")));
-  });
+    paragraphContainer.appendChild(matchTextToPara);
+  
 }
 
 /*  Exercise 3:
@@ -112,15 +109,13 @@ function onAddButtonClick() {
  */
 function onClassButtonClick() { 
 
-  const addClassBtn = document.querySelector("#classButton");
-  addClassBtn.addEventListener("click", () => { 
     const allParas = document.querySelectorAll("P"); 
-    allParas.forEach((element) => {
+    allParas.forEach(element => {
       element.classList.add("red");
-    });
+    })
     /*const allParas = document.getElementsByTagName("p"); 
     Array.from(allParas).forEach(item => item.classList.add("red"));*/
-  });
+  
 }
 
 /*
@@ -133,12 +128,9 @@ function onClassButtonClick() {
  */
 function onRemoveButtonClick() { 
 
-  const removeBtn = document.querySelector("#removeButton");
-  removeBtn.addEventListener("click", () => { 
     const allParagraphs = document.getElementById("main").querySelectorAll("p");
     const lastPara = allParagraphs[allParagraphs.length - 1];
     lastPara.remove();
-  });
 }
 
 /*
@@ -187,14 +179,10 @@ function onAddImageClick() {
     2. Change the background color of the div with id: "backgroundDiv" to yellow.
  */
 function onBackgroundButtonClick() { 
-
-  const bgrndBtn = document.querySelector("#backgroundButton");
-  bgrndBtn.addEventListener("click", () => { 
     const bgrndDiv = document.getElementById("backgroundDiv");
     bgrndDiv.style.height = "20px";
     bgrndDiv.style.background = "yellow";
-  });
-}
+  }
 
 // ------- [ END CODE IMPLEMENTATION ] ------- //
 

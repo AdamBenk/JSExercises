@@ -30,3 +30,25 @@
  *     attacks. It's generally safer to use other methods like textContent or createTextNode to set the text content of
  *     an element. However, for this exercise, we'll use innerHTML for simplicity.
  */
+
+
+function createSomething() {
+    const newDiv = document.createElement("div");
+    document.body.appendChild(newDiv);
+    const headerInDiv = document.createElement("h1");
+    newDiv.appendChild(headerInDiv);
+    headerInDiv.innerHTML = "Hi, I am the header here!";
+    const someContent = document.createElement("p");
+    newDiv.appendChild(someContent);
+    someContent.innerHTML = "This is some content to style!"
+    const newBtn = document.createElement("button");
+    newDiv.appendChild(newBtn);
+    newBtn.classList.add("newButton");
+    newBtn.innerHTML = "Click Me!";
+    newBtn.addEventListener("click", () => {
+        someContent.style.backgroundColor = "rgb(70, 88, 82)";
+        someContent.innerHTML = "The content is different now!"
+     });
+}
+
+window.addEventListener("load", createSomething)
