@@ -13,11 +13,16 @@
  *     Create an input field and a button that allows a user to add an item to the list.
  *
  *     Note the followings:
+ *         * the page has minimum width, so that the page will not be too wide when the browser window is resized.
+ *         * the page has a maximum width, so that the page will not be too wide when the browser window is resized.
+ *         * the page is centered in the browser window.
            * the "Enter Task" field has 2 state: normal and "on focus". You can use the ":focus" pseudo-class to style the input field when it is on focus.
  *         * the "Add" button has 2 state: normal and "on hover". You can use the ":hover" pseudo-class to style the button when the mouse is over it.
            * Every second row in the TODO list is gray. You can use the ":nth-child" pseudo-class to style every second row.
  *         * Every other row background is white. You can use the ":nth-child" pseudo-class to style every other row.
  *         * when the cursor is hover over a row, they will be highlighted. You can use the ":hover" pseudo-class to style the row when the mouse is over it.
+ *         * when hover over a list item, the cursor will change to a pointer. You can use the "cursor" property to change the cursor.
+ *         
  *
  *     Exercise 2: Behaviour (JavaScript)
  *         * when user clicks the Add button, a new todo item will be added to the bottom of the list. Use appendChild method inside the event listener to add a new item to the list. You can choose to use innerHTML or createElement to create the new items.
@@ -30,6 +35,7 @@
  *
  *    Exercise 3: Extra Features
  *     Add the ability to unmark completed items. When a completed item is unmarked, it should no longer have the strike-through line.
+ *     Add button is disabled when the input field is empty.
 
  *
  *     Good luck!
