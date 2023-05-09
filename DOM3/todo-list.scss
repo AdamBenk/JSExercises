@@ -1,0 +1,125 @@
+@font-face {
+    font-family: "RobotoSlab-Bold";
+    src: url("fonts/RobotoSlab-Bold.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: "RobotoSlab-Medium";
+    src: url("fonts/RobotoSlab-Medium.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: "RobotoSlab-Thin";
+    src: url("fonts/RobotoSlab-Thin.ttf") format("truetype");
+  }
+
+body {
+    height: 100vh;
+    background-color: rgb(189, 165, 140);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main {
+    width: 40%;
+    min-width: 550px;
+    max-width: 700px;
+    min-height: 500px;
+    background-color: white;
+    box-shadow: 0 0 15px 5px rgb(43, 35, 20);
+    box-sizing: border-box;
+    padding: 30px;
+    font-family: 'RobotoSlab-Medium';
+}
+
+header {
+    font-size: 30px;
+    width: 100%;
+    font-family: 'RobotoSlab-Bold';
+    margin-bottom: 15px;
+  }
+
+form {
+    display: flex;
+    align-items: center;
+}
+
+input {
+    box-sizing: border-box;
+    border: 0.5px solid rgb(29, 27, 23);
+    border-radius: 5px;
+    width: 100%; 
+    padding: 10px 10px;
+    margin-right: 10px;
+    font-family: 'RobotoSlab-Medium';
+}
+
+input::placeholder {
+    font-size: 16px;
+    opacity: 0.5;
+    color: rgb(29, 27, 23);
+}
+
+.blueButton {
+    color: beige;
+    background-color: rgb(36, 85, 245);
+    font-size: 16px;
+    border: 0 transparent;
+    border-radius: 5px;
+    padding: 12px 16px;
+    font-family: 'RobotoSlab-Medium';
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    width: 100%;
+    padding: 10 px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.5px solid rgb(134, 130, 123);
+    background-color: rgb(245, 238, 232);
+}
+
+li:nth-child(even) {
+    background-color: white;
+}
+
+p {
+    margin: 0;
+    padding: 12px 0;
+}
+
+.redButton {
+    color: beige;
+    background-color: rgb(238, 25, 25);
+    font-size: 15px;
+    border: 0 transparent;
+    border-radius: 5px;
+    padding: 5px 16px;
+    font-family: 'RobotoSlab-Medium';
+}
+
+button:hover {
+    background-color: rgb(73, 71, 71);
+}
+
+button:active {
+    color: black;
+    background-color: rgb(175, 171, 170);
+}
+
+footer {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+#countField {
+    margin-right: 15px;
+}
