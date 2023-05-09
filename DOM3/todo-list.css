@@ -71,14 +71,18 @@ input::placeholder {
     font-family: 'RobotoSlab-Medium';
 }
 
+.blueButton:disabled {
+    background-color: rgb(36, 85, 245, 0.5);
+}
+
 ul {
     list-style-type: none;
     padding-left: 0;
 }
 
-li {
+li.lineItem {
     width: 100%;
-    padding: 10 px;
+    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -86,9 +90,22 @@ li {
     background-color: rgb(245, 238, 232);
 }
 
-li:nth-child(even) {
+li.lineItem:hover {
+    background-color: rgb(235,228,222);
+}
+
+li.lineItem:nth-child(even) {
     background-color: white;
 }
+
+li.lineItem:nth-child(even):hover {
+    background-color: rgb(235,228,222);
+}
+
+li.lineItem.completed {
+    text-decoration: line-through;
+}
+
 
 p {
     margin: 0;
@@ -120,6 +137,6 @@ footer {
     align-items: center;
 }
 
-#countField {
+.countFieldContainer {
     margin-right: 15px;
 }

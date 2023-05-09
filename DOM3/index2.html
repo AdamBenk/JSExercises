@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>To-Do-List</title>
-        <link rel="stylesheet" href="todo-list.scss">
+        <link rel="stylesheet" href="todo-list.css">
     </head>
     <body>
         <main>
@@ -10,23 +10,13 @@
                 To Do List
             </header>
             <form action="">
-                <input type="text" id="enterTask" placeholder="Enter task...">
-                <button class="blueButton">Add</button>
+                <input type="text" id="taskName" placeholder="Enter task...">
+                <button id="addBtn" class="blueButton">Add</button>
             </form>
-            <ul>
-                <li class="lineItem">
-                    <p>Buy chicken</p>
-                    <button class="redButton">Delete</button>
-                </li>
-                <li class="lineItem">
-                    <p>Buy chicken</p>
-                    <button class="redButton">Delete</button>
-                </li>
-                
-            </ul>
+            <ul id="itemListContainer"></ul>
             <footer>
-                <div id="countField">1 items left</div>
-                <button class="blueButton">Clear all fields</button>
+                <div class="countFieldContainer"><span id="countField">1</span> items left</div>
+                <button class="blueButton" id="clearCompletedBtn">Clear completed</button>
             </footer>
         </main>
         

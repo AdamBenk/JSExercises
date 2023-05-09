@@ -41,3 +41,100 @@
  *     Good luck!
  *
  */
+const itemTemplate = `<li class="lineItem"><p>Buy chicken</p><button class="redButton">Delete</button></li>`;
+let addBtn, taskName, itemListContainer, clearCompletedBtn, countField;
+
+window.addEventListener("load", init);
+
+function init() {
+    addBtn = document.getElementById("addBtn");
+    taskName = document.getElementById("taskName");
+    itemListContainer = document.getElementById("itemListContainer");
+    clearCompletedBtn = document.getElementById("clearCompletedBtn");
+    countField = document.getElementById("countField");
+
+    addBtn.addEventListener("click", addTask);
+    clearCompletedBtn.addEventListener("click", clearCompleted);
+    taskName.addEventListener("keyup", setAddBtnEnabled);
+
+    setAddBtnEnabled();
+    updateIncompleteItemCount();
+}
+
+function addTask(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const name = taskName.value;
+    const item = createItem(name);
+
+    taskName.value = "";
+
+    itemListContainer.appendChild(item);
+    updateIncompleteItemCount();
+    setAddBtnEnabled();
+}
+
+function clearCompleted(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const items = itemListContainer.querySelectorAll(".lineItem.completed");
+    for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        itemListContainer.removeChild(item);
+    }
+    updateIncompleteItemCount();
+}
+
+function createItem(name) {
+    const item = document.createElement("li");
+    item.classList.add("lineItem");
+
+    const p = document.createElement("p");
+    p.innerText = name;
+    item.appendChild(p);
+
+    const button = document.createElement("button");
+    button.classList.add("redButton");
+    button.innerText = "Delete";
+    item.appendChild(button);
+
+    button.addEventListener("click", deleteItem);
+    item.addEventListener("click", toggleItemCompleted);
+
+    return item;
+}
+
+function toggleItemCompleted(event) {
+    const item = event.target;
+    item.classList.toggle("completed");
+    updateIncompleteItemCount();
+}
+
+function deleteItem(event) {
+    const button = event.target;
+    const item = button.parentElement;
+
+    itemListContainer.removeChild(item);
+    updateIncompleteItemCount();
+}
+
+function setAddBtnEnabled() {
+    const itemName = taskName.value;
+
+    addBtn.disabled = (itemName.length === 0);
+}
+
+function updateIncompleteItemCount() {
+    const count = itemListContainer.querySelectorAll(".lineItem:not(.completed)").length;
+    countField.innerText = count;
+}
+
+
+/**
+ * Additional Tasks:
+ *    1. Add a "Mark All Complete" button that marks all items as complete.
+ *    2. Add a "Mark All Incomplete" button that marks all items as incomplete.
+ *    3. Add a "Delete All" button that removes all items from the list.
+ */
