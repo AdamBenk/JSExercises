@@ -91,6 +91,12 @@ function createItem(name) {
     const item = document.createElement("li");
     item.classList.add("lineItem");
 
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = false;
+
+    item.appendChild(checkbox);
+
     const p = document.createElement("p");
     p.innerText = name;
     item.appendChild(p);
@@ -137,4 +143,7 @@ function updateIncompleteItemCount() {
  *    1. Add a "Mark All Complete" button that marks all items as complete.
  *    2. Add a "Mark All Incomplete" button that marks all items as incomplete.
  *    3. Add a "Delete All" button that removes all items from the list.
+ *
+ *    4. Delete selected items
+ *    5. format and style the list
  */
