@@ -91,12 +91,6 @@ function createItem(name) {
     const item = document.createElement("li");
     item.classList.add("lineItem");
 
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.checked = false;
-
-    item.appendChild(checkbox);
-
     const p = document.createElement("p");
     p.innerText = name;
     item.appendChild(p);
