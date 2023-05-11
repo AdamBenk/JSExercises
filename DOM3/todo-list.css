@@ -106,6 +106,9 @@ li.lineItem.completed {
     text-decoration: line-through;
 }
 
+.containerLeft {
+    display: flex;
+}
 
 p {
     margin: 0;
@@ -132,9 +135,11 @@ button:active {
 }
 
 footer {
+    margin: 15px 0;
     display: flex;
     justify-content: end;
     align-items: center;
+    gap: 10px;
 }
 
 .countFieldContainer {

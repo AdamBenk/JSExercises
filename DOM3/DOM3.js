@@ -41,8 +41,8 @@
  *     Good luck!
  *
  */
-const itemTemplate = `<li class="lineItem"><p>Buy chicken</p><button class="redButton">Delete</button></li>`;
-let addBtn, taskName, itemListContainer, clearCompletedBtn, countField;
+const itemTemplate = `<li class="lineItem"><input type="checkbox" class="checkBoxField"><p>Buy chicken</p><button class="redButton">Delete</button></li>`;
+let addBtn, taskName, itemListContainer, clearCompletedBtn, countField, markAllCompletedBtn, markAllIncompleteBtn, deleteAllBtn, deleteSelectedBtn;
 
 window.addEventListener("load", init);
 
@@ -50,12 +50,21 @@ function init() {
     addBtn = document.getElementById("addBtn");
     taskName = document.getElementById("taskName");
     itemListContainer = document.getElementById("itemListContainer");
+    checkBox = document.querySelectorAll("checkBoxField")
     clearCompletedBtn = document.getElementById("clearCompletedBtn");
     countField = document.getElementById("countField");
+    markAllCompletedBtn = document.getElementById("markAllCompletedBtn");
+    markAllIncompleteBtn = document.getElementById("markAllIncompleteBtn");
+    deleteAllBtn = document.getElementById("deleteAllBtn");
+    deleteSelectedBtn = document.getElementById("deleteSelectedBtn");
 
     addBtn.addEventListener("click", addTask);
     clearCompletedBtn.addEventListener("click", clearCompleted);
     taskName.addEventListener("keyup", setAddBtnEnabled);
+    markAllCompletedBtn.addEventListener("click", markAllCompleted);
+    markAllIncompleteBtn.addEventListener("click", markAllIncomplete);
+    deleteAllBtn.addEventListener("click", deleteAll);
+    deleteSelectedBtn.addEventListener("click", deleteSelectedItems)
 
     setAddBtnEnabled();
     updateIncompleteItemCount();
@@ -91,18 +100,32 @@ function createItem(name) {
     const item = document.createElement("li");
     item.classList.add("lineItem");
 
+    const containerLeft = document.createElement("div")
+    containerLeft.classList.add("containerLeft");
+    item.appendChild(containerLeft);
+
+    const containerRight = document.createElement("div")
+    containerLeft.classList.add("containerRight");
+    item.appendChild(containerRight);
+
+    const checkBox = document.createElement("input");
+    checkBox.type = "checkbox";
+    checkBox.classList.add("checkBox");
+    containerLeft.appendChild(checkBox);
+
     const p = document.createElement("p");
     p.innerText = name;
-    item.appendChild(p);
+    containerLeft.appendChild(p);
 
     const button = document.createElement("button");
     button.classList.add("redButton");
     button.innerText = "Delete";
-    item.appendChild(button);
+    containerRight.appendChild(button);
 
     button.addEventListener("click", deleteItem);
     item.addEventListener("click", toggleItemCompleted);
-
+    p.addEventListener("click", toggleItemCompletedP);
+    
     return item;
 }
 
@@ -112,17 +135,22 @@ function toggleItemCompleted(event) {
     updateIncompleteItemCount();
 }
 
+function toggleItemCompletedP(event) {
+    const item = event.target.parentElement;
+    item.parentElement.classList.toggle("completed");
+    updateIncompleteItemCount();
+}
+
 function deleteItem(event) {
     const button = event.target;
-    const item = button.parentElement;
-
+    const middleDiv = button.parentElement;
+    const item = middleDiv.parentElement;
     itemListContainer.removeChild(item);
     updateIncompleteItemCount();
 }
 
 function setAddBtnEnabled() {
     const itemName = taskName.value;
-
     addBtn.disabled = (itemName.length === 0);
 }
 
@@ -131,6 +159,40 @@ function updateIncompleteItemCount() {
     countField.innerText = count;
 }
 
+function markAllCompleted(event) {
+    const items = itemListContainer.querySelectorAll(".lineItem:not(.completed");
+    for (let i = 0; i < items.length; i++) {
+        items[i].classList.toggle("completed");
+    }
+    updateIncompleteItemCount();
+}
+
+function markAllIncomplete() {
+    const items = itemListContainer.querySelectorAll(".lineItem.completed");
+    for (let i = 0; i < items.length; i++) {
+        items[i].classList.toggle("completed");
+    }
+    updateIncompleteItemCount();
+}
+
+function deleteAll() {
+    const items = itemListContainer.querySelectorAll(".lineItem");
+    for (let i = 0; i < items.length; i++) {
+        itemListContainer.removeChild(items[i]);
+    }
+    updateIncompleteItemCount();
+}
+
+function deleteSelectedItems() {
+    const items = itemListContainer.querySelectorAll(".lineItem");
+    for (let i = 0; i < items.length; i++) {
+        const firstchild = items[i].firstChild;
+        if (firstchild.firstChild.checked) {
+            itemListContainer.removeChild(items[i]);
+        }
+    }
+    updateIncompleteItemCount();
+}
 
 /**
  * Additional Tasks:
