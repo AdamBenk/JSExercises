@@ -160,7 +160,7 @@ function updateIncompleteItemCount() {
 }
 
 function markAllCompleted(event) {
-    const items = itemListContainer.querySelectorAll(".lineItem:not(.completed");
+    const items = itemListContainer.querySelectorAll(".lineItem:not(.completed)");
     for (let i = 0; i < items.length; i++) {
         items[i].classList.toggle("completed");
     }
@@ -202,4 +202,19 @@ function deleteSelectedItems() {
  *
  *    4. Delete selected items
  *    5. format and style the list
+ *
+ *
+ *
+ * Additional Tasks:
+ *
+ * 1. Add Complete button to each item, so instead of clicking on the item to mark it as complete, the user can click
+ * on the button to mark it as complete. When Complete button is clicked, the caption of the button should change to
+ * "Incomplete" and the item should be marked as complete. When the button is clicked again, the caption should change
+ * back to "Complete" and the item should be marked as incomplete.
+ *
+ * 2. Expand the To-Do List application to allow the user to edit items by clicking on the text. When an item is
+ * clicked, it should be replaced with an input field that allows the user to edit the text. When the user presses
+ * Enter or clicks outside the input field, the text should be updated and the input field should disappear.
+ * Consider using "click" and "blur" events.
+ *
  */
