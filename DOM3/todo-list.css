@@ -45,7 +45,7 @@ form {
     align-items: center;
 }
 
-input {
+#taskName {
     box-sizing: border-box;
     border: 0.5px solid rgb(29, 27, 23);
     border-radius: 5px;
@@ -53,6 +53,7 @@ input {
     padding: 10px 10px;
     margin-right: 10px;
     font-family: 'RobotoSlab-Medium';
+    font-size: 15px;
 }
 
 input::placeholder {
@@ -81,8 +82,7 @@ ul {
 }
 
 li.lineItem {
-    width: 100%;
-    padding: 10px;
+    padding: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -102,17 +102,37 @@ li.lineItem:nth-child(even):hover {
     background-color: rgb(235,228,222);
 }
 
-li.lineItem.completed {
-    text-decoration: line-through;
-}
-
 .containerLeft {
     display: flex;
 }
 
-p {
-    margin: 0;
-    padding: 12px 0;
+.itemContent {
+    margin: 0 0 0 10px;
+    padding: 0;
+}
+
+.newInput {
+   box-sizing: border-box;
+   margin-left: 10px;
+   border-radius: 5px;
+   padding: 5px 5px;
+   font-family: 'RobotoSlab-Medium';
+   font-size: 15px;
+}
+
+.itemContent.completed {
+    text-decoration: line-through;
+}
+
+.completeButton {
+    color: beige;
+    background-color: rgb(36, 85, 245);
+    font-size: 15px;
+    border: 0 transparent;
+    border-radius: 5px;
+    padding: 5px 16px;
+    margin-right: 10px;
+    font-family: 'RobotoSlab-Medium';
 }
 
 .redButton {

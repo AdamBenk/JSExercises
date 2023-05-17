@@ -68,6 +68,7 @@ function init() {
 
     setAddBtnEnabled();
     updateIncompleteItemCount();
+    setCompleteBtn();  
 }
 
 function addTask(event) {
@@ -76,7 +77,6 @@ function addTask(event) {
 
     const name = taskName.value;
     const item = createItem(name);
-
     taskName.value = "";
 
     itemListContainer.appendChild(item);
@@ -88,11 +88,12 @@ function clearCompleted(event) {
     event.preventDefault();
     event.stopPropagation();
 
-    const items = itemListContainer.querySelectorAll(".lineItem.completed");
-    for (let i = 0; i < items.length; i++) {
-        const item = items[i];
-        itemListContainer.removeChild(item);
-    }
+    const completedItems = document.querySelectorAll(".itemContent.completed");
+    completedItems.forEach(item => {
+        const leftContainer = item.parentElement; 
+        const lineItem = leftContainer.parentElement;
+        itemListContainer.removeChild(lineItem);
+    }); 
     updateIncompleteItemCount();
 }
 
@@ -114,31 +115,71 @@ function createItem(name) {
     containerLeft.appendChild(checkBox);
 
     const p = document.createElement("p");
+    p.classList.add("itemContent");
     p.innerText = name;
     containerLeft.appendChild(p);
 
-    const button = document.createElement("button");
-    button.classList.add("redButton");
-    button.innerText = "Delete";
-    containerRight.appendChild(button);
+    const completeBtn = document.createElement("button");
+    completeBtn.classList.add("completeButton");
+    completeBtn.innerText = "Complete";
+    containerRight.appendChild(completeBtn);
 
-    button.addEventListener("click", deleteItem);
-    item.addEventListener("click", toggleItemCompleted);
-    p.addEventListener("click", toggleItemCompletedP);
-    
+    const deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("redButton");
+    deleteBtn.innerText = "Delete";
+    containerRight.appendChild(deleteBtn);
+
+    completeBtn.addEventListener("click", toggleItemCompleted);
+    deleteBtn.addEventListener("click", deleteItem);
+    p.addEventListener("click", createInput);
     return item;
 }
 
 function toggleItemCompleted(event) {
-    const item = event.target;
-    item.classList.toggle("completed");
+    const clickedBtn = event.target;
+    const rightContainer = clickedBtn.parentElement;
+    const lineItem = rightContainer.parentElement;    
+    const leftContainer = lineItem.firstChild;
+    const itemContent = leftContainer.lastChild;
+    itemContent.classList.toggle("completed");
     updateIncompleteItemCount();
+    setCompleteBtn();
 }
 
-function toggleItemCompletedP(event) {
-    const item = event.target.parentElement;
-    item.parentElement.classList.toggle("completed");
-    updateIncompleteItemCount();
+function setCompleteBtn() {
+    const completedItems = document.querySelectorAll(".itemContent.completed")
+    completedItems.forEach((item) => {
+        const leftContainer = item.parentElement;
+        const lineItem = leftContainer.parentElement;
+        const rightContainer = lineItem.lastChild;
+        const btnToSet = rightContainer.firstChild;
+        btnToSet.innerText = "Incomplete";
+    })
+
+    const nonCompletedItems = document.querySelectorAll(".itemContent:not(.completed)")
+    nonCompletedItems.forEach((item) => {
+        const leftContainer = item.parentElement;
+        const lineItem = leftContainer.parentElement;
+        const rightContainer = lineItem.lastChild;
+        const btnToSet = rightContainer.firstChild;
+        btnToSet.innerText = "Complete";
+    })
+}
+
+function  createInput(event) {
+    const textToReplace = event.target;
+    const newInputField = document.createElement("input");
+    newInputField.classList.add("newInput");
+    const leftContainer = textToReplace.parentElement;
+    leftContainer.replaceChild(newInputField, textToReplace);
+    newInputField.addEventListener("blur", (event) => {
+        const newText = document.createElement("p");
+        newText.innerText = event.target.value;
+        newText.classList.add("itemContent");
+        const parent = event.target.parentElement; 
+        parent.replaceChild(newText, event.target);
+        newText.addEventListener("click", createInput);
+    })
 }
 
 function deleteItem(event) {
@@ -155,42 +196,42 @@ function setAddBtnEnabled() {
 }
 
 function updateIncompleteItemCount() {
-    const count = itemListContainer.querySelectorAll(".lineItem:not(.completed)").length;
+    const count = itemListContainer.querySelectorAll(".itemContent:not(.completed)").length;
     countField.innerText = count;
 }
 
 function markAllCompleted(event) {
-    const items = itemListContainer.querySelectorAll(".lineItem:not(.completed)");
-    for (let i = 0; i < items.length; i++) {
-        items[i].classList.toggle("completed");
-    }
+    const items = itemListContainer.querySelectorAll(".itemContent:not(.completed)");
+    items.forEach(item => {
+        item.classList.toggle("completed");
+    })
     updateIncompleteItemCount();
 }
 
 function markAllIncomplete() {
-    const items = itemListContainer.querySelectorAll(".lineItem.completed");
-    for (let i = 0; i < items.length; i++) {
-        items[i].classList.toggle("completed");
-    }
+    const items = itemListContainer.querySelectorAll(".itemContent.completed");
+    items.forEach(item => {
+        item.classList.toggle("completed");
+    })
     updateIncompleteItemCount();
 }
 
 function deleteAll() {
     const items = itemListContainer.querySelectorAll(".lineItem");
-    for (let i = 0; i < items.length; i++) {
-        itemListContainer.removeChild(items[i]);
-    }
+    items.forEach(item => {
+        itemListContainer.removeChild(item);
+    })
     updateIncompleteItemCount();
 }
 
 function deleteSelectedItems() {
     const items = itemListContainer.querySelectorAll(".lineItem");
-    for (let i = 0; i < items.length; i++) {
-        const firstchild = items[i].firstChild;
+    items.forEach(item => {
+        const firstchild = item.firstChild;
         if (firstchild.firstChild.checked) {
-            itemListContainer.removeChild(items[i]);
+            itemListContainer.removeChild(item);
         }
-    }
+    });
     updateIncompleteItemCount();
 }
 
