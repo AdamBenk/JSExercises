@@ -108,6 +108,9 @@ li.lineItem:nth-child(even):hover {
 
 .itemContent {
     margin: 0 0 0 10px;
+    inline-size: 150px; 
+    overflow: hidden;
+    overflow-wrap: break-word;
     padding: 0;
 }
 

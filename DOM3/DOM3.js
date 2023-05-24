@@ -106,7 +106,7 @@ function createItem(name) {
     item.appendChild(containerLeft);
 
     const containerRight = document.createElement("div")
-    containerLeft.classList.add("containerRight");
+    containerRight.classList.add("containerRight");
     item.appendChild(containerRight);
 
     const checkBox = document.createElement("input");
@@ -131,7 +131,7 @@ function createItem(name) {
 
     completeBtn.addEventListener("click", toggleItemCompleted);
     deleteBtn.addEventListener("click", deleteItem);
-    p.addEventListener("click", createInput);
+    p.addEventListener("click", startEditing);
     return item;
 }
 
@@ -166,20 +166,50 @@ function setCompleteBtn() {
     })
 }
 
-function  createInput(event) {
+function  startEditing(event) {
     const textToReplace = event.target;
     const newInputField = document.createElement("input");
-    newInputField.classList.add("newInput");
     const leftContainer = textToReplace.parentElement;
+    const rowContainer = leftContainer.parentElement;
+
+    rowContainer.querySelector(".checkBox").disabled = true;
+    rowContainer.querySelector(".completeButton").disabled = true;
+    rowContainer.querySelector(".redButton").disabled = true;
+
+    newInputField.value = textToReplace.innerText;
+    newInputField.classList.add("newInput");
+
     leftContainer.replaceChild(newInputField, textToReplace);
-    newInputField.addEventListener("blur", (event) => {
-        const newText = document.createElement("p");
-        newText.innerText = event.target.value;
-        newText.classList.add("itemContent");
-        const parent = event.target.parentElement; 
-        parent.replaceChild(newText, event.target);
-        newText.addEventListener("click", createInput);
-    })
+
+    //newInputField.addEventListener("blur", finishEditing);
+    newInputField.addEventListener("keyup", (event) => {
+        if (event.key === "Enter") {
+            finishEditing(event);
+        }
+    
+        if (event.key === "Escape") {
+            const parent = event.target.parentElement;
+            parent.replaceChild(textToReplace, event.target);
+        }
+    });
+
+    newInputField.focus();
+}
+
+
+function finishEditing(event) {
+    const newText = document.createElement("p");
+    newText.innerText = event.target.value;
+    newText.classList.add("itemContent");
+    const parent = event.target.parentElement;
+    parent.replaceChild(newText, event.target);
+    newText.addEventListener("click", startEditing);
+
+    const rowContainer = newText.parentElement.parentElement;
+
+    rowContainer.querySelector(".checkBox").disabled = false;
+    rowContainer.querySelector(".completeButton").disabled = false;
+    rowContainer.querySelector(".redButton").disabled = false;
 }
 
 function deleteItem(event) {

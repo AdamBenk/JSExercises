@@ -30,3 +30,54 @@
  *   ! https://javascript.info/bubbling-and-capturing
  *
  */
+/**
+ * Bookstore Application
+ *
+ * You will create a new application that will be a simple bookstore. The application will have a title, a menu, a search
+ * bar, a list of books. The Application is able to search for books by title, author, genre, language, and ISBN.
+ *
+ * The application will have a menu with the following items:
+ * - Hot Deals: clicking on this item, the list will be refreshed with the latest books that are on sale.
+ * - Best Sellers: clicking on this item, the list will be refreshed with the best selling books.
+ * - Cheapest: clicking on this item, the list will be refreshed with the cheapest books.
+ *
+ * - Search: clicking on this item, the search bar will be displayed.
+ * The search is represented bz a magnifier icon. Clicking on the icon, the search bar will be displayed.
+ *
+ *
+ * Exercise 1: design
+ * 1. Create a new HTML file and add the basic structure of the page.
+ *  - Add a title to the page. Follow the design in design.png, you can choose different font, font size, font color.
+ *  - Add a menu to the page. All items are Anchor elements. (<a href="#">). Follow the design in design.png
+ *  - Add a search bar to the page. There's an input field next to the magnifier icon, which is invisible by default.
+ *  - Add a list of books to the page. First, you'll add 3 books, like in the design, but later you'll create the list dynamically.
+ *  - Add a footer to the page. It's static, it doesn't change.
+ *  - Add a script tag to the page.
+ *  - Add a link to the DOM4.js file.
+ *
+ *  Design details:
+ *  - change the color of the menu items when the mouse is over the item.
+ *  - change the color of the menu items when the item is clicked.
+ *  - change the color of the input field, when the mouse is over it
+ *  - change the color of the input field, when the input field is focused
+ *
+ *  You can choose the focus, hover and active colors and design.
+ *
+ *  Exercise 2: Events
+ *  1. Add a click event handler to the magnifier icon. When the icon is clicked, the search bar should be displayed, when clicked again,
+ *     the search bar disappears.
+ *  2. Add a keyup event handler to the input field. When escape is pressed, the search bar should be hidden.
+ *  3. Add a keyup event handler to the input field. When enter is pressed, the search should be executed.
+ *  4. Add a click event handler to the menu items. When the item is clicked, the list of books should be refreshed.
+ *   - Hot Deals: the list should be refreshed with the latest books that are on sale.
+ *   - Best Sellers: the list should be refreshed with the best selling books.
+ *   - Cheapest: the list should be refreshed with the cheapest books.
+ *   Use filter method on window.books array to filter the books.
+ *
+ *  4. Add a click event handler to the list container and use event delegation to handle the click event on the list items.
+ *   When the user hover over the picture on a list item, the details of the book should be displayed over the exact position of the mouse
+ *   and follows the mouse until the user hover off the picture.
+ *   Use MouseMove, MouseEnter, MouseLeave events. Change the position of the details element to follow the mouse. Use the offsetX and offsetY
+ *   properties of the event object to calculate the position of the details element. Use the style property to change the position of the details element.
+ *   Use the style property to change the visibility of the details element.
+ */
