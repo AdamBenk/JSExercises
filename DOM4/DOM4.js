@@ -96,7 +96,7 @@ function init() {
     searchBar.addEventListener("keyup", startSearch);
     searchBar.addEventListener("keyup", hideIfEscape);
     searchBar.addEventListener("blur", hideIfMoveAway);
-    hotDealsBtn.addEventListener("click", sortByDate);
+    hotDealsBtn.addEventListener("click", () => sortByDate(window.bookList.books));
     bestSellersBtn.addEventListener("click", sortByRating);
     hotChoicesBtn.addEventListener("click", sortByPrice);
     resultContainer.addEventListener("mouseenter", mousePointOver, true);
@@ -152,14 +152,26 @@ function findBook(books, searchString) {
 }
 
 function renderBook(book) {
-    return `<li class="searchResultItem"><div class="bookCoverConatiner"><img class="bookCoverImage" src="${book.cover}" alt=""></div><p class="bookFormat">PAPERBACK</p><p class="title">${book.title}</p><p class="author">${book.author}</p><p class="price">${book.price}</p><div class="sticker"><p class="">${book.title}</p><p class="">${book.author}</p><p class="">${book.price}</p>
-        </div></li>`;
+    return `<li class="searchResultItem">
+        <div class="sticker">
+            <p class="">${book.title}</p>
+            <p class="">${book.author}</p>
+            <p class="">${book.price}</p>
+        </div>
+        <div class="bookCoverConatiner">
+            <img class="bookCoverImage" src="${book.cover}" alt="">
+        </div>
+        <p class="bookFormat">PAPERBACK</p>
+        <p class="title">${book.title}</p>
+        <p class="author">${book.author}</p>
+        <p class="price">${book.price}</p>
+    </li>`;
 }
 
 function renderBooks(books) {
     const searchBar = document.getElementById("searchBar");
-    const arrRender = books.map(book => renderBook(book)); 
-    return arrRender.length === 0 ? `No match for ${searchBar.value}` : arrRender.toString();
+    const arrRender = books.reduce((acc, curr) => acc + renderBook(curr), "");
+    return arrRender.length === 0 ? `No match for ${searchBar.value}` : arrRender;
 }
 
 function displayRenderedBooks(searchOrSortResult) {
@@ -175,8 +187,7 @@ function displaySearchResult() {
     return displayRenderedBooks(searchResult);
 }
 
-function sortByDate() {
-    const bookList = window.bookList.books;
+function sortByDate(bookList) {
     const sortResult = bookList.sort((book1, book2) => {
         return book1.publicationYear - book2.publicationYear;
     });
@@ -202,26 +213,38 @@ function sortByPrice() {
 function mousePointOver(event) {
     if (event.target.className === "bookCoverImage") {
         const container = event.target.parentElement.parentElement;
-        const sticker = container.lastChild;
+        console.info("over", container);
+        const sticker = getSticker(container);
+
+        sticker.style.zIndex = 65000;
+        sticker.style.position = "absolute";
         sticker.style.display = "block";
-        sticker.style.left = `${MouseEvent.offsetX}px`;
-        sticker.style.top = `${MouseEvent.offsetY}px`;
     }
 }
 
 function mouseMoving(event) {
     if (event.target.className === "bookCoverImage") {
         const container = event.target.parentElement.parentElement;
-        const sticker = container.lastChild;
-        sticker.style.left = `${MouseEvent.offsetX}px`;
-        sticker.style.top = `${MouseEvent.offsetY}px`;
+        console.info("move", container);
+        const sticker = getSticker(container);
+
+        sticker.style.left = getPos(event.offsetX +2);
+        sticker.style.top = getPos(event.offsetY+18 );
     }
 }
 
 function mouseMoveAway(event) {
     if (event.target.className === "bookCoverImage") {
         const container = event.target.parentElement.parentElement;
-        const sticker = container.lastChild;
+        console.info("over", container);
+        const sticker = getSticker(container);
         sticker.style.display = "none";
     }
+}
+
+function getSticker(cont) {
+    return cont.querySelector(".sticker");
+}
+function getPos(pos) {
+    return `${pos}px`
 }
