@@ -1,0 +1,14 @@
+@font-face {
+    font-family: "Righteous";
+    src: url("fonts/Righteous-Regular.ttf") format("truetype");
+  }
+
+@font-face {
+    font-family: "YatraOne";
+    src: url("fonts/YatraOne-Regular.ttf") format("truetype");
+  }
+
+@font-face {
+    font-family: "Alice";
+    src: url("fonts/Alice-Regular.ttf") format("truetype");
+  }

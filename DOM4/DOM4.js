@@ -81,3 +81,147 @@
  *   properties of the event object to calculate the position of the details element. Use the style property to change the position of the details element.
  *   Use the style property to change the visibility of the details element.
  */
+
+window.addEventListener("load", init);
+
+
+function init() {
+    const magnifierIcon = document.getElementById("magnifierIcon");
+    const searchBar = document.getElementById("searchBar");
+    const hotDealsBtn = document.getElementById("hotDealsBtn"); 
+    const bestSellersBtn = document.getElementById("bestSellersBtn"); 
+    const hotChoicesBtn = document.getElementById("hotChoicesBtn"); 
+    const resultContainer = document.getElementById("resultListContainer");
+    magnifierIcon.addEventListener("click", checkSearchBarStatus);
+    searchBar.addEventListener("keyup", startSearch);
+    searchBar.addEventListener("keyup", hideIfEscape);
+    searchBar.addEventListener("blur", hideIfMoveAway);
+    hotDealsBtn.addEventListener("click", sortByDate);
+    bestSellersBtn.addEventListener("click", sortByRating);
+    hotChoicesBtn.addEventListener("click", sortByPrice);
+    resultContainer.addEventListener("mouseenter", mousePointOver, true);
+    resultContainer.addEventListener("mouseleave", mouseMoveAway, true);
+    resultContainer.addEventListener("mousemove", mouseMoving, true);
+}
+
+function checkSearchBarStatus() {
+    const searchBar = document.getElementById("searchBar");
+    if (searchBar.style.display === "none") {
+        revealSearchBar();
+    } else {
+        hideSearchBar();
+    }
+}
+
+function revealSearchBar() {
+    const searchBar = document.getElementById("searchBar");
+    searchBar.style.display = "block";
+}
+
+function hideSearchBar() {
+    const searchBar = document.getElementById("searchBar");
+    searchBar.style.display = "none";
+}
+
+function hideIfEscape(event) {
+    const searchBar = document.getElementById("searchBar");
+    if (event.key === "Escape") {
+        searchBar.value = "";
+        searchBar.style.display = "none";
+    }
+}
+
+function hideIfMoveAway() {
+    const searchBar = document.getElementById("searchBar");
+    searchBar.value = "";
+    searchBar.style.display = "none";
+}
+
+function startSearch(event) {
+    if (event.key === "Enter") {
+        displaySearchResult();
+    }
+}
+
+function findBook(books, searchString) {
+    return books.filter(book => 
+        book.title.includes(searchString) ||
+        book.author.includes(searchString) || 
+        book.shortDescription.includes(searchString) || 
+        book.longDescription.includes(searchString));
+}
+
+function renderBook(book) {
+    return `<li class="searchResultItem"><div class="bookCoverConatiner"><img class="bookCoverImage" src="${book.cover}" alt=""></div><p class="bookFormat">PAPERBACK</p><p class="title">${book.title}</p><p class="author">${book.author}</p><p class="price">${book.price}</p><div class="sticker"><p class="">${book.title}</p><p class="">${book.author}</p><p class="">${book.price}</p>
+        </div></li>`;
+}
+
+function renderBooks(books) {
+    const searchBar = document.getElementById("searchBar");
+    const arrRender = books.map(book => renderBook(book)); 
+    return arrRender.length === 0 ? `No match for ${searchBar.value}` : arrRender.toString();
+}
+
+function displayRenderedBooks(searchOrSortResult) {
+    const resultContainer = document.getElementById("resultListContainer");
+    resultContainer.innerHTML = renderBooks(searchOrSortResult);    
+}
+
+function displaySearchResult() {
+    const searchBar = document.getElementById("searchBar");
+    const bookList = window.bookList.books;
+    const searchString = searchBar.value;
+    const searchResult = findBook(bookList, searchString);
+    return displayRenderedBooks(searchResult);
+}
+
+function sortByDate() {
+    const bookList = window.bookList.books;
+    const sortResult = bookList.sort((book1, book2) => {
+        return book1.publicationYear - book2.publicationYear;
+    });
+    return displayRenderedBooks(sortResult);
+}
+
+function sortByRating() {
+    const bookList = window.bookList.books;
+    const sortResult = bookList.sort((book1, book2) => {
+        return book2.rating - book1.rating;
+    });
+    return displayRenderedBooks(sortResult);
+}
+
+function sortByPrice() {
+    const bookList = window.bookList.books;
+    const sortResult = bookList.sort((book1, book2) => {
+        return book1.price - book2.price;
+    });
+    return displayRenderedBooks(sortResult);
+}
+
+function mousePointOver(event) {
+    if (event.target.className === "bookCoverImage") {
+        const container = event.target.parentElement.parentElement;
+        const sticker = container.lastChild;
+        sticker.style.display = "block";
+        sticker.style.left = `${MouseEvent.offsetX}px`;
+        sticker.style.top = `${MouseEvent.offsetY}px`;
+    }
+}
+
+function mouseMoving(event) {
+    if (event.target.className === "bookCoverImage") {
+        const container = event.target.parentElement.parentElement;
+        const sticker = container.lastChild;
+        sticker.style.left = `${MouseEvent.offsetX}px`;
+        sticker.style.top = `${MouseEvent.offsetY}px`;
+    }
+}
+
+function mouseMoveAway(event) {
+    if (event.target.className === "bookCoverImage") {
+        const container = event.target.parentElement.parentElement;
+        const sticker = container.lastChild;
+        sticker.style.display = "none";
+    }
+}

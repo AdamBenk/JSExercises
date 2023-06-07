@@ -1,0 +1,32 @@
+@media (max-width: 900px) {
+    header {
+         font-size: 45px;
+     }
+
+     #searchMenuContainer {
+        display: block;
+        padding: 20px 0 20px 0;
+    }
+
+    #searchMenuContainer ul {
+        display: block;
+        font-size: 20px;
+    }
+
+    .searchButton {
+        font-size: 25px;
+    }
+
+    #magnifierIcon {
+        margin-left: 10px;
+    }
+
+    #resultListContainer {
+        display: block;
+    }
+
+    footer {
+        display: block;
+    }
+}
+
