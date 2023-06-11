@@ -84,7 +84,6 @@
 
 window.addEventListener("load", init);
 
-
 function init() {
     const magnifierIcon = document.getElementById("magnifierIcon");
     const searchBar = document.getElementById("searchBar");
@@ -170,8 +169,10 @@ function renderBook(book) {
 
 function renderBooks(books) {
     const searchBar = document.getElementById("searchBar");
-    const arrRender = books.reduce((acc, curr) => acc + renderBook(curr), "");
-    return arrRender.length === 0 ? `No match for ${searchBar.value}` : arrRender;
+
+    return books.length ?
+        books.reduce((acc, curr) => acc + renderBook(curr), ""):
+        `No match for ${searchBar.value}`;
 }
 
 function displayRenderedBooks(searchOrSortResult) {
@@ -212,20 +213,18 @@ function sortByPrice() {
 
 function mousePointOver(event) {
     if (event.target.className === "bookCoverImage") {
-        const container = event.target.parentElement.parentElement;
-        console.info("over", container);
+        const container = getContainer(event);
         const sticker = getSticker(container);
 
         sticker.style.zIndex = 65000;
         sticker.style.position = "absolute";
-        sticker.style.display = "block";
+        show(sticker);
     }
 }
 
 function mouseMoving(event) {
     if (event.target.className === "bookCoverImage") {
-        const container = event.target.parentElement.parentElement;
-        console.info("move", container);
+        const container = getContainer(event);
         const sticker = getSticker(container);
 
         sticker.style.left = getPos(event.offsetX +2);
@@ -235,16 +234,26 @@ function mouseMoving(event) {
 
 function mouseMoveAway(event) {
     if (event.target.className === "bookCoverImage") {
-        const container = event.target.parentElement.parentElement;
-        console.info("over", container);
+        const container = getContainer(event);
         const sticker = getSticker(container);
-        sticker.style.display = "none";
+        hide(sticker);
     }
 }
 
+function getContainer(event) {
+    return event.target.parentElement.parentElement;
+}
 function getSticker(cont) {
     return cont.querySelector(".sticker");
 }
 function getPos(pos) {
     return `${pos}px`
+}
+
+function show(elem) {
+    elem.style.display = "block";
+}
+
+function hide(elem) {
+    elem.style.display = "none";
 }

@@ -4,34 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="components/Menu/Menu.css">
+    <link rel="stylesheet" href="components/SearchBar/SearchBar.css">
     <link rel="stylesheet" href="styles_narrow.css">
     <title>Book Store</title>
 </head>
 <body>
     <script src="books.js"></script>
-    <script src="DOM4.js"></script>
+    <script src="components/Menu/Menu.js"></script>
+    <script src="components/SearchBar/SearchBar.js"></script>
+    <script src="DOM4OOP.js"></script>
     <header>
         BookStore
     </header>
     <div id="searchMenuContainer">
-        <ul>
-            <li>
-                <button class="searchButton" id="hotDealsBtn">Hot Deals</button>
-            </li>
-            <li>
-                <button class="searchButton" id="bestSellersBtn">Best Sellers</button>
-            </li>
-            <li>
-                <button class="searchButton" id="hotChoicesBtn">Hot Choices</button>
-            </li>
-        </ul>
-        <div id="searchBarConatiner">
-            <input id="searchBar" type="text">
-            <button id="magnifierIcon" class="searchButton">
-                <img src="images/magnifier-glass-icon.svg" alt="">
-            </button>
+        <div id="menuContainer" data-id="menuContainer">
+
         </div>
-        
+        <div id="searchBarContainer">
+
+        </div>
     </div>
     <ul id="resultListContainer">
     </ul>
@@ -42,7 +34,7 @@
                 United States</p>
             <p>sale@bookworm.hu</p>
             <p>+1 246-345-0695</p>
-            <div">
+            <div>
                 <a href="#">
                     <img class="logoImages" src="images/instagram-icon.svg" alt="">
                 </a>

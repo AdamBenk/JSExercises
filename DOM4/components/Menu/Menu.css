@@ -1,0 +1,10 @@
+#menuContainer ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 10px;
+}
+
+#menuContainer ul li {
+    margin-right: 25px;
+}

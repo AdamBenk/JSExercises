@@ -1,0 +1,43 @@
+.searchButton {
+    min-width: max-content;
+    background-color: white;
+    border: none;
+    font-family: "YatraOne";
+    font-size: 30px;
+    padding: 0 5px 0 5px;
+}
+
+
+.searchButton:hover {
+    background-color: rgb(250, 234, 239);
+    border-radius: 15px;
+}
+
+.searchButton:active {
+    background-color: rgb(229, 196, 216);
+    border-radius: 15px;
+}
+
+#searchBarConatiner {
+    display: flex;
+    align-items: center;
+}
+
+.searchBar {
+    height: 1.5em;
+    margin-right: 10px;
+    display: none;
+}
+
+#magnifierIcon {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    height: 100%;
+}
+
+#magnifierIcon img {
+    width: 25px;
+    height: auto;
+    padding: 0 15px 0 15px;
+}
