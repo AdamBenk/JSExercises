@@ -9,5 +9,10 @@ class Menu {
     render() {
         const items = this.items.map(item => `<li><button class="searchButton" id="${item.id}">${item.title}</button></li>`).join('');
         this.container.innerHTML = `<ul>${items}</ul>`
+
+        this.items.forEach(item => {
+            const button = this.container.querySelector(`#${item.id}`);
+            button.addEventListener("click", item.click);
+        });
     }
 }

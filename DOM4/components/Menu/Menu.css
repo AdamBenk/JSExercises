@@ -8,3 +8,12 @@
 #menuContainer ul li {
     margin-right: 25px;
 }
+
+
+#searchMenuContainer {
+    border-top: solid 2px rgb(119, 112, 112);
+    border-bottom: solid 2px rgb(119, 112, 112);
+    display: flex;
+    justify-content: space-between;
+    min-width: max-content;
+}

@@ -1,0 +1,38 @@
+
+footer { 
+    font-family: "Alice";
+    font-size: 12px;
+    color: rgb(119, 112, 112);
+    display: flex;
+    justify-content: space-between;
+}
+
+.footerHeaders {
+    font-family: "YatraOne";
+    font-size: 16px;
+}
+
+.footerColumns {
+    min-width: max-content;
+    margin-right: 15px;
+}
+
+footer a {
+    text-decoration: none;
+    color: rgb(119, 112, 112);
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer .logoImages {
+    width: 15px;
+    height: auto;
+    margin-right: 15px;
+}
