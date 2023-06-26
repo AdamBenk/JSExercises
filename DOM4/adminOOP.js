@@ -1,5 +1,6 @@
 window.addEventListener("load", () => {   
-    let books = window.bookList.books;
+    let books = getBooks();
+
     const booklistContainer = document.querySelector("#booklistContainer");
         
     const deleteAndAddMenu = [
@@ -28,6 +29,7 @@ window.addEventListener("load", () => {
                         })
                     }
                     window.localStorage.setItem("books", JSON.stringify(books));
+
                 });
             }
         }
@@ -53,8 +55,7 @@ window.addEventListener("load", () => {
     ]
 
     const itemList = new ItemList(booklistContainer, books, (event) => {
-        console.info(event.target)
-        console.info(this)
+        console.info("this:", this);
         this.findISBN(event.target);
     });
     itemList.render();
@@ -66,5 +67,4 @@ window.addEventListener("load", () => {
     addDelBtn.render();
 
     const bookForm = new BookForm(document.querySelector("#editItemContainer"));
-    
 });

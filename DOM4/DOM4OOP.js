@@ -34,7 +34,7 @@ window.addEventListener("load", () => {
         }, {
             id: "JumpToAdmin",
             title: "",
-            link: `<a href="components/Admin/index_admin.html">Admin</a>`
+            link: `<a href="index_admin.html">Admin</a>`
         }
 
     ];
