@@ -1,0 +1,25 @@
+#editItemContainer {
+    width: 55%;
+    min-height: 600px;
+    background-color: rgb(237, 231, 248);
+    border: solid 2px rgb(130, 130, 241);
+    border-radius: 10px;
+}
+
+#editItemContainer ul {
+    list-style: none;
+    margin: 30px;
+    padding: 0;
+    min-width: max-content;
+    font-family: "YatraOne";
+    font-size: 16px;
+}
+
+.formItem {
+    margin: 5px 0 5px 0;
+    
+}
+
+.formItem input {
+    width: 60%;
+}

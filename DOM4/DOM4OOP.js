@@ -4,6 +4,7 @@ window.addEventListener("load", () => {
         {
             id: "HotDealsMenuItem",
             title: "Hot Deals",
+            link: "",
             click: () => {
                 const sortResult = books.sort((book1, book2) => {
                     return book1.publicationYear - book2.publicationYear;
@@ -12,7 +13,8 @@ window.addEventListener("load", () => {
             } 
         }, {
             id: "BestSellersMenuItem",
-            title: "Best Sellers", 
+            title: "Best Sellers",
+            link: "",
             click: () => {
                 const sortResult = books.sort((book1, book2) => {
                 return book2.rating - book1.rating;
@@ -22,13 +24,19 @@ window.addEventListener("load", () => {
         }, {
             id: "HotChoicesMenuItem",
             title: "Hot Choices",
+            link: "",
             click: () => {
                 const sortResult = books.sort((book1, book2) => {
                     return book1.price - book2.price;
                 });
                 resultList.displayRenderedBooks(sortResult);
             }
+        }, {
+            id: "JumpToAdmin",
+            title: "",
+            link: `<a href="components/Admin/index_admin.html">Admin</a>`
         }
+
     ];
 
     const resultList = new ResultList(document.querySelector(".resultListContainer"));
