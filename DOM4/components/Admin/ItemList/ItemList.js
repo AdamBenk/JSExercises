@@ -1,6 +1,7 @@
 class ItemList {
     container;
     booklist;
+    SearchCallBack;
     constructor(container, booklist, SearchCallBack) {
         this.container = container; 
         this.booklist = booklist;
@@ -8,7 +9,6 @@ class ItemList {
     } 
 
     initEventHandlers() {
-        console.info("mmmm", this)
         this.container.addEventListener("click", (event) => {this.SearchCallBack(event)} ); 
     }
 
@@ -30,5 +30,52 @@ class ItemList {
     findISBN(element) {
         let isbn = element.dataset.isbn;
         return isbn ? isbn : this.findISBN(element.parentElement);
+    }
+
+    getBookByISBN(isbn) {
+        const books = getBooks();
+    
+        return books.findIndex(book => book.isbn === isbn);
+    }
+
+    addMenuBtns() {
+        const deleteAndAddMenu = [
+            {
+                id: "addBtn",
+                title: "Add Item",
+                link: "",
+                click: () => {
+                    const newForm = new BookForm(document.querySelector("#editItemContainer"))
+                    newForm.renderClearForm();
+                    newForm.renderBtns();
+                } 
+            }, {
+                id: "deleteBtn",
+                title: "Delete Item",
+                link: "",
+                click: () => { this.deleteBook() }
+            }
+            
+        ];
+        const addDelBtn = new Menu(document.querySelector("#booklistBtnContainer"), deleteAndAddMenu);
+        addDelBtn.render(); 
+    }
+
+    deleteBook() {
+        const listedBooks = Array.from(this.container.querySelectorAll(".bookItem"));
+        const checked = listedBooks.filter(book => this.ischecked(book));
+        checked.forEach(book => {
+            const isbn = this.findISBN(book);
+            const bookindex = this.getBookByISBN(isbn);
+            this.booklist.splice(bookindex, 1);
+            refreshLocal(this.booklist);
+        })
+    };
+
+    ischecked(item) {
+        const checkbox = item.querySelector(".checkBox");
+        if (checkbox.checked) {
+            return item;
+        }
     }
 }

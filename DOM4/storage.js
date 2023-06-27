@@ -17,12 +17,12 @@ function getBooks() {
 function getBookByISBN(isbn) {
     const books = getBooks();
 
-    books.filter(book => book.isbn === isbn);
+    return books.filter(book => book.isbn === isbn);
 }
 
 function updateBook(book) {
     const books = getBooks();
-    const bookIndex = books.findIndex(book => book.isbn === book.isbn);
+    const bookIndex = books.findIndex(book => book.isbn === isbn);
 
     books[bookIndex] = book;
     refreshLocal(books);
