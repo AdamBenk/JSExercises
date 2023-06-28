@@ -1,5 +1,6 @@
 window.addEventListener("load", () => {   
-    let books = getBooks();
+    const storage = new Storage();
+    let books = storage.getBooks();
     const booklistContainer = document.querySelector("#booklistContainer");
     const editFormContainer = document.querySelector("#editItemContainer")
 
@@ -9,9 +10,12 @@ window.addEventListener("load", () => {
         const selectedbook = books[bookIndex];
         bookForm.render(selectedbook);
         bookForm.renderBtns();
-    });
+    }, storage);
     itemList.render();
     itemList.addMenuBtns();
 
-    const bookForm = new BookForm(editFormContainer);
-});
+    const bookForm = new BookForm(editFormContainer, storage);
+    storage.addEventListener("refresh", () => { itemList.render(); console.info("render") });
+
+    
+}); 

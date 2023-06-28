@@ -1,7 +1,9 @@
 class BookForm {
     container;
-    constructor(container) {
+    storage;
+    constructor(container, storage) {
         this.container = container; 
+        this.storage = storage;
     } 
 
     render(book) {
@@ -161,22 +163,23 @@ class BookForm {
   }
 
   discardChanges() {
-    const books = getBooks();
+    const books = this.storage.getBooks();
     const bookform = this.container.querySelector(".bookForm");
-    const originalBookIndex = getBookIndexByISBN(bookform.dataset.isbn);
+    const originalBookIndex = this.storage.getBookIndexByISBN(bookform.dataset.isbn);
     const originalBook = books[originalBookIndex];
     this.render(originalBook);
     this.renderBtns();
   }
 
   saveChanges() {
-    const books = getBooks();
+    const books = this.storage.getBooks();
     const bookform = this.container.querySelector(".bookForm");
     const modifiedBook = new FormData(bookform);
     const modifiedBookObj = {};
     modifiedBook.forEach((value, key) => (modifiedBookObj[key] = value));
-    const originalBookIndex = getBookIndexByISBN(bookform.dataset.isbn);
+    const originalBookIndex = this.storage.getBookIndexByISBN(bookform.dataset.isbn);
     books[originalBookIndex] = modifiedBookObj;
-    refreshLocal(books);
-  }  
+    console.info(this)
+    this.storage.refreshLocal(books);
+  } 
 }

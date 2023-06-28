@@ -1,33 +1,39 @@
-
-function refreshLocal(books) {
-    window.localStorage.setItem("books", JSON.stringify(books));
-}
-
-function getBooks() {
-    let booksStr = window.localStorage.getItem("books");
-
-    if (!booksStr) {
-        books = window.bookList.books;
-        refreshLocal(books);
-    }
-
-    return JSON.parse(booksStr);
-}
-
-function getBookByISBN(isbn) {
-    const books = getBooks();
-
-    return books.filter(book => book.isbn === isbn);
-}
-
-function getBookIndexByISBN(isbn) {
-    const books = getBooks();
+class Storage extends EventTarget {
     
-    return books.findIndex(book => book.isbn === isbn);
+    refreshLocal(books) {
+        window.localStorage.setItem("books", JSON.stringify(books));
+        const event = new CustomEvent("refresh", {});
+        this.dispatchEvent(event);
+    }
+    
+    getBooks() {
+        let booksStr = window.localStorage.getItem("books");
+    
+        if (!booksStr) {
+            books = window.bookList.books;
+            this.refreshLocal(books);
+        }
+    
+        return JSON.parse(booksStr);
+    }
+    
+    getBookByISBN(isbn) {
+        const books = this.getBooks();
+    
+        return books.filter(book => book.isbn === isbn);
+    }
+    
+    getBookIndexByISBN(isbn) {
+        const books = this.getBooks();
+        
+        return books.findIndex(book => book.isbn === isbn);
+    }
+    
+    findISBN(element) {
+        let isbn = element.dataset.isbn;
+        return isbn ? isbn : this.findISBN(element.parentElement);
+    }
 }
 
-function findISBN(element) {
-    let isbn = element.dataset.isbn;
-    return isbn ? isbn : findISBN(element.parentElement);
-}
+
 

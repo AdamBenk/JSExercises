@@ -2,10 +2,12 @@ class ItemList {
     container;
     booklist;
     SearchCallBack;
-    constructor(container, booklist, SearchCallBack) {
+    storage;
+    constructor(container, booklist, SearchCallBack, storage) {
         this.container = container; 
         this.booklist = booklist;
         this.SearchCallBack = SearchCallBack;
+        this.storage = storage;
     } 
 
     initEventHandlers() {
@@ -23,6 +25,7 @@ class ItemList {
     }
     
     render() {
+        this.booklist = this.storage.getBooks();
         this.container.innerHTML = "<table>" + this.booklist.reduce((acc, curr) => acc + this.renderItem(curr), "") + "</table>";
         this.initEventHandlers();
     }
@@ -33,7 +36,7 @@ class ItemList {
     }
 
     getBookIndexByISBN(isbn) {
-        const books = getBooks();
+        const books = this.storage.getBooks();
     
         return books.findIndex(book => book.isbn === isbn);
     }
