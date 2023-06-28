@@ -32,7 +32,7 @@ class ItemList {
         return isbn ? isbn : this.findISBN(element.parentElement);
     }
 
-    getBookByISBN(isbn) {
+    getBookIndexByISBN(isbn) {
         const books = getBooks();
     
         return books.findIndex(book => book.isbn === isbn);
@@ -66,7 +66,7 @@ class ItemList {
         const checked = listedBooks.filter(book => this.ischecked(book));
         checked.forEach(book => {
             const isbn = this.findISBN(book);
-            const bookindex = this.getBookByISBN(isbn);
+            const bookindex = this.getBookIndexByISBN(isbn);
             this.booklist.splice(bookindex, 1);
             refreshLocal(this.booklist);
         })

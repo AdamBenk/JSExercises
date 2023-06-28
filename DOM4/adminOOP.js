@@ -5,7 +5,7 @@ window.addEventListener("load", () => {
 
     const itemList = new ItemList(booklistContainer, books, (event) => {
         const bookISBN =  itemList.findISBN(event.target);
-        const bookIndex = itemList.getBookByISBN(bookISBN);
+        const bookIndex = itemList.getBookIndexByISBN(bookISBN);
         const selectedbook = books[bookIndex];
         bookForm.render(selectedbook);
         bookForm.renderBtns();

@@ -20,10 +20,14 @@ function getBookByISBN(isbn) {
     return books.filter(book => book.isbn === isbn);
 }
 
-function updateBook(book) {
+function getBookIndexByISBN(isbn) {
     const books = getBooks();
-    const bookIndex = books.findIndex(book => book.isbn === isbn);
-
-    books[bookIndex] = book;
-    refreshLocal(books);
+    
+    return books.findIndex(book => book.isbn === isbn);
 }
+
+function findISBN(element) {
+    let isbn = element.dataset.isbn;
+    return isbn ? isbn : findISBN(element.parentElement);
+}
+

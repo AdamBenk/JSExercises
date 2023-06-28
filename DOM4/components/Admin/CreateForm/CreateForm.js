@@ -6,8 +6,8 @@ class BookForm {
 
     render(book) {
 
-      this.container.innerHTML = `<form action="" method="">
-        <ul class="formContainer">
+      this.container.innerHTML = `<form action="" method="" class="bookForm" data-isbn="${book.isbn}">
+        <ul class="formContainer" data-set=>
           <li class="formItem">
             <label for="title">Title:</label>
             <textarea id="title" name="title">${book.title}</textarea>
@@ -74,7 +74,7 @@ class BookForm {
   };
 
   renderClearForm() {
-    this.container.innerHTML = `<form action="" method="">
+    this.container.innerHTML = `<form action="" method="" class="bookForm" data-isbn=""}">
       <ul class="formContainer">
         <li class="formItem">
           <label for="title">Title:</label>
@@ -145,18 +145,38 @@ class BookForm {
     const saveAndDiscardMenu = [
       {
           id: "SaveBtn",
-          title: "Save Changes",
+          title: "Discrad Changes",
           link: "",
           click: () => { this.discardChanges() }
       },
       {
           id: "DiscardBtn",
-          title: "Discard Changes",
+          title: "Save Changes",
           link: "",
-          click: () => { this.submitForm() } 
+          click: () => { this.saveChanges() } 
       }
     ];
     const saveAndDiscardBtn = new Menu(document.querySelector("#formBtnContainer"), saveAndDiscardMenu);
     saveAndDiscardBtn.render();
   }
+
+  discardChanges() {
+    const books = getBooks();
+    const bookform = this.container.querySelector(".bookForm");
+    const originalBookIndex = getBookIndexByISBN(bookform.dataset.isbn);
+    const originalBook = books[originalBookIndex];
+    this.render(originalBook);
+    this.renderBtns();
+  }
+
+  saveChanges() {
+    const books = getBooks();
+    const bookform = this.container.querySelector(".bookForm");
+    const modifiedBook = new FormData(bookform);
+    const modifiedBookObj = {};
+    modifiedBook.forEach((value, key) => (modifiedBookObj[key] = value));
+    const originalBookIndex = getBookIndexByISBN(bookform.dataset.isbn);
+    books[originalBookIndex] = modifiedBookObj;
+    refreshLocal(books);
+  }  
 }
