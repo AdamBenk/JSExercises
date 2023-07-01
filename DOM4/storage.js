@@ -8,8 +8,9 @@ class Storage extends EventTarget {
     }
     
     getBooks() {
+        
         let booksStr = window.localStorage.getItem("books");
-    
+        
         if (!booksStr) {
             books = window.bookList.books;
             this.refreshLocal(books);

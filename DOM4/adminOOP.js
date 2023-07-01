@@ -1,10 +1,12 @@
 window.addEventListener("load", () => {   
     const storage = new Storage();
+    console.info(storage)
     let books = storage.getBooks();
     const booklistContainer = document.querySelector("#booklistContainer");
     const editFormContainer = document.querySelector("#editItemContainer")
 
     const itemList = new ItemList(booklistContainer, books, storage, (event) => {
+        storage.refreshLocal(books); 
         const bookISBN =  itemList.findISBN(event.target);
         const bookIndex = itemList.getBookIndexByISBN(bookISBN);
         const selectedbook = books[bookIndex];
