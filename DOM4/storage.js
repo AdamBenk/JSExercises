@@ -4,6 +4,7 @@ class Storage extends EventTarget {
         window.localStorage.setItem("books", JSON.stringify(books));
         const event = new CustomEvent("refresh", {});
         this.dispatchEvent(event);
+       
     }
     
     getBooks() {
@@ -29,9 +30,19 @@ class Storage extends EventTarget {
         return books.findIndex(book => book.isbn === isbn);
     }
     
-    findISBN(element) {
-        let isbn = element.dataset.isbn;
-        return isbn ? isbn : this.findISBN(element.parentElement);
+    addnew() {
+        const eventSecond = new CustomEvent("addnew", {});
+        this.dispatchEvent(eventSecond);
+    }
+
+    clearBookForm() {
+        const eventSecond = new CustomEvent("clearBookForm", {});
+        this.dispatchEvent(eventSecond);
+    }
+
+    addNewBtns() {
+        const eventSecond = new CustomEvent("addNewBtns", {});
+        this.dispatchEvent(eventSecond);
     }
 }
 

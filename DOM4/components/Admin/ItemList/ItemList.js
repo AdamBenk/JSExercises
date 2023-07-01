@@ -1,17 +1,16 @@
 class ItemList {
     container;
     booklist;
-    SearchCallBack;
     storage;
-    constructor(container, booklist, SearchCallBack, storage) {
+    constructor(container, booklist, storage, searchCallBack) {
         this.container = container; 
         this.booklist = booklist;
-        this.SearchCallBack = SearchCallBack;
         this.storage = storage;
+        this.searchCallBack = searchCallBack;
     } 
 
     initEventHandlers() {
-        this.container.addEventListener("click", (event) => {this.SearchCallBack(event)} ); 
+        this.container.addEventListener("click", (event) => { this.searchCallBack(event)} ); 
     }
 
     renderItem(book) {
@@ -25,20 +24,8 @@ class ItemList {
     }
     
     render() {
-        this.booklist = this.storage.getBooks();
         this.container.innerHTML = "<table>" + this.booklist.reduce((acc, curr) => acc + this.renderItem(curr), "") + "</table>";
         this.initEventHandlers();
-    }
-
-    findISBN(element) {
-        let isbn = element.dataset.isbn;
-        return isbn ? isbn : this.findISBN(element.parentElement);
-    }
-
-    getBookIndexByISBN(isbn) {
-        const books = this.storage.getBooks();
-    
-        return books.findIndex(book => book.isbn === isbn);
     }
 
     addMenuBtns() {
@@ -47,11 +34,7 @@ class ItemList {
                 id: "addBtn",
                 title: "Add Item",
                 link: "",
-                click: () => {
-                    const newForm = new BookForm(document.querySelector("#editItemContainer"))
-                    newForm.renderClearForm();
-                    newForm.renderBtns();
-                } 
+                click: () => { this.storage.addnew() } 
             }, {
                 id: "deleteBtn",
                 title: "Delete Item",
@@ -64,6 +47,19 @@ class ItemList {
         addDelBtn.render(); 
     }
 
+    findISBN(element) {
+        let isbn = element.dataset.isbn;
+        return isbn ? isbn : this.findISBN(element.parentElement);
+    }
+
+    getBookByISBN(isbn) {
+        return this.booklist.filter(book => book.isbn === isbn);
+    }
+    
+    getBookIndexByISBN(isbn) {
+        return this.booklist.findIndex(book => book.isbn === isbn);
+    }
+
     deleteBook() {
         const listedBooks = Array.from(this.container.querySelectorAll(".bookItem"));
         const checked = listedBooks.filter(book => this.ischecked(book));
@@ -71,7 +67,8 @@ class ItemList {
             const isbn = this.findISBN(book);
             const bookindex = this.getBookIndexByISBN(isbn);
             this.booklist.splice(bookindex, 1);
-            refreshLocal(this.booklist);
+            this.storage.refreshLocal(this.booklist);
+            this.storage.clearBookForm();
         })
     };
 
