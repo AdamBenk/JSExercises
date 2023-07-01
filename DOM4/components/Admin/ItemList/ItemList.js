@@ -2,16 +2,17 @@ class ItemList {
     container;
     booklist;
     storage;
-    searchCallBack;
-    constructor(container, booklist, storage, searchCallBack) {
+    constructor(container, booklist, storage, searchBook, addNewBook, clearDeleted) {
         this.container = container; 
         this.booklist = booklist;
         this.storage = storage;
-        this.searchCallBack = searchCallBack;
+        this.searchBook = searchBook;
+        this.addNewBook = addNewBook;
+        this.clearDeleted = clearDeleted;
     } 
 
     initEventHandlers() {
-        this.container.addEventListener("click", (event) => { this.searchCallBack(event)} ); 
+        this.container.addEventListener("click", (event) => { this.searchBook(event)} ); 
     }
 
     renderItem(book) {
@@ -36,12 +37,13 @@ class ItemList {
                 id: "addBtn",
                 title: "Add Item",
                 link: "",
-                click: () => { this.storage.addnew() } 
+                click: () => { this.addNewBook() } 
             }, {
                 id: "deleteBtn",
                 title: "Delete Item",
                 link: "",
-                click: () => { this.deleteBook() }
+                click: () => { this.deleteBook(); 
+                                this.clearDeleted(); }
             }
             
         ];
@@ -53,14 +55,10 @@ class ItemList {
         let isbn = element.dataset.isbn;
         return isbn ? isbn : this.findISBN(element.parentElement);
     }
-
-    getBookByISBN(isbn) {
-        const books = this.storage.getBooks();
-        return books.filter(book => book.isbn === isbn);
-    }
-    
+   
     getBookIndexByISBN(isbn) {
         const books = this.storage.getBooks();
+        console.info("this is the indexfinder", books) 
         return books.findIndex(book => book.isbn === isbn);
     }
 
@@ -72,7 +70,7 @@ class ItemList {
             const bookindex = this.getBookIndexByISBN(isbn);
             this.booklist.splice(bookindex, 1);
             this.storage.refreshLocal(this.booklist);
-            this.storage.clearBookForm();
+            console.info("refresh happened after deleting item")
         })
     };
 

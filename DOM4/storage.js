@@ -11,8 +11,9 @@ class Storage extends EventTarget {
         
         let booksStr = window.localStorage.getItem("books");
         
-        if (!booksStr) {
-            books = window.bookList.books;
+        if (!booksStr || booksStr === "undefined") {
+            console.info("load default")
+            const books = window.bookList.books;
             this.refreshLocal(books);
         }
     
@@ -29,21 +30,6 @@ class Storage extends EventTarget {
         const books = this.getBooks();
         
         return books.findIndex(book => book.isbn === isbn);
-    }
-    
-    addnew() {
-        const eventSecond = new CustomEvent("addnew", {});
-        this.dispatchEvent(eventSecond);
-    }
-
-    clearBookForm() {
-        const eventSecond = new CustomEvent("clearBookForm", {});
-        this.dispatchEvent(eventSecond);
-    }
-
-    addNewBtns() {
-        const eventSecond = new CustomEvent("addNewBtns", {});
-        this.dispatchEvent(eventSecond);
     }
 }
 
