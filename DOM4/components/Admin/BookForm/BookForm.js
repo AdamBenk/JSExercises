@@ -20,47 +20,47 @@ class BookForm {
           </li>
           <li class="formItem">
             <label for="isbn">ISBN:</label>
-            <input type="text" id="isbn" name="isbn" value=${book.isbn} placeholder=${book.isbn} />
+            <input type="text" id="isbn" name="isbn" value="${book.isbn}" placeholder=${book.isbn} />
           </li>
           <li class="formItem">
             <label for="publicationYear">Publication year:</label>
-            <input type="text" id="publicationYear" name="publicationYear" value=${book.publicationYear} />
+            <input type="text" id="publicationYear" name="publicationYear" value="${book.publicationYear}" />
           </li>
           <li class="formItem">
             <label for="pages">Pages:</label>
-            <input type="text" inputmode="numeric" id="pages" name="pages" value=${book.pages} />
+            <input type="text" inputmode="numeric" id="pages" name="pages" value="${book.pages}" />
           </li>
           <li class="formItem">
             <label for="status">Status:</label>
-            <input type="text" id="status" name="status" value=${book.status} />
+            <input type="text" id="status" name="status" value="${book.status}" />
           </li>
           <li class="formItem">
             <label for="publisher">Publisher:</label>
-            <input type="text" id="publisher" name="publisher" value=${book.publisher} />
+            <input type="text" id="publisher" name="publisher" value="${book.publisher}" />
           </li>
           <li class="formItem">
             <label for="genre">Genre:</label>
-            <input type="text" id="genre" name="genre" value=${book.genre} />
+            <input type="text" id="genre" name="genre" value="${book.genre}" />
           </li>
           <li class="formItem">
             <label for="language">Language:</label>
-            <input type="text" id="language" name="language" value=${book.language} />
+            <input type="text" id="language" name="language" value="${book.language}" />
           </li>
           <li class="formItem">
             <label for="price">Price:</label>
-            <input type="text" inputmode="numeric" id="price" name="price" value=${book.price} />
+            <input type="text" inputmode="numeric" id="price" name="price" value="${book.price}" />
           </li>
           <li class="formItem">
             <label for="oldPrice">Old price:</label>
-            <input type="text" inputmode="numeric" id="oldPrice" name="oldPrice" value=${book.oldPrice} />
+            <input type="text" inputmode="numeric" id="oldPrice" name="oldPrice" value="${book.oldPrice}" />
           </li>
           <li class="formItem">
             <label for="rating">Rating:</label>
-            <input type="number" id="rating" name="rating" min="0" max="5" step="0.5" value=${book.rating} />
+            <input type="number" id="rating" name="rating" min="0" max="5" step="0.5" value="${book.rating}" />
           </li>
           <li class="formItem">
             <label for="cover">Cover:</label>
-            <input type="text" id="cover" name="cover" value=${book.cover} />
+            <input type="text" id="cover" name="cover" value="${book.cover}" />
           </li>
           <li class="formItem">
             <label for="shortdescription">Short description:</label>
