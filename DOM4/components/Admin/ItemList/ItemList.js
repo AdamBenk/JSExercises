@@ -1,18 +1,29 @@
-class ItemList {
+class ItemList extends EventTarget {
     container;
     booklist;
     storage;
-    constructor(container, booklist, storage, searchBook, addNewBook, clearDeleted) {
-        this.container = container; 
+
+    constructor(container, booklist, storage) {
+        super();
+
+        this.container = container;
         this.booklist = booklist;
         this.storage = storage;
-        this.searchBook = searchBook;
-        this.addNewBook = addNewBook;
-        this.clearDeleted = clearDeleted;
-    } 
+    }
 
     initEventHandlers() {
-        this.container.addEventListener("click", (event) => { this.searchBook(event)} ); 
+        this.container.addEventListener("click", (event) => {
+            let books = this.storage.getBooks();
+            const bookISBN = this.getISBN(event.target);
+            const bookIndex = this.storage.getBookIndexByISBN(bookISBN);
+            const selectedBook = books[bookIndex];
+
+            const editBookEvent = new CustomEvent("editbook", {
+                detail: selectedBook
+            });
+
+            this.dispatchEvent(editBookEvent);
+        });
     }
 
     renderItem(book) {
@@ -20,11 +31,11 @@ class ItemList {
             <td>
                 <input type="checkbox" class="checkBox">
             </td>
-            <td class="bookAuthor">${book.author}:</td>
-            <td class="bookTitle">${book.title}</td>
+            <td class="bookAuthor" title="${book.author}">${book.author}</td>
+            <td class="bookTitle" title="${book.title}">${book.title}</td>
         </tr>`;
     }
-    
+
     render() {
         this.booklist = this.storage.getBooks();
         this.container.innerHTML = "<table>" + this.booklist.reduce((acc, curr) => acc + this.renderItem(curr), "") + "</table>";
@@ -37,47 +48,67 @@ class ItemList {
                 id: "addBtn",
                 title: "Add Item",
                 link: "",
-                click: () => { this.addNewBook() } 
+                click: this.onAddButtonClick.bind(this)
             }, {
                 id: "deleteBtn",
                 title: "Delete Item",
                 link: "",
-                click: () => { this.deleteBook(); 
-                                this.clearDeleted(); }
+                click: this.onDeleteButtonClick.bind(this)
             }
-            
+
         ];
         const addDelBtn = new Menu(document.querySelector("#booklistBtnContainer"), deleteAndAddMenu);
-        addDelBtn.render(); 
+        addDelBtn.render();
     }
 
-    findISBN(element) {
+    getISBN(element) {
         let isbn = element.dataset.isbn;
-        return isbn ? isbn : this.findISBN(element.parentElement);
-    }
-   
-    getBookIndexByISBN(isbn) {
-        const books = this.storage.getBooks();
-        console.info("this is the indexfinder", books) 
-        return books.findIndex(book => book.isbn === isbn);
+        return isbn ? isbn : this.getISBN(element.parentElement);
     }
 
-    deleteBook() {
-        const listedBooks = Array.from(this.container.querySelectorAll(".bookItem"));
-        const checked = listedBooks.filter(book => this.ischecked(book));
-        checked.forEach(book => {
-            const isbn = this.findISBN(book);
-            const bookindex = this.getBookIndexByISBN(isbn);
-            this.booklist.splice(bookindex, 1);
-            this.storage.refreshLocal(this.booklist);
-            console.info("refresh happened after deleting item")
-        })
-    };
+    onAddButtonClick() {
+        const editBookEvent = new CustomEvent("editbook", {
+            detail: {
+                title: "",
+                author: "",
+                isbn: "",
+                publicationYear: "",
+                pages: "",
+                status: "",
+                publisher: "",
+                genre: "",
+                language: "",
+                price: "",
+                oldPrice: "",
+                rating: "",
+                cover: "",
+                shortDescription: "",
+                longDescription: "",
+            }
+        });
 
-    ischecked(item) {
+        this.dispatchEvent(editBookEvent);
+    }
+
+    onDeleteButtonClick() {
+        console.info("onDeleteButtonClick.this",this);
+
+        const deleteBookEvent = new CustomEvent("deletebook", {
+            detail: this.getCheckedBooks()
+        });
+
+        this.dispatchEvent(deleteBookEvent);
+    }
+
+    getCheckedBooks() {
+        return Array.from(this.container.querySelectorAll(".bookItem")).filter(
+            book => this.isChecked(book)
+        );
+    }
+
+    isChecked(item) {
         const checkbox = item.querySelector(".checkBox");
-        if (checkbox.checked) {
-            return item;
-        }
+        console.info(checkbox.checked);
+        return checkbox.checked;
     }
 }

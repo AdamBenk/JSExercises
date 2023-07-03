@@ -4,22 +4,19 @@ window.addEventListener("load", () => {
     const booklistContainer = document.querySelector("#booklistContainer");
     const editFormContainer = document.querySelector("#editItemContainer")
 
-    const itemList = new ItemList(booklistContainer, books, storage, (event) => {
-        books = storage.getBooks();
-        const bookISBN =  itemList.findISBN(event.target);
-        const bookIndex = itemList.getBookIndexByISBN(bookISBN);
-        const selectedbook = books[bookIndex];
-        
-        bookForm.render(selectedbook);
-        bookForm.renderBtns();
-    }, () => {
-        bookForm.render();  
-        bookForm.renderBtnsForNewForm();
-        storage.getBooks();
-        itemList.render();
-    }, () => { editFormContainer.innerHTML = "" });
+    const itemList = new ItemList(booklistContainer, books, storage);
     itemList.render();
     itemList.addMenuBtns();
+
+    itemList.addEventListener("editbook", (event) => {
+        bookForm.render(event.detail);
+    });
+
+    itemList.addEventListener("deletebook", (event) => {
+        bookForm.render(event.detail);
+    });
+
+
 
     const bookForm = new BookForm(editFormContainer, storage);
     

@@ -4,7 +4,6 @@ class Storage extends EventTarget {
         window.localStorage.setItem("books", JSON.stringify(books));
         const event = new CustomEvent("refresh", {});
         this.dispatchEvent(event);
-       
     }
     
     getBooks() {

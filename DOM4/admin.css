@@ -56,7 +56,6 @@ header p {
     border: solid 3.5px rgb(130, 130, 241);
     border-radius: 7px;
     display: flex;
-    align-items: center;
     justify-content: space-evenly;
    
 }

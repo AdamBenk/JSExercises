@@ -15,16 +15,30 @@
     font-size: 16px;
 }
 
-.formItem {
+#editItemContainer .formItem {
     margin: 5px 0 5px 0;
     
 }
 
-.formItem input {
+#editItemContainer .formItem label {
+    display: inline-block;
+    width: 30%;
+    text-align: right;
+    margin-right: 10px;
+    vertical-align: top;
+}
+
+#editItemContainer .formItem input,
+#editItemContainer .formItem select,
+#editItemContainer .formItem textarea {
     width: 60%;
 }
 
-#formBtnContainer ul {
+#editItemContainer.formItem input {
+    width: 60%;
+}
+
+#editItemContainer #formBtnContainer ul {
     display: flex;
     justify-content: space-around;
 }

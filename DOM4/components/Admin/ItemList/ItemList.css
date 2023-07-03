@@ -8,40 +8,74 @@
 
 #booklistContainer {
     padding: 0;
-    max-height: 300px;
-    overflow: scroll;
+    height: calc(100% - 100px);
+    overflow-y: scroll;
+    overflow-x: hidden;
     padding-bottom: 20px;
 }
 
-.bookItem {
+#booklistContainer table {
+    width: 100%;
+    border-collapse: separate;
+}
+
+
+#booklistContainer .bookItem {
     display: flex;
     align-items: baseline;
     font-family: "YatraOne";
     font-size: 14px;
 }
 
-.checkBox {
+#booklistContainer .bookItem:hover {
+    background-color: rgb(219, 217, 252);
+}
+
+#booklistContainer .bookItem td {
+    padding: 2px;
+}
+
+#booklistContainer .bookItem td.bookAuthor,
+#booklistContainer .bookItem td.bookTitle {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#booklistContainer .bookItem td.bookAuthor {
+    width: 100px;
+}
+
+#booklistContainer .bookItem td.bookTitle {
+    width: 200px;
+}
+
+
+#booklistContainer .checkBox {
     margin-left: 10px;
 }
 
-.bookAuthor {
+#booklistContainer .bookAuthor {
     margin-left: 15px;
-    min-width: max-content;
 }
 
-.bookTitle {
+#booklistContainer .bookTitle {
     margin-left: 10px;
 }
 
+#booklistBtnContainer {
+    height: 100px;
+}
 #booklistBtnContainer ul {
-    margin: 20px 0 20px 0;
-    padding: 10px;
+    padding: 20px 0 0 0;
+    margin: 0;
     display: flex;
+    border-top: solid 2px rgb(130, 130, 241);
     justify-content: space-evenly;
     list-style: none;
 }
 
-.searchButton {
+#booklistBtnContainer .searchButton {
     font-family: "YatraOne";
     font-weight: bold;
     font-size: 16px;
