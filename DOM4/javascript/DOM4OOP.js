@@ -1,4 +1,9 @@
-window.addEventListener("load", () => {   
+import "./books.js";
+import ResultList from "../components/ResultList/ResultList.js";
+import Menu from "../components/Menu/Menu.js";
+import SearchBar from "../components/SearchBar/SearchBar.js";
+
+window.addEventListener("load", () => {
     const books = window.bookList.books;
     const menuItems = [
         {
@@ -34,7 +39,7 @@ window.addEventListener("load", () => {
         }, {
             id: "JumpToAdmin",
             title: "",
-            link: `<a href="index_admin.html">Admin</a>`
+            link: `<a href="../index_admin.html">Admin</a>`
         }
 
     ];

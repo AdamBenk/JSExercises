@@ -1,4 +1,9 @@
-window.addEventListener("load", () => {   
+import "./books.js";
+import Storage from "../components/Storage/Storage.js";
+import ItemList from "../components/Admin/ItemList/ItemList.js";
+import BookForm from "../components/Admin/BookForm/BookForm.js";
+
+window.addEventListener("load", () => {
     const storage = new Storage();
     let books = storage.getBooks();
     const booklistContainer = document.querySelector("#booklistContainer");

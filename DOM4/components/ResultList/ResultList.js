@@ -1,4 +1,4 @@
-class ResultList {
+export default class ResultList {
     container;
     constructor(container) {
         this.container = container; 

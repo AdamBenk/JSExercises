@@ -1,4 +1,4 @@
-class BookForm {
+export default class BookForm {
     container;
     storage;
 
@@ -94,6 +94,7 @@ class BookForm {
                 }
             }
         ];
+
         const saveAndDiscardBtn = new Menu(document.querySelector("#formBtnContainer"), saveAndDiscardMenu);
         saveAndDiscardBtn.render();
     }

@@ -1,4 +1,4 @@
-class SearchBar {
+export default class SearchBar {
     container;
     searchBarInput;
     searchBarIcon;

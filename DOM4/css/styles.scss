@@ -1,0 +1,22 @@
+@import "fonts.scss";
+@import "colors.scss";
+@import "styles_narrow.scss";
+@import "../components/Admin/BookForm/BookForm.scss";
+@import "../components/Admin/ItemList/ItemList.scss";
+@import "../components/Footer/footer.scss";
+@import "../components/Menu/Menu.scss";
+@import "../components/ResultList/ResultList.scss";
+@import "../components/SearchBar/SearchBar.scss";
+
+body {
+    font-family: "YatraOne", "sans-serif";
+    padding-left: 20%;
+    padding-right: 12%;
+  }
+
+header {
+    padding-top: 5%;
+    font-size: 70px;
+    font-weight: bold;
+    min-width: max-content;
+} 

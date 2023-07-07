@@ -1,7 +1,13 @@
-@import "fonts.css";
+@import "fonts.scss";
+@import "colors.scss";
+@import "../components/Admin/BookForm/BookForm.scss";
+@import "../components/Admin/ItemList/ItemList.scss";
+@import "../components/Footer/footer.scss";
+@import "../components/Menu/Menu.scss";
+@import "../components/ResultList/ResultList.scss";
 
 body {
-    font-family: "YatraOne";
+    font-family: "YatraOne", "sans-serif";
     padding: 5%;
   }
 
@@ -23,17 +29,17 @@ header {
     justify-content: space-between;
     align-items: center;
     margin: 0 0 20px 0;
-} 
 
-header p {
-    border: solid 4px rgb(84, 84, 88);
-    border-radius: 10px;
-    padding: 0 20px 0 20px;
-    margin: 0;
+    p {
+        border: solid 4px rgb(84, 84, 88);
+        border-radius: 10px;
+        padding: 0 20px 0 20px;
+        margin: 0;
+    }
 }
 
 #backToMainPageBtn {
-    font-family: "YatraOne";
+    font-family: "YatraOne", "sans-serif";
     font-weight: bold;
     font-size: 20px;
     padding: 5px 10px 5px 10px;
@@ -42,11 +48,11 @@ header p {
     border: solid 2px rgb(84, 84, 88);
     border-radius: 5px;
     background-color: rgb(219, 217, 252);
-}
 
-#backToMainPageBtn a {
-   text-decoration: none;
-   color: black;
+    a {
+        text-decoration: none;
+        color: black;
+    }
 }
 
 .outerContainer {
@@ -57,5 +63,4 @@ header p {
     border-radius: 7px;
     display: flex;
     justify-content: space-evenly;
-   
 }

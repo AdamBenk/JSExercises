@@ -1,4 +1,4 @@
-class Storage extends EventTarget {
+export default class Storage extends EventTarget {
     
     refreshLocal(books) {
         window.localStorage.setItem("books", JSON.stringify(books));
@@ -19,16 +19,16 @@ class Storage extends EventTarget {
         return JSON.parse(booksStr);
     }
     
-    getBookByISBN(isbn) {
-        const books = this.getBooks();
-    
-        return books.filter(book => book.isbn === isbn);
-    }
-    
     getBookIndexByISBN(isbn) {
         const books = this.getBooks();
         
         return books.findIndex(book => book.isbn === isbn);
+    }
+
+    getBookByISBN(isbn) {
+        const books = this.getBooks();
+
+        return books.find(book => book.isbn === isbn);
     }
 }
 

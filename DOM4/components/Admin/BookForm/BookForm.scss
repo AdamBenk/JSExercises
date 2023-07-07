@@ -1,0 +1,38 @@
+#editItemContainer {
+    width: 55%;
+    min-height: 600px;
+    background-color: rgb(237, 231, 248);
+    border: solid 2px rgb(130, 130, 241);
+    border-radius: 10px;
+
+    ul {
+        list-style: none;
+        margin: 30px;
+        padding: 0;
+        min-width: max-content;
+        font-family: "YatraOne", "sans-serif";
+        font-size: 16px;
+    }
+
+    .formItem {
+        margin: 5px 0 5px 0;
+
+        label {
+            display: inline-block;
+            width: 30%;
+            text-align: right;
+            margin-right: 10px;
+            vertical-align: top;
+        }
+
+        input, select, textarea {
+            width: 60%;
+        }
+    }
+
+
+    #formBtnContainer ul {
+        display: flex;
+        justify-content: space-around;
+    }
+}

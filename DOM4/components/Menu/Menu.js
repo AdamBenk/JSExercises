@@ -1,4 +1,4 @@
-class Menu {
+export default class Menu {
     items;
     container;
     constructor(container, items) {

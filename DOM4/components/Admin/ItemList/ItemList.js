@@ -1,4 +1,5 @@
-class ItemList extends EventTarget {
+import Menu from "../../Menu/Menu.js";
+export default class ItemList extends EventTarget {
     container;
     booklist;
     storage;
@@ -12,18 +13,7 @@ class ItemList extends EventTarget {
     }
 
     initEventHandlers() {
-        this.container.addEventListener("click", (event) => {
-            let books = this.storage.getBooks();
-            const bookISBN = this.getISBN(event.target);
-            const bookIndex = this.storage.getBookIndexByISBN(bookISBN);
-            const selectedBook = books[bookIndex];
-
-            const editBookEvent = new CustomEvent("editbook", {
-                detail: selectedBook
-            });
-
-            this.dispatchEvent(editBookEvent);
-        });
+        this.container.addEventListener("click", this.onItemClick.bind(this));
     }
 
     renderItem(book) {
@@ -38,12 +28,16 @@ class ItemList extends EventTarget {
 
     render() {
         this.booklist = this.storage.getBooks();
-        this.container.innerHTML = "<table>" + this.booklist.reduce((acc, curr) => acc + this.renderItem(curr), "") + "</table>";
+        this.container.innerHTML =
+            "<table>" +
+            this.booklist.reduce((acc, curr) => acc + this.renderItem(curr), "") +
+            `</table>`;
+        this.addMenuBtns();
         this.initEventHandlers();
     }
 
     addMenuBtns() {
-        const deleteAndAddMenu = [
+        const itemListButtons = [
             {
                 id: "addBtn",
                 title: "Add Item",
@@ -55,10 +49,11 @@ class ItemList extends EventTarget {
                 link: "",
                 click: this.onDeleteButtonClick.bind(this)
             }
-
         ];
-        const addDelBtn = new Menu(document.querySelector("#booklistBtnContainer"), deleteAndAddMenu);
-        addDelBtn.render();
+
+        const addDelBtn = new Menu(document.querySelector("#booklistBtnContainer"), itemListButtons);
+
+        return addDelBtn.render();
     }
 
     getISBN(element) {
@@ -66,49 +61,48 @@ class ItemList extends EventTarget {
         return isbn ? isbn : this.getISBN(element.parentElement);
     }
 
-    onAddButtonClick() {
+    onItemClick(event) {
+        const bookISBN = this.getISBN(event.target);
+        const selectedBook = this.storage.getBookByISBN(bookISBN);
+
         const editBookEvent = new CustomEvent("editbook", {
-            detail: {
-                title: "",
-                author: "",
-                isbn: "",
-                publicationYear: "",
-                pages: "",
-                status: "",
-                publisher: "",
-                genre: "",
-                language: "",
-                price: "",
-                oldPrice: "",
-                rating: "",
-                cover: "",
-                shortDescription: "",
-                longDescription: "",
-            }
+            detail: selectedBook
         });
 
         this.dispatchEvent(editBookEvent);
     }
 
+    onAddButtonClick() {
+        const emptyBook = {
+            title: "",
+            author: "",
+            isbn: "",
+            publicationYear: "",
+            pages: "",
+            status: "",
+            publisher: "",
+            genre: "",
+            language: "",
+            price: "",
+            oldPrice: "",
+            rating: "",
+            cover: "",
+            shortDescription: "",
+            longDescription: "",
+        };
+
+        this.dispatchEvent(new CustomEvent("editbook", { detail: emptyBook }));
+    }
+
     onDeleteButtonClick() {
-        console.info("onDeleteButtonClick.this",this);
-
-        const deleteBookEvent = new CustomEvent("deletebook", {
-            detail: this.getCheckedBooks()
-        });
-
-        this.dispatchEvent(deleteBookEvent);
+        this.dispatchEvent(new CustomEvent("deletebook", { detail: this.getCheckedBooks() }));
     }
 
     getCheckedBooks() {
-        return Array.from(this.container.querySelectorAll(".bookItem")).filter(
-            book => this.isChecked(book)
-        );
+        return Array.from(this.container.querySelectorAll(".bookItem")).filter(book => this.isChecked(book));
     }
 
     isChecked(item) {
-        const checkbox = item.querySelector(".checkBox");
-        console.info(checkbox.checked);
-        return checkbox.checked;
+        return (item.querySelector(".checkBox") || { checked: false }).checked;
     }
 }

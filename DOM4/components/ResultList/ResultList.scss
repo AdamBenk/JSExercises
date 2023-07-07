@@ -1,4 +1,4 @@
-@import "fonts.css";
+@import "../../css/fonts.scss";
 
 .resultListContainer {
     display: flex;
@@ -11,7 +11,7 @@
 
 .searchResultItem {
     list-style-type: none;
-    font-family: "Alice";
+    font-family: "Alice", sans-serif;
     margin: 25px;
     max-width: 180px;
     position: relative;
