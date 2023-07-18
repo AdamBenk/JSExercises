@@ -7,7 +7,7 @@ window.addEventListener("load", () => {
     const storage = new Storage();
     let books = storage.getBooks();
     const booklistContainer = document.querySelector("#booklistContainer");
-    const editFormContainer = document.querySelector("#editItemContainer")
+    const editFormContainer = document.querySelector("#formContainer")
 
     const itemList = new ItemList(booklistContainer, books, storage);
     itemList.render();
@@ -26,4 +26,4 @@ window.addEventListener("load", () => {
     const bookForm = new BookForm(editFormContainer, storage);
     
     storage.addEventListener("refresh", () => { itemList.render() });
-}); 
+});

@@ -3,7 +3,6 @@ const browserSyncPlugin = require('browser-sync-webpack-plugin');
 
 module.exports = {
     mode: 'development',
-    target: 'web',
     entry: {
         "index": [
             "./DOM4/javascript/DOM4OOP.js",
@@ -18,9 +17,9 @@ module.exports = {
     output: {
         path: __dirname + "/dist/js/",
         filename: "[name].min.js",
+        publicPath: "/dist/js/",
         hashFunction: "xxhash64"
     },
-    watch: true,
     module: {
         rules: [{
             test: /\.(s*)css$/,
@@ -28,7 +27,7 @@ module.exports = {
                 {
                     loader: miniCss.loader,
                     options: {
-                        publicPath: ''
+                        publicPath: '/1/'
                     }
                 },
                 'css-loader',
@@ -41,14 +40,15 @@ module.exports = {
                     loader: 'file-loader',
                     options: {
                         name: '[name].[ext]',
-                        outputPath: '../fonts/'
+                        outputPath: '/fonts/',
+                        publicPath: '/dist/js/css'
                     }
                 }]
             }]
     },
     plugins: [
         new miniCss({
-            filename: "../css/[name].min.css"
+            filename: "[name].min.css"
         }),
         new browserSyncPlugin({
             host: 'localhost',
@@ -59,5 +59,6 @@ module.exports = {
                 baseDir: [__dirname]
             },
         })
-    ]
+    ],
+    watch: true
 };

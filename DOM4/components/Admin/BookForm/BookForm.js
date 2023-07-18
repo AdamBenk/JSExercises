@@ -1,3 +1,4 @@
+import Menu from "../../Menu/Menu.js";
 export default class BookForm {
     container;
     storage;
@@ -72,6 +73,8 @@ export default class BookForm {
           </li>
         </ul>
       </form>`;
+        this.renderBtns();
+
     };
 
 
