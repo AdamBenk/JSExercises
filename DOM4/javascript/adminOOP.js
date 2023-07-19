@@ -25,11 +25,11 @@ window.addEventListener("load", () => {
         bookForm.renderBtnsForNewForm();
     });
 
-    //itemList.addEventListener("deletebook", (event) => {
-    //    bookForm.saveChanges();
-    //});
-
-
+    itemList.addEventListener("deletebook", (event) => {
+        storage.deleteBooks(event.detail);
+        itemList.render();
+        bookForm.clearContainer();
+    });
 
     const bookForm = new BookForm(editFormContainer, storage);
     

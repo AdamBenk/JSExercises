@@ -30,6 +30,14 @@ export default class Storage extends EventTarget {
 
         return books.find(book => book.isbn === isbn);
     }
+
+    deleteBooks(isbns) {
+        const books = this.getBooks();
+
+        const newBookList = books.filter(book => !isbns.includes(book.isbn));
+
+        this.refreshLocal(newBookList);
+    }
 }
 
 

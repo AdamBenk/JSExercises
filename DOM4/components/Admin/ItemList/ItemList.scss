@@ -16,7 +16,14 @@
     table {
         width: 100%;
         border-collapse: separate;
+        cursor: pointer;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select:none;
+        user-select:none;
+        -o-user-select:none;
     }
+
 
 
     .bookItem {
@@ -27,6 +34,11 @@
 
         &:hover {
             background-color: rgb(219, 217, 252);
+        }
+
+        &.selected {
+            background-color: rgb(130, 130, 241);
+            color: white;
         }
 
         td {

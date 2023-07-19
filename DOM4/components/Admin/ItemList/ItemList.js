@@ -3,6 +3,7 @@ export default class ItemList extends EventTarget {
     container;
     booklist;
     storage;
+    selectedItem;
 
     constructor(container, booklist, storage) {
         super();
@@ -10,6 +11,10 @@ export default class ItemList extends EventTarget {
         this.container = container;
         this.booklist = booklist;
         this.storage = storage;
+
+        this.selectedItem = null;
+        this.initEventHandlers();
+
     }
 
     initEventHandlers() {
@@ -17,7 +22,16 @@ export default class ItemList extends EventTarget {
     }
 
     renderItem(book) {
-        return `<tr class="bookItem" data-isbn="${book.isbn}">
+        console.info(";");
+        let isSelected = false;
+
+        if (this.selectedItem) {
+            if (this.selectedItem.isbn === book.isbn) {
+                isSelected = true;
+            }
+        }
+
+        return `<tr class="bookItem ${isSelected ? 'selected':''}" data-isbn="${book.isbn}">
             <td>
                 <input type="checkbox" class="checkBox">
             </td>
@@ -33,7 +47,6 @@ export default class ItemList extends EventTarget {
             this.booklist.reduce((acc, curr) => acc + this.renderItem(curr), "") +
             `</table>`;
         this.addMenuBtns();
-        this.initEventHandlers();
     }
 
     addMenuBtns() {
@@ -61,14 +74,19 @@ export default class ItemList extends EventTarget {
     }
 
     onItemClick(event) {
-        const bookISBN = this.getISBN(event.target);
-        const selectedBook = this.storage.getBookByISBN(bookISBN);
+        if (event.target.tagName !== "INPUT" && event.target !== this.container) {
+            const bookISBN = this.getISBN(event.target);
+            const selectedBook = this.storage.getBookByISBN(bookISBN);
+            this.selectedItem = selectedBook;
 
-        const editBookEvent = new CustomEvent("editbook", {
-            detail: selectedBook
-        });
+            const editBookEvent = new CustomEvent("editbook", {
+                detail: selectedBook
+            });
 
-        this.dispatchEvent(editBookEvent);
+            this.render();
+
+            this.dispatchEvent(editBookEvent);
+        }
     }
 
     onAddButtonClick() {
@@ -94,21 +112,16 @@ export default class ItemList extends EventTarget {
     }
 
     onDeleteButtonClick() {
-        //this.dispatchEvent(new CustomEvent("deletebook", { detail: this.getCheckedBooks() }));
-        const notChecked = this.getCheckedBooks(); 
-        console.info(this.booklist)
-        console.info(notChecked)
-        //this.storage.refreshLocal(notChecked);
-        
-        
-       
+
+        //
+        const isbns = this.getCheckedBookISBNs();
+
+        this.dispatchEvent(new CustomEvent("deletebook", { detail: isbns }));
     }
 
-    getCheckedBooks() {
-        return Array.from(this.container.querySelectorAll(".bookItem")).filter(book => this.isChecked(book));
-    }
+    getCheckedBookISBNs() {
+        return Array.from(this.container.querySelectorAll(".checkBox:checked"))
+            .map((checkBox) => this.getISBN(checkBox));
 
-    isChecked(item) {
-        return !(item.querySelector(".checkBox") || { checked: false }).checked;
     }
 }
