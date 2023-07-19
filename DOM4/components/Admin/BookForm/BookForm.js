@@ -64,19 +64,16 @@ export default class BookForm {
             <input type="text" id="cover" name="cover" value="${book.cover}" />
           </li>
           <li class="formItem">
-            <label for="shortdescription">Short description:</label>
-            <textarea id="shortdescription" name="shortdescription">${book.shortDescription}</textarea>
+            <label for="shortDescription">Short description:</label>
+            <textarea id="shortDescription" name="shortDescription">${book.shortDescription}</textarea>
           </li>
           <li class="formItem">
-            <label for="longdescription">Long description:</label>
-            <textarea id="longdescription" name="longdescription">${book.longDescription}</textarea>
+            <label for="longDescription">Long description:</label>
+            <textarea id="longDescription" name="longDescription">${book.longDescription}</textarea>
           </li>
         </ul>
       </form>`;
-        this.renderBtns();
-
     };
-
 
     renderBtns() {
         const saveAndDiscardMenu = [
@@ -108,12 +105,13 @@ export default class BookForm {
     }
 
     discardChanges() {
-        const books = this.storage.getBooks();
-        const bookform = this.container.querySelector(".bookForm");
-        const originalBookIndex = this.getBookIndexByISBN(bookform.dataset.isbn);
-        const originalBook = books[originalBookIndex];
-        this.render(originalBook);
-        this.renderBtns();
+        //const books = this.storage.getBooks();
+        //const bookform = this.container.querySelector(".bookForm");
+        //const originalBookIndex = this.getBookIndexByISBN(bookform.dataset.isbn);
+        //const originalBook = books[originalBookIndex];
+        //this.render(originalBook);
+        //this.renderBtns();
+        this.clearContainer();
     }
 
     saveChanges() {
@@ -125,6 +123,13 @@ export default class BookForm {
         const originalBookIndex = this.getBookIndexByISBN(bookform.dataset.isbn);
         books[originalBookIndex] = modifiedBookObj;
         this.storage.refreshLocal(books);
+        this.clearContainer();
+    }
+
+    clearContainer() {
+        this.container.innerHTML = "";
+        const btnContainer = document.querySelector("#formBtnContainer");
+        btnContainer.innerHTML = "";
     }
 
     renderBtnsForNewForm() {
@@ -151,7 +156,7 @@ export default class BookForm {
     }
 
     discardForm() {
-        this.container.innerHTML = "";
+      this.clearContainer();
     }
 
     saveNewForm() {
@@ -163,7 +168,7 @@ export default class BookForm {
         if (newBookObj.isbn) {
             books.push(newBookObj)
             this.storage.refreshLocal(books);
-            this.renderBtns();
+            this.clearContainer();
         }
     }
 }

@@ -52,7 +52,6 @@ export default class ItemList extends EventTarget {
         ];
 
         const addDelBtn = new Menu(document.querySelector("#booklistBtnContainer"), itemListButtons);
-
         return addDelBtn.render();
     }
 
@@ -91,11 +90,18 @@ export default class ItemList extends EventTarget {
             longDescription: "",
         };
 
-        this.dispatchEvent(new CustomEvent("editbook", { detail: emptyBook }));
+        this.dispatchEvent(new CustomEvent("createbook", { detail: emptyBook }));
     }
 
     onDeleteButtonClick() {
-        this.dispatchEvent(new CustomEvent("deletebook", { detail: this.getCheckedBooks() }));
+        //this.dispatchEvent(new CustomEvent("deletebook", { detail: this.getCheckedBooks() }));
+        const notChecked = this.getCheckedBooks(); 
+        console.info(this.booklist)
+        console.info(notChecked)
+        //this.storage.refreshLocal(notChecked);
+        
+        
+       
     }
 
     getCheckedBooks() {
@@ -103,6 +109,6 @@ export default class ItemList extends EventTarget {
     }
 
     isChecked(item) {
-        return (item.querySelector(".checkBox") || { checked: false }).checked;
+        return !(item.querySelector(".checkBox") || { checked: false }).checked;
     }
 }

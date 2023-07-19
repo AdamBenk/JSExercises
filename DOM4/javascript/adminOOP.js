@@ -6,6 +6,8 @@ import BookForm from "../components/Admin/BookForm/BookForm.js";
 window.addEventListener("load", () => {
     const storage = new Storage();
     let books = storage.getBooks();
+    //let books = window.bookList.books;
+    //storage.refreshLocal(books)
     const booklistContainer = document.querySelector("#booklistContainer");
     const editFormContainer = document.querySelector("#formContainer")
 
@@ -15,11 +17,17 @@ window.addEventListener("load", () => {
 
     itemList.addEventListener("editbook", (event) => {
         bookForm.render(event.detail);
+        bookForm.renderBtns();
     });
 
-    itemList.addEventListener("deletebook", (event) => {
+    itemList.addEventListener("createbook", (event) => {
         bookForm.render(event.detail);
+        bookForm.renderBtnsForNewForm();
     });
+
+    //itemList.addEventListener("deletebook", (event) => {
+    //    bookForm.saveChanges();
+    //});
 
 
 
