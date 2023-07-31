@@ -14,15 +14,12 @@ window.addEventListener("load", () => {
     const itemList = new ItemList(booklistContainer, books, storage);
     itemList.render();
     itemList.addMenuBtns();
-
     itemList.addEventListener("editbook", (event) => {
         bookForm.render(event.detail);
-        bookForm.renderBtns();
     });
 
     itemList.addEventListener("createbook", (event) => {
-        bookForm.render(event.detail);
-        bookForm.renderBtnsForNewForm();
+        bookForm.render(event.detail, true);
     });
 
     itemList.addEventListener("deletebook", (event) => {

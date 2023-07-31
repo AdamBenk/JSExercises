@@ -4,77 +4,98 @@
     background-color: rgb(237, 231, 248);
     border: solid 2px rgb(130, 130, 241);
     border-radius: 7px;
-}
+    
+    #booklistContainer {
+        padding: 0;
+        height: calc(100% - 100px);
+        overflow-y: scroll;
+        overflow-x: hidden;
+        padding-bottom: 20px;
 
-#booklistContainer {
-    padding: 0;
-    height: calc(100% - 100px);
-    overflow-y: scroll;
-    overflow-x: hidden;
-    padding-bottom: 20px;
-
-    table {
-        width: 100%;
-        border-collapse: separate;
-        cursor: pointer;
-        -moz-user-select: none;
-        -webkit-user-select: none;
-        -ms-user-select:none;
-        user-select:none;
-        -o-user-select:none;
-    }
-
-
-
-    .bookItem {
-        display: flex;
-        align-items: baseline;
-        font-family: "YatraOne", "sans-serif";
-        font-size: 14px;
-
-        &:hover {
-            background-color: rgb(219, 217, 252);
+        table {
+            width: 100%;
+            border-collapse: separate;
+            cursor: pointer;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select:none;
+            user-select:none;
+            -o-user-select:none;
         }
 
-        &.selected {
-            background-color: rgb(130, 130, 241);
-            color: white;
+        .bookItem {
+            display: flex;
+            align-items: baseline;
+            font-family: "YatraOne", "sans-serif";
+            font-size: 14px;
+
+            &:hover {
+                background-color: rgb(219, 217, 252);
+            }
+
+            &.selected {
+                background-color: rgb(130, 130, 241);
+                color: white;
+            }
+
+            td {
+                padding: 2px;
+            }
+
+            td.bookAuthor,
+            td.bookTitle {
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            td.bookAuthor {
+                width: 30%;
+                margin-left: 15px;
+            }
+
+            td.bookTitle {
+                width: 60%;
+                margin-left: 10px;
+            }
         }
 
-        td {
-            padding: 2px;
-        }
-
-        td.bookAuthor,
-        td.bookTitle {
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-
-        td.bookAuthor {
-            width: 30%;
-            margin-left: 15px;
-        }
-
-        td.bookTitle {
-            width: 60%;
+        .checkBox {
             margin-left: 10px;
         }
-    }
 
-    .checkBox {
-        margin-left: 10px;
-    }
-}
+        #buttonContainer {
+            ul {
+                padding: 20px 0 0 0;
+                margin: 0;
+                display: flex;
+                border-top: solid 2px rgb(130, 130, 241);
+                justify-content: space-evenly;
+                list-style: none;
+    
+                .itemListButton {
+                    font-family: "YatraOne", "sans-serif";
+                    font-weight: bold;
+                    font-size: 16px;
+                    padding: 5px 10px 5px 10px;
+                    margin: 0 5px 0 5px;
+                    min-width: max-content;
+                    border: solid 2px rgb(84, 84, 88);
+                    border-radius: 5px;
+                    background-color: rgb(219, 217, 252);
 
-#booklistBtnContainer {
-    ul {
-        padding: 20px 0 0 0;
-        margin: 0;
-        display: flex;
-        border-top: solid 2px rgb(130, 130, 241);
-        justify-content: space-evenly;
-        list-style: none;
+                    &:hover {
+                        background-color: rgb(131, 129, 175);
+                    }
+    
+                    &.disabled:hover {
+                        background-color: rgb(219, 217, 252);
+                    }
+                }
+                
+                
+
+            }
+        }
     }
 }

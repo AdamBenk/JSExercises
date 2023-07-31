@@ -8,6 +8,7 @@ window.addEventListener("load", () => {
     const menuItems = [
         {
             id: "HotDealsMenuItem",
+            class: "searchBarButton",
             title: "Hot Deals",
             link: "",
             click: () => {
@@ -18,6 +19,7 @@ window.addEventListener("load", () => {
             } 
         }, {
             id: "BestSellersMenuItem",
+            class: "searchBarButton",
             title: "Best Sellers",
             link: "",
             click: () => {
@@ -28,6 +30,7 @@ window.addEventListener("load", () => {
             }
         }, {
             id: "HotChoicesMenuItem",
+            class: "searchBarButton",
             title: "Hot Choices",
             link: "",
             click: () => {
@@ -38,6 +41,7 @@ window.addEventListener("load", () => {
             }
         }, {
             id: "JumpToAdmin",
+            class: "searchBarButton",
             title: "",
             link: `<a href="../index_admin.html">Admin</a>`
         }

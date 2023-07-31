@@ -34,5 +34,21 @@
     #formBtnContainer ul {
         display: flex;
         justify-content: space-around;
+
+        .bookFormButton {
+            font-family: "YatraOne", "sans-serif";
+            font-weight: bold;
+            font-size: 16px;
+            padding: 5px 10px 5px 10px;
+            margin: 0 5px 0 5px;
+            min-width: max-content;
+            border: solid 2px rgb(84, 84, 88);
+            border-radius: 5px;
+            background-color: rgb(219, 217, 252);
+        }
+        
+        .bookFormButton:hover {
+            background-color: rgb(131, 129, 175);
+        }
     }
 }

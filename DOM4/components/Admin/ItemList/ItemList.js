@@ -13,16 +13,15 @@ export default class ItemList extends EventTarget {
         this.storage = storage;
 
         this.selectedItem = null;
-        this.initEventHandlers();
-
+        this.#initEventHandlers();
     }
 
-    initEventHandlers() {
+    #initEventHandlers() {
         this.container.addEventListener("click", this.onItemClick.bind(this));
+        this.container.addEventListener("click", this.setDelBtn.bind(this));
     }
 
     renderItem(book) {
-        console.info(";");
         let isSelected = false;
 
         if (this.selectedItem) {
@@ -45,7 +44,7 @@ export default class ItemList extends EventTarget {
         this.container.innerHTML =
             "<table>" +
             this.booklist.reduce((acc, curr) => acc + this.renderItem(curr), "") +
-            `</table>`;
+            `</table>` + `<div id="buttonContainer"></div>`;
         this.addMenuBtns();
     }
 
@@ -53,18 +52,21 @@ export default class ItemList extends EventTarget {
         const itemListButtons = [
             {
                 id: "addBtn",
+                class: "itemListButton",
                 title: "Add Item",
                 link: "",
                 click: this.onAddButtonClick.bind(this)
             }, {
                 id: "deleteBtn",
+                class: "itemListButton",
+                setdisabled: "true",
                 title: "Delete Item",
                 link: "",
                 click: this.onDeleteButtonClick.bind(this)
             }
         ];
 
-        const addDelBtn = new Menu(document.querySelector("#booklistBtnContainer"), itemListButtons);
+        const addDelBtn = new Menu(document.querySelector("#buttonContainer"), itemListButtons);
         return addDelBtn.render();
     }
 
@@ -74,7 +76,9 @@ export default class ItemList extends EventTarget {
     }
 
     onItemClick(event) {
-        if (event.target.tagName !== "INPUT" && event.target !== this.container) {
+        if (((event.target.className === "bookAuthor") || (event.target.className === "bookTitle")) && (event.target.tagName !== "INPUT")) {
+            console.info(event.target)
+            console.info("this event is fired")
             const bookISBN = this.getISBN(event.target);
             const selectedBook = this.storage.getBookByISBN(bookISBN);
             this.selectedItem = selectedBook;
@@ -84,7 +88,6 @@ export default class ItemList extends EventTarget {
             });
 
             this.render();
-
             this.dispatchEvent(editBookEvent);
         }
     }
@@ -112,16 +115,22 @@ export default class ItemList extends EventTarget {
     }
 
     onDeleteButtonClick() {
-
-        //
         const isbns = this.getCheckedBookISBNs();
-
         this.dispatchEvent(new CustomEvent("deletebook", { detail: isbns }));
     }
 
     getCheckedBookISBNs() {
         return Array.from(this.container.querySelectorAll(".checkBox:checked"))
-            .map((checkBox) => this.getISBN(checkBox));
+            .map((checkBox) => this.getISBN(checkBox))
+    }
 
+    setDelBtn(event) {
+        const delBtn = this.container.querySelector("#deleteBtn");
+        const allChecked = Array.from(this.container.querySelectorAll(".checkBox:checked"));
+        if (event.target.tagName === "INPUT" && allChecked.length > 0) {
+            delBtn.disabled = false;
+        } else {
+            delBtn.disabled = true;
+        }
     }
 }

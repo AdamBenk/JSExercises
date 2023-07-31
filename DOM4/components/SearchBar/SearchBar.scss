@@ -1,4 +1,4 @@
-.searchButton {
+.searchMenuButton {
     min-width: max-content;
     background-color: white;
     border: none;
@@ -8,12 +8,12 @@
 }
 
 
-.searchButton:hover {
+.searchMenuButton:hover {
     background-color: rgb(250, 234, 239);
     border-radius: 15px;
 }
 
-.searchButton:active {
+.searchMenuButton:active {
     background-color: rgb(229, 196, 216);
     border-radius: 15px;
 }
