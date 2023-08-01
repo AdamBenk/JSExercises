@@ -77,8 +77,6 @@ export default class ItemList extends EventTarget {
 
     onItemClick(event) {
         if (((event.target.className === "bookAuthor") || (event.target.className === "bookTitle")) && (event.target.tagName !== "INPUT")) {
-            console.info(event.target)
-            console.info("this event is fired")
             const bookISBN = this.getISBN(event.target);
             const selectedBook = this.storage.getBookByISBN(bookISBN);
             this.selectedItem = selectedBook;

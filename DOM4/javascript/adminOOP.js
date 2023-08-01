@@ -30,5 +30,10 @@ window.addEventListener("load", () => {
 
     const bookForm = new BookForm(editFormContainer, storage);
     
+    bookForm.addEventListener("clearItemList", () => {
+        console.info("itemlist render is fired")
+        itemList.render();
+    });
+    
     storage.addEventListener("refresh", () => { itemList.render() });
 });

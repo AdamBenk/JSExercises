@@ -1,11 +1,12 @@
 import Menu from "../../Menu/Menu.js";
 
-export default class BookForm {
+export default class BookForm extends EventTarget {
     container;
     storage;
 
-
     constructor(container, storage) {
+        super();
+        
         this.container = container;
         this.storage = storage;
         this.#initEventHandlers();
@@ -13,24 +14,13 @@ export default class BookForm {
 
     #initEventHandlers() {
         this.container.addEventListener("keyup", this.setSaveBtn.bind(this));
-        this.container.addEventListener("keyup", this.onKeyUp.bind(this));
+        this.container.addEventListener("keyup", this.setSaveNewBtn.bind(this));
+        this.container.addEventListener("keyup", this.isValid.bind(this));
     }
 
-    onKeyUp() {
-        this.checkValidity();
-    }
-
-    checkValidity() {
+    isValid() {
         const form = this.container.querySelector(".bookForm");
-        const saveBtn = document.querySelector(`#saveBtn`);
-
-        const isValid = form.checkValidity();
-        saveBtn.disabled = !isValid;
-        if (isValid) {
-            saveBtn.classList.remove("disabled");
-        } else {
-            saveBtn.classList.add("disabled");
-        }
+        return form.checkValidity();
     }
 
     render(book, isNew = false) {
@@ -99,7 +89,7 @@ export default class BookForm {
         </ul>
         <div id="formBtnContainer"></div>
       </form>`;
-        this.renderBtns(isNew);
+      this.renderBtns(isNew);
     };
 
     renderBtns(isNew) {
@@ -150,13 +140,13 @@ export default class BookForm {
                 }
             ];
         }
-        const buttonMenu = new Menu(document.querySelector("#formBtnContainer"), buttons);
+        const buttonMenu = new Menu(this.container.querySelector("#formBtnContainer"), buttons);
         buttonMenu.render();
-        this.checkValidity();
     }
 
     clearContainer() {
         this.container.innerHTML = "";
+        this.dispatchEvent(new CustomEvent("clearItemList"));
     }
 
     discardChanges() {
@@ -173,6 +163,7 @@ export default class BookForm {
         books[originalBookIndex] = modifiedBookObj;
         this.storage.refreshLocal(books);
         this.clearContainer();
+        
     }
 
     hasAnyChanges() {
@@ -194,14 +185,24 @@ export default class BookForm {
 
     setSaveBtn(event) {
         const saveBtn = this.container.querySelector("#saveBtn");
-        if (event.target.tagName === "INPUT" || "textarea") {
-            console.info("this is a keyup");
-            if (this.hasAnyChanges()) {
+        if (saveBtn !== null && (event.target.tagName === "INPUT" || event.target.tagName === "TEXTAREA")) {
+            if (this.hasAnyChanges() && this.isValid()) {
                 saveBtn.disabled = false;
             } else {
                 saveBtn.disabled = true;
             }
         }
+    }
+
+    setSaveNewBtn(event) {
+      const saveNewFormBtn = this.container.querySelector("#saveNewFormBtn");
+      if (saveNewFormBtn !== null) {
+          if (this.isValid()) {
+              saveNewFormBtn.disabled = false;
+          } else {
+              saveNewFormBtn.disabled = true;
+          }
+      }
     }
 
     discardForm() {
