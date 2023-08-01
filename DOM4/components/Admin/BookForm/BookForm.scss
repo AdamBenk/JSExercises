@@ -51,4 +51,21 @@
             background-color: rgb(131, 129, 175);
         }
     }
+
+    .bookForm {
+        input:invalid {
+            border: 2px solid red;
+        }
+
+        textarea:invalid {
+            border: 2px solid red;
+        }
+    }
+}
+
+#editItemContainer {
+    .searchButton[disabled] {
+        background-color: #aaa;
+        color: #999;
+    }
 }

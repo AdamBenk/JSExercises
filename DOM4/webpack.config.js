@@ -1,7 +1,12 @@
-const miniCss = require("mini-css-extract-plugin");
-const browserSyncPlugin = require('browser-sync-webpack-plugin');
+import miniCss from "mini-css-extract-plugin";
+import browserSyncPlugin from 'browser-sync-webpack-plugin';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-module.exports = {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+export default {
     mode: 'development',
     entry: {
         "index": [
@@ -33,18 +38,17 @@ module.exports = {
                 'css-loader',
                 'sass-loader',
             ]
-        },
-            {
-                test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-                use: [{
-                    loader: 'file-loader',
-                    options: {
-                        name: '[name].[ext]',
-                        outputPath: '/fonts/',
-                        publicPath: '/dist/js/css'
-                    }
-                }]
+        }, {
+            test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+            use: [{
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]',
+                    outputPath: '/fonts/',
+                    publicPath: '/dist/js/css'
+                }
             }]
+        }]
     },
     plugins: [
         new miniCss({

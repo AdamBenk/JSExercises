@@ -8,7 +8,8 @@
         "array": "node array/array.js",
         "start": "node index.js",
         "serve": "http-server",
-        "dom4": "webpack --mode=development --config ./DOM4/webpack.config.js"
+        "dom4": "webpack --mode=development --config ./DOM4/webpack.config.js",
+        "dom4:server": "node ./DOM4/server/index.js"
     },
     "repository": {
         "type": "git",
@@ -37,5 +38,10 @@
         "sass-loader": "^13.3.2",
         "webpack": "^5.88.1",
         "webpack-cli": "^5.1.4"
-    }
+    },
+    "dependencies": {
+        "express": "^4.18.2",
+        "sqlite3": "^5.1.6"
+    },
+    "type": "module"
 }

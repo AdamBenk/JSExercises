@@ -1,31 +1,52 @@
 import Menu from "../../Menu/Menu.js";
+
 export default class BookForm {
     container;
     storage;
+
+
     constructor(container, storage) {
         this.container = container;
         this.storage = storage;
         this.#initEventHandlers();
     }
-    
+
     #initEventHandlers() {
-      this.container.addEventListener("keyup", this.setSaveBtn.bind(this));
+        this.container.addEventListener("keyup", this.setSaveBtn.bind(this));
+        this.container.addEventListener("keyup", this.onKeyUp.bind(this));
+    }
+
+    onKeyUp() {
+        this.checkValidity();
+    }
+
+    checkValidity() {
+        const form = this.container.querySelector(".bookForm");
+        const saveBtn = document.querySelector(`#saveBtn`);
+
+        const isValid = form.checkValidity();
+        saveBtn.disabled = !isValid;
+        if (isValid) {
+            saveBtn.classList.remove("disabled");
+        } else {
+            saveBtn.classList.add("disabled");
+        }
     }
 
     render(book, isNew = false) {
-        this.container.innerHTML = `<form action="" method="" class="bookForm" data-isbn="${book.isbn}">
+        this.container.innerHTML = `<form action="" method="get" class="bookForm" data-isbn="${book.isbn}">
         <ul class="formContainer" data-set=>
           <li class="formItem">
             <label for="title">Title:</label>
-            <textarea id="title" name="title">${book.title}</textarea>
+            <textarea id="title" name="title" required minlength="2">${book.title}</textarea>
           </li>
           <li class="formItem">
             <label for="author">Author:</label>
-            <textarea id="author" name="author">${book.author}</textarea>
+            <textarea id="author" name="author" required minlength="4">${book.author}</textarea>
           </li>
           <li class="formItem">
             <label for="isbn">ISBN:</label>
-            <input type="text" id="isbn" name="isbn" value="${book.isbn}" placeholder=${book.isbn} />
+            <input type="text" id="isbn" name="isbn" required pattern="\\d{10,13}" value="${book.isbn}" placeholder="ISBN" />
           </li>
           <li class="formItem">
             <label for="publicationYear">Publication year:</label>
@@ -53,7 +74,7 @@ export default class BookForm {
           </li>
           <li class="formItem">
             <label for="price">Price:</label>
-            <input type="text" inputmode="numeric" id="price" name="price" value="${book.price}" />
+            <input type="text" inputmode="numeric" required id="price" name="price" value="${book.price}" />
           </li>
           <li class="formItem">
             <label for="oldPrice">Old price:</label>
@@ -69,7 +90,7 @@ export default class BookForm {
           </li>
           <li class="formItem">
             <label for="shortDescription">Short description:</label>
-            <textarea id="shortDescription" name="shortDescription">${book.shortDescription}</textarea>
+            <textarea id="shortDescription" required minlength="10" name="shortDescription">${book.shortDescription}</textarea>
           </li>
           <li class="formItem">
             <label for="longDescription">Long description:</label>
@@ -78,66 +99,68 @@ export default class BookForm {
         </ul>
         <div id="formBtnContainer"></div>
       </form>`;
-      this.renderBtns(isNew);
+        this.renderBtns(isNew);
     };
 
     renderBtns(isNew) {
-      let buttons;  
-      if (isNew) {
-          buttons = [
-            {
-                id: "cancelNewFormBtn",
-                class: "bookFormButton",
-                title: "Cancel Form",
-                link: "",
-                click: () => {
-                    this.discardForm()
+        let buttons;
+
+        if (isNew) {
+            buttons = [
+                {
+                    id: "cancelNewFormBtn",
+                    class: "bookFormButton",
+                    title: "Cancel Form",
+                    link: "",
+                    click: () => {
+                        this.discardForm()
+                    }
+                },
+                {
+                    id: "saveNewFormBtn",
+                    class: "bookFormButton",
+                    setdisabled: "true",
+                    title: "Save New Book",
+                    link: "",
+                    click: () => {
+                        this.saveNewForm()
+                    }
                 }
-            },
-            {
-                id: "saveNewFormBtn",
-                class: "bookFormButton",
-                setdisabled: "true",
-                title: "Save New Book",
-                link: "",
-                click: () => {
-                    this.saveNewForm()
-                }
-            }
-        ];
+            ];
         } else {
-          buttons = [
-            {
-                id: "cancelBtn",
-                class: "bookFormButton",
-                title: "Cancel Changes",
-                link: "",
-                click: () => {
-                    this.discardChanges()
+            buttons = [
+                {
+                    id: "cancelBtn",
+                    class: "bookFormButton",
+                    title: "Cancel Changes",
+                    link: "",
+                    click: () => {
+                        this.discardChanges();
+                    }
+                },
+                {
+                    id: "saveBtn",
+                    class: "bookFormButton",
+                    setdisabled: "true",
+                    title: "Save Changes",
+                    link: "",
+                    click: () => {
+                        this.saveChanges()
+                    }
                 }
-            },
-            {
-                id: "saveBtn",
-                class: "bookFormButton",
-                setdisabled: "true",
-                title: "Save Changes",
-                link: "",
-                click: () => {
-                    this.saveChanges()
-                }
-            }
-          ];
+            ];
         }
         const buttonMenu = new Menu(document.querySelector("#formBtnContainer"), buttons);
         buttonMenu.render();
+        this.checkValidity();
     }
 
     clearContainer() {
-      this.container.innerHTML = "";
+        this.container.innerHTML = "";
     }
 
     discardChanges() {
-      this.clearContainer();
+        this.clearContainer();
     }
 
     saveChanges() {
@@ -159,30 +182,30 @@ export default class BookForm {
         const modifiedBookObj = {};
         modifiedBook.forEach((value, key) => (modifiedBookObj[key] = value));
         const originalBookIndex = this.storage.getBookIndexByISBN(bookform.dataset.isbn);
-        const originalBook = books[originalBookIndex] 
+        const originalBook = books[originalBookIndex]
         let isSame = true;
         for (let key in originalBook) {
-          if (originalBook[key] !== modifiedBookObj[key]) {
-            isSame = false;
-          }
+            if (originalBook[key] !== modifiedBookObj[key]) {
+                isSame = false;
+            }
         }
         return !isSame;
-      }
+    }
 
     setSaveBtn(event) {
-      const saveBtn = this.container.querySelector("#saveBtn");
-      if (event.target.tagName === "INPUT" || "textarea") {
-        console.info("this is a keyup");
-        if (this.hasAnyChanges()) {
-          saveBtn.disabled = false;
-        } else {
-          saveBtn.disabled = true;
+        const saveBtn = this.container.querySelector("#saveBtn");
+        if (event.target.tagName === "INPUT" || "textarea") {
+            console.info("this is a keyup");
+            if (this.hasAnyChanges()) {
+                saveBtn.disabled = false;
+            } else {
+                saveBtn.disabled = true;
+            }
         }
-      }
     }
 
     discardForm() {
-      this.clearContainer();
+        this.clearContainer();
     }
 
     saveNewForm() {
