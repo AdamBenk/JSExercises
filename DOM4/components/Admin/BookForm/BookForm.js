@@ -146,7 +146,7 @@ export default class BookForm extends EventTarget {
 
     clearContainer() {
         this.container.innerHTML = "";
-        this.dispatchEvent(new CustomEvent("clearItemList"));
+        this.dispatchEvent(new CustomEvent("clearItemList", { detail: this.event }));
     }
 
     discardChanges() {

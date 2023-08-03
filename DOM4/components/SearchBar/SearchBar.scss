@@ -1,3 +1,4 @@
+
 .searchMenuButton {
     min-width: max-content;
     background-color: white;
@@ -5,39 +6,38 @@
     font-family: "YatraOne", "sans-serif";
     font-size: 30px;
     padding: 0 5px 0 5px;
-}
 
+    &:hover {
+        background-color: rgb(250, 234, 239);
+        border-radius: 15px;
+    }
 
-.searchMenuButton:hover {
-    background-color: rgb(250, 234, 239);
-    border-radius: 15px;
-}
-
-.searchMenuButton:active {
-    background-color: rgb(229, 196, 216);
-    border-radius: 15px;
+    &:active {
+        background-color: rgb(229, 196, 216);
+        border-radius: 15px;
+    }
 }
 
 #searchBarContainer {
     display: flex;
     align-items: center;
-}
 
-.searchBar {
-    height: 1.5em;
-    margin-right: 10px;
-    display: none;
-}
+    .searchBar {
+        height: 1.5em;
+        margin-right: 10px;
+        display: none;
+    }
 
-#magnifierIcon {
-    display: flex;
-    align-items: center;
-    padding: 0;
-    height: 100%;
-}
-
-#magnifierIcon img {
-    width: 25px;
-    height: auto;
-    padding: 0 15px 0 15px;
+    #magnifierIcon {
+        display: flex;
+        align-items: center;
+        padding: 0;
+        height: 100%;
+    }
+    
+    #magnifierIcon img {
+        width: 25px;
+        height: auto;
+        padding: 0 15px 0 15px;
+    }
 }

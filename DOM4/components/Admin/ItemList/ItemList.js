@@ -21,12 +21,17 @@ export default class ItemList extends EventTarget {
         this.container.addEventListener("click", this.setDelBtn.bind(this));
     }
 
+    clearSelectedItem() {
+        this.selectedItem = null;
+    }
+
     renderItem(book) {
         let isSelected = false;
 
         if (this.selectedItem) {
             if (this.selectedItem.isbn === book.isbn) {
                 isSelected = true;
+                console.info("still selected")
             }
         }
 

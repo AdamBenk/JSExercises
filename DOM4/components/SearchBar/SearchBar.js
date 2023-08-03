@@ -10,7 +10,7 @@ export default class SearchBar {
     render() {
         this.container.innerHTML = `
             <input class="searchBar" type="text">
-            <button id="magnifierIcon" class="searchBarButton">
+            <button id="magnifierIcon" class="searchMenuButton">
                 <img src="images/magnifier-glass-icon.svg" alt="">
             </button>
         `;
