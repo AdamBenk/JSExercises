@@ -160,6 +160,8 @@ export default class BookForm extends EventTarget {
         const modifiedBookObj = {};
         modifiedBook.forEach((value, key) => (modifiedBookObj[key] = value));
         const originalBookIndex = this.storage.getBookIndexByISBN(bookform.dataset.isbn);
+
+        // this.saveBook(modifiedBookObj);
         books[originalBookIndex] = modifiedBookObj;
         this.storage.refreshLocal(books);
         this.clearContainer();
@@ -215,7 +217,11 @@ export default class BookForm extends EventTarget {
         const newBook = new FormData(bookform);
         const newBookObj = {};
         newBook.forEach((value, key) => (newBookObj[key] = value));
-        if (newBookObj.isbn) {
+
+        // this should be replaced by
+        // this.saveBook(newBookObj);
+
+        if (newBookObj.isbn) {  // remove this, as no need any more
             books.push(newBookObj)
             this.storage.refreshLocal(books);
             this.clearContainer();

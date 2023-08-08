@@ -68,6 +68,21 @@ export default class ItemList extends EventTarget {
                 title: "Delete Item",
                 link: "",
                 click: this.onDeleteButtonClick.bind(this)
+            }, {
+                id: "getListBtn",
+                class: "itemListButton",
+                title: "Get List",
+                link: "",
+                click: () => {
+                    const xhr = new XMLHttpRequest();
+
+                    xhr.addEventListener("load", () => {
+                        console.info("result has arrived");
+                    });
+
+                    xhr.open("GET", "http://localhost:3001/cicamica");
+                    xhr.send();
+                }
             }
         ];
 

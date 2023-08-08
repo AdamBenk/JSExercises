@@ -38,7 +38,14 @@ export default class Storage extends EventTarget {
 
         this.refreshLocal(newBookList);
     }
+
+    saveBook(book/* book object */) {
+        // if isbn is empty then create new book
+        // if isbn is not empty then update book
+        if (book.isbn === "") {
+            // push
+        } else {
+            // update
+        }
+    }
 }
-
-
-

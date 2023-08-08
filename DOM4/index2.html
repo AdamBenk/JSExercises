@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Store</title>
+    <style>
+        @font-face {
+            font-family: "Righteous";
+            src: url("/dist/js/fonts/Righteous-Regular.ttf") format("truetype");
+        }
+
+        @font-face {
+            font-family: "YatraOne";
+            src: url("/dist/js/fonts/YatraOne-Regular.ttf") format("truetype");
+        }
+
+        @font-face {
+            font-family: "Alice";
+            src: url("/dist/js/fonts/Alice-Regular.ttf") format("truetype");
+        }
+    </style><link rel="stylesheet" href="/dist/js/index.min.css">
+</head>
+<body>
+    <form method="get" action="http://localhost:3001/cicamica">
+        <input name="search" type="text" placeholder="Search..." />
+        <input name="searchBy" type="radio" value="title" checked>Title
+        <input name="searchBy" type="radio" value="author">Author
+        <input name="searchBy" type="radio" value="isbn">ISBN
+        <button type="button">Search</button>
+    </form>
+</body>
+</html>

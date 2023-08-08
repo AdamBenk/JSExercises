@@ -45,7 +45,6 @@ window.addEventListener("load", () => {
             title: "",
             link: `<a href="../index_admin.html">Admin</a>`
         }
-
     ];
 
     const resultList = new ResultList(document.querySelector(".resultListContainer"));
