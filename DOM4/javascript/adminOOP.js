@@ -37,4 +37,5 @@ window.addEventListener("load", () => {
     });
     
     storage.addEventListener("refresh", () => { itemList.render() });
+
 });

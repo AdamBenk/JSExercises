@@ -1,7 +1,7 @@
 import sqlite3 from 'sqlite3';
 
 const emptyFn = () => { };
-export class Storage {
+export class SQLite3Storage {
     #context = "undefined";
     #db;
     #filename;
@@ -42,31 +42,33 @@ export class Storage {
     }
 
     getList(offset, limit, cb = emptyFn) {
-        this.#db.get("SELECT * FROM books LIMIT ? OFFSET ?", [limit, offset], cb);
+        this.#db.all("SELECT * FROM books LIMIT ? OFFSET ?", [limit, offset], cb);
     }
 
     getBy(field, value, cb = emptyFn) {
-        this.#db.get(`SELECT * FROM books WHERE ${field} = ?`, [value], cb);
+        this.#db.all(`SELECT * FROM books WHERE ${field} LIKE ?`, [value], cb);
     }
 
     create(data, cb = emptyFn) {
         const fieldNames = Object.keys(data).join(",");
         const fieldQuestionMarks = Object.keys(data).map(() => "?").join(",");
-        const values = Object.values(data)
+        const values = Object.values(data);
 
         this.#db.run(`INSERT INTO ${this.#context} (${fieldNames}) VALUES (${fieldQuestionMarks})`, values, cb);
-
     }
 
     update(id, data, cb = emptyFn) {
         const fieldNames = Object.keys(data).join(",");
         const fieldQuestionMarks = Object.keys(data).map(() => "?").join(",");
-        const values = data.values();
+        const values = Object.values(data);
+        values.push(id);
 
-        this.#db.run(`UPDATE ${this.#context} SET (${fieldNames}) VALUES (${fieldQuestionMarks}) WHERE id = ?`, values, cb);
+        console.info(values.join(","));
+        console.info(`UPDATE ${this.#context} SET (${fieldNames}) VALUES (${fieldQuestionMarks}) WHERE isbn LIKE ?`);
+        this.#db.run(`UPDATE ${this.#context} SET (${fieldNames}) VALUES (${fieldQuestionMarks}) WHERE isbn LIKE ?`, values, cb);
     }
 
-    delete(id,cb = emptyFn) {
-        this.#db.run(`DELETE FROM ${this.#context} WHERE id = ?`, [id], cb);
+    delete(isbn,cb = emptyFn) {
+        this.#db.run(`DELETE FROM ${this.#context} WHERE isbn LIKE ?`, [isbn], cb);
     }
 }
