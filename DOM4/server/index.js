@@ -59,23 +59,7 @@ function initServer() {
             console.info("create new book");
             console.info(typeof req.body, req.body);
 
-            storage.create({
-                "title": req.body.title,
-                "author": req.body.author,
-                "isbn": req.body.isbn,
-                "publicationYear": req.body.publicationYear,
-                "pages": req.body.pages,
-                "status": req.body.status,
-                "publisher": req.body.publisher,
-                "genre": req.body.genre,
-                "language": req.body.language,
-                "price": req.body.price,
-                "oldPrice": req.body.oldPrice,
-                "rating": req.body.rating,
-                "cover": req.body.cover,
-                "shortDescription": req.body.shortDescription,
-                "longDescription": req.body.longDescription
-            }, (err, books) => {
+            storage.create(createObjFromRequest(req), (err, books) => {
                 sendOKResponse(res, "book created");
             });
         } catch(e) {
@@ -86,23 +70,7 @@ function initServer() {
 
     app.post('/book/:isbn', (req, res) => {
         try {
-            storage.update(req.params.isbn,{
-                "title": req.body.title,
-                "author": req.body.author,
-                "isbn": req.body.isbn,
-                "publicationYear": req.body.publicationYear,
-                "pages": req.body.pages,
-                "status": req.body.status,
-                "publisher": req.body.publisher,
-                "genre": req.body.genre,
-                "language": req.body.language,
-                "price": req.body.price,
-                "oldPrice": req.body.oldPrice,
-                "rating": req.body.rating,
-                "cover": req.body.cover,
-                "shortDescription": req.body.shortDescription,
-                "longDescription": req.body.longDescription
-            }, (err, books) => {
+            storage.update(req.params.isbn, createObjFromRequest(req), (err, books) => {
                 sendOKResponse(res, "book updated");
             });
         } catch(e) {
@@ -140,4 +108,24 @@ function sendOKResponse(res, message) {
 function sendErrorResponse(res, errNo, message) {
     res.status(400);
     sendJSONResponse(res, { message });
+}
+
+function createObjFromRequest(req) {
+    return {
+        "title": req.body.title,
+        "author": req.body.author,
+        "isbn": req.body.isbn,
+        "publicationYear": req.body.publicationYear,
+        "pages": req.body.pages,
+        "status": req.body.status,
+        "publisher": req.body.publisher,
+        "genre": req.body.genre,
+        "language": req.body.language,
+        "price": req.body.price,
+        "oldPrice": req.body.oldPrice,
+        "rating": req.body.rating,
+        "cover": req.body.cover,
+        "shortDescription": req.body.shortDescription,
+        "longDescription": req.body.longDescription
+    };
 }

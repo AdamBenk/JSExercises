@@ -38,4 +38,19 @@ window.addEventListener("load", () => {
     
     storage.addEventListener("refresh", () => { itemList.render() });
 
+
+    let xhr = new XMLHttpRequest();
+
+    xhr.addEventListener("load", () => {
+        console.info("result has arrived");
+        console.info(xhr.responseText);
+    });
+
+    xhr.addEventListener("error", (err) => {
+        console.info("error",err);
+    });
+
+    xhr.open("GET", "http://localhost:3001/book/list");
+    xhr.send();
+
 });
