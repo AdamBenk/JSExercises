@@ -31,7 +31,6 @@ export default class ItemList extends EventTarget {
         if (this.selectedItem) {
             if (this.selectedItem.isbn === book.isbn) {
                 isSelected = true;
-                console.info("still selected")
             }
         }
 

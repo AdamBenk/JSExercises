@@ -11,7 +11,6 @@ export default class Storage extends EventTarget {
         let booksStr = window.localStorage.getItem("books");
         
         if (!booksStr || booksStr === "undefined") {
-            console.info("load default")
             const books = window.bookList.books;
             this.refreshLocal(books);
         }
@@ -39,13 +38,35 @@ export default class Storage extends EventTarget {
         this.refreshLocal(newBookList);
     }
 
-    saveBook(book/* book object */) {
-        // if isbn is empty then create new book
-        // if isbn is not empty then update book
-        if (book.isbn === "") {
-            // push
+    getOriginalBook(newBookObj) {
+        const books = this.getBooks();
+        const originalBookIndex = this.getBookIndexByISBN(newBookObj.isbn);
+        const originalBook = books[originalBookIndex];
+        return originalBook;
+    }
+
+    saveBookMods(newBookObj, isNew) {
+        const books = this.getBooks();
+        console.info(isNew)
+        if (!isNew) {
+            const originalBookIndex = this.getBookIndexByISBN(newBookObj.isbn);
+            books[originalBookIndex] = newBookObj;
+            this.refreshLocal(books);
         } else {
-            // update
+            console.info('is this fired?')
+            books.push(newBookObj)
+            this.refreshLocal(books);
         }
+    }
+
+    checkIfAnyChanges(newBookObj) {
+        let isSame = true;
+        for (let key in this.getOriginalBook(newBookObj)) {
+            if (this.getOriginalBook(newBookObj)[key] !== newBookObj[key]) {
+                isSame = false;
+            }
+        };
+        console.info('any changes', isSame);
+        return isSame;
     }
 }

@@ -3,12 +3,13 @@ import Menu from "../../Menu/Menu.js";
 export default class BookForm extends EventTarget {
     container;
     storage;
+    isNew;
 
     constructor(container, storage) {
         super();
-        
         this.container = container;
         this.storage = storage;
+        this.isNew = isNew;
         this.#initEventHandlers();
     }
 
@@ -18,13 +19,35 @@ export default class BookForm extends EventTarget {
         this.container.addEventListener("keyup", this.isValid.bind(this));
     }
 
+    setSaveBtn(event) {
+      const saveBtn = this.container.querySelector("#saveBtn");
+      if (saveBtn !== null && (event.target.tagName === "INPUT" || event.target.tagName === "TEXTAREA")) {
+          if (!this.storage.checkIfAnyChanges(this.getNewBookObj()) && this.isValid()) {
+              saveBtn.disabled = false;
+          } else {
+              saveBtn.disabled = true;
+          }
+      }
+    }
+
+    setSaveNewBtn() {
+      const saveNewFormBtn = this.container.querySelector("#saveNewFormBtn");
+      if (saveNewFormBtn !== null) {
+          if (this.isValid()) {
+              saveNewFormBtn.disabled = false;
+          } else {
+              saveNewFormBtn.disabled = true;
+          }
+      }
+    }
+
     isValid() {
         const form = this.container.querySelector(".bookForm");
         return form.checkValidity();
     }
 
     render(book, isNew = false) {
-        this.container.innerHTML = `<form action="" method="get" class="bookForm" data-isbn="${book.isbn}">
+        this.container.innerHTML = `<form action="" method="get" class="bookForm" data-isbn="${book.isbn} ${!isNew ? "readonly" : ""}">
         <ul class="formContainer" data-set=>
           <li class="formItem">
             <label for="title">Title:</label>
@@ -103,7 +126,7 @@ export default class BookForm extends EventTarget {
                     title: "Cancel Form",
                     link: "",
                     click: () => {
-                        this.discardForm()
+                        this.discardChanges()
                     }
                 },
                 {
@@ -113,7 +136,7 @@ export default class BookForm extends EventTarget {
                     title: "Save New Book",
                     link: "",
                     click: () => {
-                        this.saveNewForm()
+                        this.saveChanges()
                     }
                 }
             ];
@@ -153,78 +176,17 @@ export default class BookForm extends EventTarget {
         this.clearContainer();
     }
 
+    getNewBookObj() {
+        const bookform = this.container.querySelector(".bookForm");
+        const modifiedBook = new FormData(bookform);
+        const modifiedBookObj = {};
+        modifiedBook.forEach((value, key) => (modifiedBookObj[key] = value));
+        console.info("NewBookObject", modifiedBookObj);
+        return modifiedBookObj;
+    }
+
     saveChanges() {
-        const books = this.storage.getBooks();
-        const bookform = this.container.querySelector(".bookForm");
-        const modifiedBook = new FormData(bookform);
-        const modifiedBookObj = {};
-        modifiedBook.forEach((value, key) => (modifiedBookObj[key] = value));
-        const originalBookIndex = this.storage.getBookIndexByISBN(bookform.dataset.isbn);
-
-        // this.saveBook(modifiedBookObj);
-        books[originalBookIndex] = modifiedBookObj;
-        this.storage.refreshLocal(books);
+        this.storage.saveBookMods(this.getNewBookObj(), this.isNew);
         this.clearContainer();
-        
-    }
-
-    hasAnyChanges() {
-        const books = this.storage.getBooks();
-        const bookform = this.container.querySelector(".bookForm");
-        const modifiedBook = new FormData(bookform);
-        const modifiedBookObj = {};
-        modifiedBook.forEach((value, key) => (modifiedBookObj[key] = value));
-        const originalBookIndex = this.storage.getBookIndexByISBN(bookform.dataset.isbn);
-        const originalBook = books[originalBookIndex]
-        let isSame = true;
-        for (let key in originalBook) {
-            if (originalBook[key] !== modifiedBookObj[key]) {
-                isSame = false;
-            }
-        }
-        return !isSame;
-    }
-
-    setSaveBtn(event) {
-        const saveBtn = this.container.querySelector("#saveBtn");
-        if (saveBtn !== null && (event.target.tagName === "INPUT" || event.target.tagName === "TEXTAREA")) {
-            if (this.hasAnyChanges() && this.isValid()) {
-                saveBtn.disabled = false;
-            } else {
-                saveBtn.disabled = true;
-            }
-        }
-    }
-
-    setSaveNewBtn(event) {
-      const saveNewFormBtn = this.container.querySelector("#saveNewFormBtn");
-      if (saveNewFormBtn !== null) {
-          if (this.isValid()) {
-              saveNewFormBtn.disabled = false;
-          } else {
-              saveNewFormBtn.disabled = true;
-          }
-      }
-    }
-
-    discardForm() {
-        this.clearContainer();
-    }
-
-    saveNewForm() {
-        const books = this.storage.getBooks();
-        const bookform = this.container.querySelector(".bookForm");
-        const newBook = new FormData(bookform);
-        const newBookObj = {};
-        newBook.forEach((value, key) => (newBookObj[key] = value));
-
-        // this should be replaced by
-        // this.saveBook(newBookObj);
-
-        if (newBookObj.isbn) {  // remove this, as no need any more
-            books.push(newBookObj)
-            this.storage.refreshLocal(books);
-            this.clearContainer();
-        }
     }
 }
