@@ -7,9 +7,7 @@ export default class Storage extends EventTarget {
     }
     
     getBooks() {
-        
         let booksStr = window.localStorage.getItem("books");
-        
         if (!booksStr || booksStr === "undefined") {
             const books = window.bookList.books;
             this.refreshLocal(books);
@@ -36,7 +34,7 @@ export default class Storage extends EventTarget {
         this.refreshLocal(newBookList);
     }
 
-    getOriginalBook(newBookObj) {
+    #getOriginalBook(newBookObj) {
         const books = this.getBooks();
         const originalBookIndex = this.getBookIndexByISBN(newBookObj.isbn);
         const originalBook = books[originalBookIndex];
@@ -45,8 +43,8 @@ export default class Storage extends EventTarget {
 
     checkIfAnyChanges(newBookObj) {
         let isSame = true;
-        for (let key in this.getOriginalBook(newBookObj)) {
-            if (this.getOriginalBook(newBookObj)[key] !== newBookObj[key]) {
+        for (let key in this.#getOriginalBook(newBookObj)) {
+            if (this.#getOriginalBook(newBookObj)[key] !== newBookObj[key]) {
                 isSame = false;
             }
         };

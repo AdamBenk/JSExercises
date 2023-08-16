@@ -2,6 +2,7 @@ import "./books.js";
 import Storage from "../components/Storage/Storage.js";
 import ItemList from "../components/Admin/ItemList/ItemList.js";
 import BookForm from "../components/Admin/BookForm/BookForm.js";
+import ServerStorage from "../components/Storage/ServerStorage.js";
 
 window.addEventListener("load", () => {
     const storage = new Storage();
@@ -36,19 +37,11 @@ window.addEventListener("load", () => {
     });
     
     storage.addEventListener("refresh", () => { itemList.render() });
-
-    let xhr = new XMLHttpRequest();
-
-    xhr.addEventListener("load", () => {
-        console.info("result has arrived");
-        console.info(xhr.responseText);
+    
+    const serverStorage = new ServerStorage("http://localhost:3002");
+    serverStorage.getBooks((a, b, c) => {
+        console.info(a, b, c)
     });
-
-    xhr.addEventListener("error", (err) => {
-        console.info("error",err);
-    });
-
-    xhr.open("GET", "http://localhost:3001/book/list");
-    xhr.send();
+    
 
 });

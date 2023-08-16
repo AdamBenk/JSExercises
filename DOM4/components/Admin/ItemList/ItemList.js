@@ -79,8 +79,10 @@ export default class ItemList extends EventTarget {
                         console.info("result has arrived");
                     });
 
-                    xhr.open("GET", "http://localhost:3001/cicamica");
+                    xhr.open("GET", "http://localhost:3001/book/list");
                     xhr.send();
+
+                    console.info(xhr.response)
                 }
             }
         ];

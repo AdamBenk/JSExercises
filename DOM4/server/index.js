@@ -3,7 +3,7 @@ import express from 'express';
 import bodyParser from "express";
 
 const app = express();
-const port = 3001;
+const port = 3002;
 
 app.use(bodyParser.json()); // Middleware to parse JSON bodies
 app.use(bodyParser.urlencoded({ extended: true })); // Middleware to parse URL-encoded bodies
