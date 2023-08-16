@@ -32,9 +32,7 @@ export default class Storage extends EventTarget {
 
     deleteBooks(isbns) {
         const books = this.getBooks();
-
         const newBookList = books.filter(book => !isbns.includes(book.isbn));
-
         this.refreshLocal(newBookList);
     }
 
@@ -45,20 +43,6 @@ export default class Storage extends EventTarget {
         return originalBook;
     }
 
-    saveBookMods(newBookObj, isNew) {
-        const books = this.getBooks();
-        console.info(isNew)
-        if (!isNew) {
-            const originalBookIndex = this.getBookIndexByISBN(newBookObj.isbn);
-            books[originalBookIndex] = newBookObj;
-            this.refreshLocal(books);
-        } else {
-            console.info('is this fired?')
-            books.push(newBookObj)
-            this.refreshLocal(books);
-        }
-    }
-
     checkIfAnyChanges(newBookObj) {
         let isSame = true;
         for (let key in this.getOriginalBook(newBookObj)) {
@@ -66,7 +50,18 @@ export default class Storage extends EventTarget {
                 isSame = false;
             }
         };
-        console.info('any changes', isSame);
         return isSame;
+    }
+
+    saveBookMods(newBookObj) {
+        const books = this.getBooks();
+        const originalBookIndex = this.getBookIndexByISBN(newBookObj.isbn);
+        if (originalBookIndex >= 0) {  
+            books[originalBookIndex] = newBookObj;
+            this.refreshLocal(books);
+        } else {
+            books.push(newBookObj)
+            this.refreshLocal(books);
+        }
     }
 }

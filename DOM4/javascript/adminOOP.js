@@ -31,13 +31,11 @@ window.addEventListener("load", () => {
     const bookForm = new BookForm(editFormContainer, storage);
     
     bookForm.addEventListener("clearItemList", (event) => {
-        console.info("itemlist render is fired")
         itemList.clearSelectedItem();
         itemList.render();
     });
     
     storage.addEventListener("refresh", () => { itemList.render() });
-
 
     let xhr = new XMLHttpRequest();
 

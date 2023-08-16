@@ -3,13 +3,11 @@ import Menu from "../../Menu/Menu.js";
 export default class BookForm extends EventTarget {
     container;
     storage;
-    isNew;
 
     constructor(container, storage) {
         super();
         this.container = container;
         this.storage = storage;
-        this.isNew = isNew;
         this.#initEventHandlers();
     }
 
@@ -181,12 +179,11 @@ export default class BookForm extends EventTarget {
         const modifiedBook = new FormData(bookform);
         const modifiedBookObj = {};
         modifiedBook.forEach((value, key) => (modifiedBookObj[key] = value));
-        console.info("NewBookObject", modifiedBookObj);
         return modifiedBookObj;
     }
 
     saveChanges() {
-        this.storage.saveBookMods(this.getNewBookObj(), this.isNew);
+        this.storage.saveBookMods(this.getNewBookObj());
         this.clearContainer();
     }
 }
