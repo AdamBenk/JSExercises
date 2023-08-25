@@ -6,42 +6,40 @@ import ServerStorage from "../components/Storage/ServerStorage.js";
 
 window.addEventListener("load", () => {
     const storage = new Storage();
-    let books = storage.getBooks();
-    //let books = window.bookList.books;
-    //storage.refreshLocal(books)
-    const booklistContainer = document.querySelector("#booklistContainer");
-    const editFormContainer = document.querySelector("#formContainer")
-
-    const itemList = new ItemList(booklistContainer, books, storage);
-    itemList.render();
-    itemList.addMenuBtns();
-    itemList.addEventListener("editbook", (event) => {
-        bookForm.render(event.detail);
-    });
-
-    itemList.addEventListener("createbook", (event) => {
-        bookForm.render(event.detail, true);
-    });
-
-    itemList.addEventListener("deletebook", (event) => {
-        storage.deleteBooks(event.detail);
-        itemList.render();
-        bookForm.clearContainer();
-    });
-
-    const bookForm = new BookForm(editFormContainer, storage);
-    
-    bookForm.addEventListener("clearItemList", (event) => {
-        itemList.clearSelectedItem();
-        itemList.render();
-    });
-    
-    storage.addEventListener("refresh", () => { itemList.render() });
-    
     const serverStorage = new ServerStorage("http://localhost:3002");
-    serverStorage.getBooks((a, b, c) => {
-        console.info(a, b, c)
-    });
-    
+    let itemList;
+    let bookForm;
+    const booklistContainer = document.querySelector("#booklistContainer");
+    const editFormContainer = document.querySelector("#formContainer");
 
+    serverStorage.getBooks((response) => {
+        itemList = new ItemList(booklistContainer, serverStorage.books, storage);
+        itemList.render();
+        itemList.addMenuBtns();
+        itemList.addEventListener("editbook", (event) => {
+            bookForm.render(event.detail);
+        });
+
+        itemList.addEventListener("createbook", (event) => {
+            bookForm.render(event.detail, true);
+        });
+
+        itemList.addEventListener("deletebook", (event) => {
+            serverStorage.deleteBooks(event.detail, () => {
+                this.serverStorage.getBooks((response) => {
+                    books = response;
+                    itemList.render();
+                    bookForm.clearContainer();
+                });
+            });
+        });
+
+        bookForm = new BookForm(editFormContainer, storage);
+        bookForm.addEventListener("clearItemList", (event) => {
+            itemList.clearSelectedItem();
+            itemList.render();
+        });
+        
+        storage.addEventListener("refresh", () => { itemList.render() });
+    });
 });

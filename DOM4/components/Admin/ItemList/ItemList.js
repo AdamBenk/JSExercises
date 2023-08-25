@@ -77,12 +77,11 @@ export default class ItemList extends EventTarget {
 
                     xhr.addEventListener("load", () => {
                         console.info("result has arrived");
+                        console.info(xhr.response)
                     });
 
-                    xhr.open("GET", "http://localhost:3001/book/list");
+                    xhr.open("GET", "http://localhost:3002/book/list");
                     xhr.send();
-
-                    console.info(xhr.response)
                 }
             }
         ];

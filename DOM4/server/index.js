@@ -76,6 +76,7 @@ function initServer() {
         } catch(e) {
             sendErrorResponse(res, 400, e.message);
         }
+        
     });
 
     app.delete('/book/:isbn', (req, res) => {
