@@ -51,9 +51,10 @@ function initServer() {
         } catch(e) {
             sendErrorResponse(res, 400, e.message);
         }
-
     });
 
+
+    // creates a new entry in the database
     app.put('/book/:isbn', (req, res) => {
         try {
             console.info("create new book");
@@ -68,6 +69,7 @@ function initServer() {
 
     });
 
+    // updates an existing entry in the database
     app.post('/book/:isbn', (req, res) => {
         try {
             storage.update(req.params.isbn, createObjFromRequest(req), (err, books) => {
@@ -82,6 +84,7 @@ function initServer() {
     app.delete('/book/:isbn', (req, res) => {
         try {
             console.info("delete book", req.params.isbn);
+
             storage.delete(req.params.isbn, (err, books) => {
                 sendOKResponse(res, "book deleted" );
             });
@@ -91,6 +94,11 @@ function initServer() {
 
     });
 
+    app.options('*', (req, res) => {
+        res.set('Access-Control-Allow-Methods', 'OPTIONS,GET,HEAD,POST,PUT,DELETE');
+        res.send();
+    });
+
     app.listen(port, () => {
         console.log(`Example app listening on port ${port}`)
     });
@@ -98,11 +106,14 @@ function initServer() {
 
 function sendJSONResponse(res, obj) {
     res.set('Content-Type', 'application/json');
+    res.set('Access-Control-Allow-Methods', 'OPTIONS,GET,HEAD,POST,PUT,DELETE');
     res.send(JSON.stringify(obj));
 }
 
 function sendOKResponse(res, message) {
     res.status(200);
+    res.set('Content-Type', 'application/json');
+    res.set('Access-Control-Allow-Methods', 'OPTIONS,GET,HEAD,POST,PUT,DELETE');
     sendJSONResponse(res, { message });
 }
 

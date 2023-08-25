@@ -133,7 +133,9 @@ export default class BookForm extends EventTarget {
                     setdisabled: "true",
                     title: "Save New Book",
                     link: "",
-                    click: () => {
+                    click: (event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
                         this.saveChanges()
                     }
                 }
@@ -155,7 +157,9 @@ export default class BookForm extends EventTarget {
                     setdisabled: "true",
                     title: "Save Changes",
                     link: "",
-                    click: () => {
+                    click: (event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
                         this.saveChanges()
                     }
                 }
@@ -183,7 +187,10 @@ export default class BookForm extends EventTarget {
     }
 
     saveChanges() {
-        this.storage.saveBookMods(this.getNewBookObj());
-        this.clearContainer();
+        this.storage.saveBookMods(this.getNewBookObj(), () => {
+            // TODO: add event to refresh list
+
+            this.clearContainer();
+        });
     }
 }
