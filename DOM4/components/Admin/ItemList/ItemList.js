@@ -5,11 +5,10 @@ export default class ItemList extends EventTarget {
     storage;
     selectedItem;
 
-    constructor(container, booklist, storage) {
+    constructor(container, storage) {
         super();
 
         this.container = container;
-        this.booklist = booklist;
         this.storage = storage;
 
         this.selectedItem = null;
@@ -23,6 +22,11 @@ export default class ItemList extends EventTarget {
 
     clearSelectedItem() {
         this.selectedItem = null;
+    }
+
+    refreshList(books) {
+        this.booklist = books;
+        this.render();
     }
 
     renderItem(book) {
@@ -44,7 +48,6 @@ export default class ItemList extends EventTarget {
     }
 
     render() {
-        this.booklist = this.storage.getBooks();
         this.container.innerHTML =
             "<table>" +
             this.booklist.reduce((acc, curr) => acc + this.renderItem(curr), "") +

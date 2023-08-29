@@ -25,18 +25,29 @@ export default class ServerStorage extends EventTarget {
             console.info(this.host + "/book/" + isbn, req.xhr.response)
             const responseObj = JSON.parse(req.xhr.responseText);
             cb(responseObj);
-            this.books = responseObj;
         });
     }
 
-    saveBook(book/* book object */) {
-        const originalBookIndex = this.getBookIndexByISBN(newBookObj.isbn);
-        if (originalBookIndex >= 0) {  
-            books[originalBookIndex] = newBookObj;
-            this.refreshLocal(books);
-        } else {
-            books.push(newBookObj)
-            this.refreshLocal(books);
-        }
+    checkIfAnyChanges(newBookObj) {
+        return false;
+    }
+
+    saveBookMods(newBookObj, cb = () => {}) {
+
+        req.send( `${this.host}/book/${newBookObj.isbn}`, "post", () => {
+            const responseObj = JSON.parse(req.xhr.responseText);
+
+            this.getBooks((books) => {
+                this.refreshLocal(books);
+                cb(responseObj);
+            })
+
+        }, () => {}, JSON.stringify(newBookObj));
+    }
+
+    refreshLocal(books) {
+        this.books = books;
+        const event = new CustomEvent("refresh", {});
+        this.dispatchEvent(event);
     }
 } 

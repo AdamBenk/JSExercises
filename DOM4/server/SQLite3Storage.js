@@ -58,17 +58,17 @@ export class SQLite3Storage {
     }
 
     update(id, data, cb = emptyFn) {
-        const fieldNames = Object.keys(data).join(",");
-        const fieldQuestionMarks = Object.keys(data).map(() => "?").join(",");
+        const fieldNames = Object.keys(data).join(","); // "isbn, title, author, pages, read"
+        const fieldQuestionMarks = Object.keys(data).map(() => "?").join(","); // "?, ?, ?, ?, ?"
         const values = Object.values(data);
         values.push(id);
-
-        console.info(values.join(","));
-        console.info(`UPDATE ${this.#context} SET (${fieldNames}) VALUES (${fieldQuestionMarks}) WHERE isbn LIKE ?`);
-        this.#db.run(`UPDATE ${this.#context} SET (${fieldNames}) VALUES (${fieldQuestionMarks}) WHERE isbn LIKE ?`, values, cb);
+        // UPDATE books SET (isbn, title, author, pages, read) VALUES (?, ?, ?, ?, ?) WHERE isbn = ?
+        
+        this.#db.run(`UPDATE ${this.#context} SET (${fieldNames}) VALUES (${fieldQuestionMarks}) WHERE isbn = ?`, values, cb);
     }
 
-    delete(isbn,cb = emptyFn) {
-        this.#db.run(`DELETE FROM ${this.#context} WHERE isbn LIKE ?`, [isbn], cb);
+    delete(id, cb = emptyFn) {
+        console.info(`DELETE FROM ${this.#context} WHERE isbn = ${id}`);
+        this.#db.run(`DELETE FROM ${this.#context} WHERE isbn = ?`, [id], cb);
     }
 }

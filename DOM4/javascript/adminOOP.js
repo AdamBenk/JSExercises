@@ -13,8 +13,8 @@ window.addEventListener("load", () => {
     const editFormContainer = document.querySelector("#formContainer");
 
     serverStorage.getBooks((response) => {
-        itemList = new ItemList(booklistContainer, serverStorage.books, storage);
-        itemList.render();
+        itemList = new ItemList(booklistContainer, serverStorage);
+        itemList.refreshList(response);
         itemList.addMenuBtns();
         itemList.addEventListener("editbook", (event) => {
             bookForm.render(event.detail);
@@ -26,20 +26,23 @@ window.addEventListener("load", () => {
 
         itemList.addEventListener("deletebook", (event) => {
             serverStorage.deleteBooks(event.detail, () => {
-                this.serverStorage.getBooks((response) => {
-                    books = response;
-                    itemList.render();
+                serverStorage.getBooks((response) => {
+                    itemList.refreshList(response);
                     bookForm.clearContainer();
                 });
             });
         });
 
-        bookForm = new BookForm(editFormContainer, storage);
+        bookForm = new BookForm(editFormContainer, serverStorage);
+
         bookForm.addEventListener("clearItemList", (event) => {
             itemList.clearSelectedItem();
             itemList.render();
         });
         
-        storage.addEventListener("refresh", () => { itemList.render() });
+        serverStorage.addEventListener("refresh", () => {
+            console.info("refreshing list");
+            itemList.render()
+        });
     });
 });
