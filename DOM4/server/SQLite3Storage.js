@@ -2,15 +2,15 @@ import sqlite3 from 'sqlite3';
 
 const emptyFn = () => { };
 export class SQLite3Storage {
-    #context = "undefined";
+    #table = "undefined";
     #db;
     #filename;
 
     constructor(context = "undefined", definitions = {}, cb = emptyFn) {
-        this.#context = context;
-        const filename = `./${this.#convertToFilename(this.#context)}.db`;
+        this.#table = context;
+        const filename = `./${this.#convertToFilename(this.#table)}.db`;
 
-        console.info(`Storage: connecting to ${filename}, context: ${this.#context}`);
+        console.info(`Storage: opening file  ${filename}, table: ${this.#table}`);
 
         sqlite3.verbose();
         this.#db = new sqlite3.Database(filename, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE,
@@ -19,7 +19,7 @@ export class SQLite3Storage {
                     console.error(err.message);
                     process.exit(1);
                 } else {
-                    console.info(`Connected to the ${this.#context} database.`);
+                    console.info(`Connected to the ${this.#table} database.`);
                     this.#createTable(definitions, cb);
                 }
             }
@@ -32,7 +32,7 @@ export class SQLite3Storage {
 
     #createTable(defs, cb = emptyFn) {
         const defStr = Object.keys(defs).map(key=>`${key} ${defs[key]}`).join(", ");
-        const query = `CREATE TABLE IF NOT EXISTS ${this.#context} (${defStr})`;
+        const query = `CREATE TABLE IF NOT EXISTS ${this.#table} (${defStr})`;
 
         this.#db.run(query, cb);
     }
@@ -54,7 +54,7 @@ export class SQLite3Storage {
         const fieldQuestionMarks = Object.keys(data).map(() => "?").join(",");
         const values = Object.values(data);
 
-        this.#db.run(`INSERT INTO ${this.#context} (${fieldNames}) VALUES (${fieldQuestionMarks})`, values, cb);
+        this.#db.run(`INSERT INTO ${this.#table} (${fieldNames}) VALUES (${fieldQuestionMarks})`, values, cb);
     }
 
     update(id, data, cb = emptyFn) {
@@ -64,11 +64,11 @@ export class SQLite3Storage {
         values.push(id);
         // UPDATE books SET (isbn, title, author, pages, read) VALUES (?, ?, ?, ?, ?) WHERE isbn = ?
         
-        this.#db.run(`UPDATE ${this.#context} SET (${fieldNames}) VALUES (${fieldQuestionMarks}) WHERE isbn = ?`, values, cb);
+        this.#db.run(`UPDATE ${this.#table} SET (${fieldNames}) VALUES (${fieldQuestionMarks}) WHERE isbn = ?`, values, cb);
     }
 
     delete(id, cb = emptyFn) {
-        console.info(`DELETE FROM ${this.#context} WHERE isbn = ${id}`);
-        this.#db.run(`DELETE FROM ${this.#context} WHERE isbn = ?`, [id], cb);
+        console.info(`DELETE FROM ${this.#table} WHERE isbn = ${id}`);
+        this.#db.run(`DELETE FROM ${this.#table} WHERE isbn = ?`, [id], cb);
     }
 }

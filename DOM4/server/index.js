@@ -31,11 +31,14 @@ const storage = new SQLite3Storage(
 );
 
 function initServer() {
+    console.info("route added: GET /");
     app.get('/', (req, res) => res.send('alive'))
 
+    console.info("route added: GET /book/list");
     app.get('/book/list', (req, res) => {
         try {
             storage.getAll((err, books) => {
+                console.info("books", books);
                 sendJSONResponse(res, books);
             });
         } catch(e) {
@@ -43,10 +46,12 @@ function initServer() {
         }
     });
 
+    console.info("route added: GET /book/:isbn");
     app.get('/book/:isbn', (req, res) => {
         try {
-            storage.getBy("isbn", req.body.isbn, (err, books) => {
-                sendJSONResponse(res, books);
+            storage.getBy("isbn", req.body.isbn, (err, book) => {
+                console.info("books", book);
+                sendJSONResponse(res, book);
             });
         } catch(e) {
             sendErrorResponse(res, 400, e.message);
@@ -55,13 +60,17 @@ function initServer() {
 
 
     // creates a new entry in the database
-    app.put('/book/:isbn', (req, res) => {
+    console.info("route added: PUT /book/:isbn");
+    app.post('/book/:isbn', (req, res) => {
         try {
             console.info("create new book");
             console.info(typeof req.body, req.body);
 
             storage.create(createObjFromRequest(req), (err, books) => {
-                sendOKResponse(res, "book created");
+                storage.getAll((err, books) => {
+                    console.info("getting all books", books)
+                    sendJSONResponse(res, books);
+                });
             });
         } catch(e) {
             sendErrorResponse(res, 400, e.message);
@@ -70,10 +79,15 @@ function initServer() {
     });
 
     // updates an existing entry in the database
-    app.post('/book/:isbn', (req, res) => {
+    console.info("route added: POST /book/:isbn");
+    app.put('/book/:isbn', (req, res) => {
         try {
+            console.info("update book", req.body);
             storage.update(req.params.isbn, createObjFromRequest(req), (err, books) => {
-                sendOKResponse(res, "book updated");
+                storage.getAll((err, books) => {
+                    console.info("getting all books", books)
+                    sendJSONResponse(res, books);
+                });
             });
         } catch(e) {
             sendErrorResponse(res, 400, e.message);
@@ -81,17 +95,19 @@ function initServer() {
         
     });
 
+    console.info("route added: DELETE /book/:isbn");
     app.delete('/book/:isbn', (req, res) => {
         try {
             console.info("delete book", req.params.isbn);
 
             storage.delete(req.params.isbn, (err, books) => {
-                sendOKResponse(res, "book deleted" );
+                storage.getAll((err, books) => {
+                    sendJSONResponse(res, books);
+                });
             });
         } catch(e) {
             sendErrorResponse(res, 400, e.message);
         }
-
     });
 
     app.options('*', (req, res) => {
@@ -100,7 +116,7 @@ function initServer() {
     });
 
     app.listen(port, () => {
-        console.log(`Example app listening on port ${port}`)
+        console.log(`Bookstore server is listening on port ${port}`)
     });
 }
 
@@ -108,13 +124,6 @@ function sendJSONResponse(res, obj) {
     res.set('Content-Type', 'application/json');
     res.set('Access-Control-Allow-Methods', 'OPTIONS,GET,HEAD,POST,PUT,DELETE');
     res.send(JSON.stringify(obj));
-}
-
-function sendOKResponse(res, message) {
-    res.status(200);
-    res.set('Content-Type', 'application/json');
-    res.set('Access-Control-Allow-Methods', 'OPTIONS,GET,HEAD,POST,PUT,DELETE');
-    sendJSONResponse(res, { message });
 }
 
 function sendErrorResponse(res, errNo, message) {

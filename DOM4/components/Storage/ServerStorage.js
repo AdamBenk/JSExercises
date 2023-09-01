@@ -6,7 +6,7 @@ export default class ServerStorage extends EventTarget {
         this.host = host;
     }
     getBooks(cb) {
-        req.send(this.host + "/book/list", "GET", (response) => {
+        req.send(`${this.host}/book/list`, "GET", (response) => {
             this.books = response;
             cb(response);
         });
@@ -21,7 +21,7 @@ export default class ServerStorage extends EventTarget {
     }
 
     deleteBooks(isbn, cb) {
-        req.send(this.host + "/book/" + isbn, "delete", () => {
+        req.send(`${this.host}/book/${isbn}`, "delete", () => {
             console.info(this.host + "/book/" + isbn, req.xhr.response)
             const responseObj = JSON.parse(req.xhr.responseText);
             cb(responseObj);
