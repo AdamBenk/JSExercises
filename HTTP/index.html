@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Store</title>
+    <link rel="stylesheet" href="/dist/js/index.min.css">
+    <script src="/dist/js/index.min.js"></script>
+</head>
+<body>
+
+</body>
+</html>
+<!--
+    Make a login page with username and password fields and a login button.
+    When the user clicks the login button, make an AJAX request to the server to check if the username and password are correct.
+
+    the url is GET http://localhost:3002/login
+
+    the server works very badly, sometimes it takes 5s to respond, sometimes it results error on server
+    and sometimes it works fine. You have to handle all the cases.
+    When ajax request timeouts, open a small window on screen and ask the user to try again.
+    When ajax request results error on server, open a small window on screen and ask the user to try again.
+    When ajax request results success, open a small window on screen and show the user a welcome message.
+    When successfully logged in, then redirect to the home page.
+
+   Tasks:
+   - implement the login page with username and password fields and a login button
+
+   - implement Request.js to make the ajax request, use the previous Request.js from DOM4
+       - for POST requests, parameters need to be sent in HTTP request body
+           - for this server, you need to send the parameters in JSON format:
+               {
+                   "username": "user",
+                   "password": "pass"
+               }
+       - implement Request.js, so it handles timeouts, and server errors
+         Each case make request.js object to throw an error
+
+   - implement error handling in the login page
+       - when ajax request timeouts, open a small window on screen and ask the user to try again.
+       - when ajax request results error on server, open a small window on screen and ask the user to try again.
+       - when ajax request results success, open a small window on screen and show the user a welcome message.
+       - when successfully logged in, then redirect to the home page.
+
+   - when needed, create new classes for each component on screen, but you can use html only.
+
+-->
