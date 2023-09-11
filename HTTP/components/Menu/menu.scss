@@ -1,0 +1,28 @@
+@import "/HTTP/css/fonts.scss";
+
+#menuContainer ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    margin: 0;
+    padding-left: 10px;
+}
+
+li {
+    margin-right: 45px;    
+}
+
+.menuBtn {
+    border: solid 5px rgb(54, 50, 50);
+    border-radius: 20px;
+    background: linear-gradient(180deg, #68a7c4, 40%, #395974);
+    color: rgb(243, 247, 250);
+    font-family: 'Caprasimo-Regular';
+    font-size: 35px;
+    min-width: max-content;
+    padding: 3px 25px;
+}
+
+.menuBtn:hover {
+    background: rgb(63, 73, 82);
+}

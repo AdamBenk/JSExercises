@@ -1,0 +1,48 @@
+@import "/HTTP/css/fonts.scss";
+
+#loginWindow {
+    position: absolute;
+    left: 50%;
+    top: 500px;
+    transform: translate(-50%, -50%);
+    height: 450px;
+    width: 300px;
+    box-sizing: border-box;
+    background: linear-gradient(0deg, #dbe5f3, 10%, #82a4ec);
+    border: solid 2px #1e3129;
+    color: rgb(35, 84, 121);
+    font-size: 18px;
+    font-family: 'Limelight-Regular';
+    padding: 30px 15px;
+    
+    animation-name: moveup, spin;
+    animation-duration: 1ms, 1s;
+    animation-composition: add;
+
+    .formItemContainer {
+       margin: 15px;
+    }
+    
+    .loginInput {
+        border: solid 3px #4d71df;
+        border-radius: 8px;
+        height: 2em;
+        width: 80%;
+    }
+}
+
+@keyframes moveup {
+    from {
+        transform: translate(-50%, -50%);
+    } to {
+        transform: translate(-50%, -150%);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    } to {
+        transform: rotate(360deg);
+    }
+} 

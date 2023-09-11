@@ -1,3 +1,24 @@
+
+@import "../components/LoginWindow/loginwindow.scss";
+@import "../components/Menu/menu.scss";
+@import "./fonts.scss";
+
 body {
-    background-color: #333;
+    
+    background: linear-gradient(160deg, #c4c7c9 45%, #6dd4a4 65%, #335348 80%);
+    margin: 5px;
+    min-height: 100vh;
+    font-family: 'Caprasimo-Regular';
 }
+
+#menuContainer {
+    height: 200px;
+    background: linear-gradient(90deg, #c4c7c9, 30%, #1e1f20);
+    border: solid 4px rgba($color: #293a68, $alpha: 1.0);
+    //background: url("../images/fresco.png");
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
