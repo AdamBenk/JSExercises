@@ -1,11 +1,13 @@
 import Menu from "../components/Menu/menu.js";
 import LoginWindow from "../components/LoginWindow/loginwindow.js";
+import ErrorMessage from "../components/ErrorMessage/errormessage.js";
 
 window.addEventListener("load", () => {
     
-    const loginWindowContainer = document.querySelector("body");
+    const container = document.querySelector("body");
     
-    const loginWindow = new LoginWindow(loginWindowContainer);
+    const loginWindow = new LoginWindow(container);
+
     const menuItems = [
         {
             id: "loginBtn",
@@ -13,11 +15,10 @@ window.addEventListener("load", () => {
             title: "Login",
             link: "",
             click: () => {
-                console.info("clicked!", "this.container:", loginWindowContainer)
-                loginWindow.render();              
+                loginWindow.render();        
                 } 
         }, {
-            id: "",
+            id: "someBtn",
             class: "menuBtn",
             title: "This does nothing!",
             link: "",
@@ -28,4 +29,13 @@ window.addEventListener("load", () => {
     
     const menu = new Menu(document.querySelector("#menuContainer"), menuItems);
     menu.render();
+
+    const errorwindow = new ErrorMessage(container);
+    
+    loginWindow.addEventListener("renderErrorMessage", (event) => {
+        errorwindow.render(event.detail);
+        console.info("message rendered")
+    });
+    
+
 });

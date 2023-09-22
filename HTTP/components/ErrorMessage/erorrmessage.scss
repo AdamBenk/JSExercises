@@ -1,6 +1,4 @@
-@import "/HTTP/css/fonts.scss";
-
-#modalWindow {
+#modalWindow2 {
     position: fixed;
     top: 0;
     left: 0;
@@ -8,16 +6,16 @@
     width: 100%;
     opacity: 0.5;
     background-color: #2c385c;
-    z-index: 2;
+    z-index: 5;
 }
 
-#loginWindow {
+#loginFeedbackWindow {
     position: absolute;
     left: 50%;
     top: 500px;
     transform: translate(-50%, -50%);
-    height: 450px;
-    width: 300px;
+    height: 250px;
+    width: 450px;
     box-sizing: border-box;
     background: linear-gradient(0deg, #dbe5f3, 10%, #82a4ec);
     border: solid 2px #1e3129;
@@ -26,7 +24,7 @@
     font-size: 18px;
     font-family: 'Limelight-Regular';
     padding: 30px 15px;
-    z-index: 4;
+    z-index: 6;
     
     animation-name: moveup, spin;
     animation-duration: 1ms, 1s;
@@ -34,22 +32,7 @@
     
     }
 
-    .formItemContainer {
-       margin: 15px;
-    }
-    
-    .loginInput {
-        border: solid 3px #4d71df;
-        border-radius: 8px;
-        height: 2em;
-        width: 80%;
-    }
-
-    .loginInput:invalid {
-        border: 2px solid red;
-    }
-
-    #loginBtnContainer ul {
+    #closeWinBtnContainer ul {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -61,7 +44,7 @@
         li {
             margin-right: 20px;
 
-            .loginWindowBtn {
+            #closeWinBtn {
                 border: solid 2.5px rgb(34, 32, 59);
                 box-shadow: 2px 1px 3px #4b4c50;
                 border-radius: 10px;
@@ -87,13 +70,8 @@
                     color: rgb(36, 52, 65);
                 }
             }
-
         }
-    
     }
-    
-
-
     
 
 @keyframes moveup {

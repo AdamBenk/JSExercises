@@ -11,6 +11,9 @@ export default class Menu {
         this.container.innerHTML = `<ul>${items}</ul>`
         this.items.forEach(item => {
             const button = this.container.querySelector(`#${item.id}`);
+            if (item.setdisabled) {
+                button.disabled = true;
+            } 
             button.addEventListener("click", item.click);
         });
     }

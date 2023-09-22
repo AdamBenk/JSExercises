@@ -26,3 +26,8 @@ li {
 .menuBtn:hover {
     background: rgb(63, 73, 82);
 }
+
+.menuBtn:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
