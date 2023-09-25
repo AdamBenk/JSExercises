@@ -7,7 +7,6 @@ export default class LoginWindow extends EventTarget {
     constructor(container) {
         super();
         this.container = container;
-        this.#initEventHandlers();
     }
 
     #initEventHandlers() {
@@ -32,10 +31,11 @@ export default class LoginWindow extends EventTarget {
             <div id="loginBtnContainer">
             </div>
         </form>`
-        this.renderLloginBtns();
+        this.renderLoginBtns();
+        this.#initEventHandlers();
     }
 
-    renderLloginBtns() {
+    renderLoginBtns() {
         const buttons = [
                 {
                     id: "loginBtn",
@@ -43,7 +43,7 @@ export default class LoginWindow extends EventTarget {
                     setdisabled: "",
                     title: "Login",
                     link: "",
-                    click: () => {
+                    click: (ev) => {
                         
                         const username = this.container.querySelector("#username"); 
                         const password = this.container.querySelector("#password");  
@@ -56,11 +56,14 @@ export default class LoginWindow extends EventTarget {
 
                         req.post(url, params, (res)=>{
                             console.info("Is this happening?", res, res.message);
-                            this.dispatchEvent(new CustomEvent("renderErrorMessage", { detail: res.message }));
-                        }, ()=>{
-                            
-                           
+
+                            //this.dispatchEvent(new CustomEvent("renderErrorMessage", { detail: res.message }));
+                        }, (status, errorObj)=>{
+
+                           console.info("error", status, errorObj);
                         });
+                        ev.preventDefault();
+                        ev.stopPropagation();
                     }
                 },
                 {
