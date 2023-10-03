@@ -22,15 +22,15 @@ export default class LoginWindow extends EventTarget {
         `<form action="" method="get" id="loginform">
             <div class="formItemContainer">
                 <label for="username">Username: </label>
-                <input type="text" name="username" id="username" class="loginInput" required minlength="4" />
+                <input type="text" name="username" id="username" class="loginInput" />
             </div>
             <div class="formItemContainer">
                 <label for="password">Password: </label>
-                <input type="text" name="password" id="password" class="loginInput" required minlength="4" />
+                <input type="text" name="password" id="password" class="loginInput" />
             </div>
-            <div id="loginBtnContainer">
-            </div>
-        </form>`
+        </form>
+        <div id="loginBtnContainer">
+        </div>`
         this.renderLoginBtns();
         this.#initEventHandlers();
     }
@@ -55,11 +55,10 @@ export default class LoginWindow extends EventTarget {
                         };
 
                         req.post(url, params, (res)=>{
-                            console.info("Is this happening?", res, res.message);
-
-                            //this.dispatchEvent(new CustomEvent("renderErrorMessage", { detail: res.message }));
+                            console.info("success", res, res.message);
+                            this.dispatchEvent(new CustomEvent("renderErrorMessage", { detail: res.message }));
                         }, (status, errorObj)=>{
-
+                            this.dispatchEvent(new CustomEvent("renderErrorMessage", { detail: errorObj.message }));
                            console.info("error", status, errorObj);
                         });
                         ev.preventDefault();

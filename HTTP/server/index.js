@@ -18,17 +18,17 @@ function initServer() {
         const rnd = Math.random();
         const username = req.query.username;
         const password = req.query.password;
-
+        //login(username, password, res); return;
         if (rnd < 0.5) { login(username, password, res); return; }
 
-        if (rnd < 0.8) { timeout(req, res); return; }
+        if (rnd < 0.8) { timeout(username, password, res); return; }
         if (rnd < 1)   { error(req, res); return; }
     });
 
     app.post('/login', (req, res) => {
         const username = req.body.username;
         const password = req.body.password;
-        timeout(req, res);
+        timeout(username, password, res);
         return;
 
         login(username, password, res);
@@ -55,12 +55,12 @@ function login(username, password, res) {
     }
 }
 
-function timeout(req, res) {
+function timeout(username, password, res) {
     console.info("> login timeout");
     setTimeout(() => {
 
-        login(req, res);
-    }, 5000);
+        login(username, password, res);
+    }, 1000);
 }
 
 function error(req, res) {

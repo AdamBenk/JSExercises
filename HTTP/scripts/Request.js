@@ -9,7 +9,6 @@ class Request {
             const responseObj = JSON.parse(this.xhr.responseText);
             const status = this.xhr.status
 
-
             switch (status) {
                 case 401:
                 case 404:
@@ -25,6 +24,11 @@ class Request {
 
         this.xhr.addEventListener("error", (...args) => {
             console.info("ERROR")
+            errorCallBack && errorCallBack(this.xhr.status, args);
+        });
+
+        this.xhr.addEventListener("timeout", (...args) => {
+            console.info("TIMEOUT")
             errorCallBack && errorCallBack(this.xhr.status, args);
         });
 

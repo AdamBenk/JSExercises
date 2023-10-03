@@ -34,8 +34,5 @@ window.addEventListener("load", () => {
     
     loginWindow.addEventListener("renderErrorMessage", (event) => {
         errorwindow.render(event.detail);
-        console.info("message rendered")
     });
-    
-
 });
