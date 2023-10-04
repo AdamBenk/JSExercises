@@ -49,10 +49,19 @@ export default class LoginWindow extends EventTarget {
                         const password = this.container.querySelector("#password");  
                         const url = "http://localhost:3002/login";                      
                         const params = {
-                            
                             "username" : username.value,
                             "password" : password.value
                         };
+
+                        req.sendWithPromise(url, "POST", JSON.stringify(params))
+                        .then((res) => {
+                            console.info("Is this happening?", res, res.message);
+                            this.dispatchEvent(new CustomEvent("renderErrorMessage", { detail: res.message }));
+                        })
+                        .catch(() => {
+                            console.error("Hiba");
+                            // ablak megnyitas hibakiirassal
+                        });
 
                         req.post(url, params, (res)=>{
                             console.info("success", res, res.message);

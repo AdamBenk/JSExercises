@@ -22,7 +22,6 @@ export default class ErrorMessage extends EventTarget {
 
     renderCloseWinBtn() {
         const buttons = [
-               
                 {
                     id: "closeWinBtn",
                     class: "loginWindowBtn",

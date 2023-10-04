@@ -11,7 +11,8 @@
         "dom4": "webpack --mode=development --config ./DOM4/webpack.config.js",
         "dom4:server": "node ./DOM4/server/index.js",
         "http": "webpack --mode=development --config ./HTTP/webpack.config.js",
-        "http:server": "nodemon ./HTTP/server/index.js"
+        "http:server": "nodemon ./HTTP/server/index.js",
+        "pro": "nodemon ./Pro/index.js"
     },
     "repository": {
         "type": "git",

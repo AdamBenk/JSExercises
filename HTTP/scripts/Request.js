@@ -19,8 +19,12 @@ class Request {
                     successCallBack && successCallBack(responseObj);
                     break;
             }
-
         });
+
+        this.xhr.addEventListener("timeout", (...args) => {
+            console.error("Timeout", this.xhr.status);
+            errorCallBack && errorCallBack(this.xhr.status, args);
+        })
 
         this.xhr.addEventListener("error", (...args) => {
             console.info("ERROR")
@@ -37,6 +41,45 @@ class Request {
         this.xhr.setRequestHeader("Access-Control-Allow-Methods", "*");
 
         this.xhr.send(body);
+    }
+
+    sendWithPromise(url, method, body) {
+        return new Promise((resolve, reject) => {
+            this.xhr = new XMLHttpRequest();
+            this.xhr.timeout = 1500;
+            this.xhr.addEventListener("load", () => {
+                const responseObj = JSON.parse(this.xhr.responseText);
+                const status = this.xhr.status
+
+
+                switch (status) {
+                    case 401:
+                    case 404:
+                    default:
+                        reject(status, responseObj);
+                        break;
+                    case 200:
+                        resolve(responseObj);
+                        break;
+                }
+            });
+
+            this.xhr.addEventListener("timeout", (...args) => {
+                console.error("Timeout", this.xhr.status);
+                reject(this.xhr.status, args);
+            })
+
+            this.xhr.addEventListener("error", (...args) => {
+                console.info("ERROR")
+                reject(this.xhr.status, args);
+            });
+
+            this.xhr.open(method, url);
+            this.xhr.setRequestHeader("Content-Type", "application/json");
+            this.xhr.setRequestHeader("Access-Control-Allow-Methods", "*");
+
+            this.xhr.send(body);
+        });
     }
 
     get(url, params, successCallBack, errorCallBack) {
