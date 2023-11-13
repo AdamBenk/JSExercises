@@ -113,7 +113,12 @@
  * Change the code to return a promise
  */
 function exercise1() {
-
+    const promise = new Promise(function(resolve, reject) {
+        setTimeout(function() {
+            resolve('hello world');
+        }, 2000);
+    return promise;
+    });
 }
 
 /**
@@ -125,6 +130,23 @@ function exercise1() {
  * If data is an odd number, return a promise resolved 1 second later and give the data "odd" (in a string)
  * If data is an even number, return a promise rejected 2 seconds later and give the data "even" (in a string)
  */
-function exercise2() {
-
+function exercise2(data) {
+    const promise = new Promise((resolve, reject) => {
+        switch(data) {
+            case !Number.isNaN(data): 
+                reject("error");
+                break
+            case data % 2 !== 0: 
+                setTimeout(() => {
+                    resolve('odd');
+                }, 1000);
+                break
+            case data % 2 === 0: 
+                setTimeout(() => {
+                    reject('even');
+                }, 2000);
+                break
+        }
+    return(promise);
+    });
 }
