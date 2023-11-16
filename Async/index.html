@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Store</title>
+    <link rel="stylesheet" href="/dist/js/index.min.css">
+    <script src="/dist/js/index.min.js"></script>
+</head>
+<body>
+   <div id="menuContainer">
+   </div>
+   
+</body>
+</html>
+<!--
+    Exercise 1: write an async function that has parameters:
+    - a css selector of a DOM element
+    - start position object (vector of x and y coordinates)
+    - end position object (vector of x and y coordinates)
+    - number of steps
+
+    The function will animate the DOM element defined by the selector from start absolute position to end. The
+    Like
+
+    moveDOMElement("#img", { x: 0, y: 0 }, { x: 100, y: 125 }, 10)
+
+    will move <img id="img" src="..." /> dom element from position (0, 0) to (100,100)
+    incrementing x and y coordinates by the correct amount of values in 10 steps
+
+    function moveDOMElement must be async function, resolve the promise when animation is ended and
+
+    Tips:
+    - use either setInterval or setTimeout functions to implement moveDOMElement function.
+    - adjust element.left and element.top properties to make animation
+    - set position: fixed for the animated dom element position
+
+    Exercise 2: write an async function that moves a DOM element around the screen in different positions sequentialy,
+    using the moveDOMElement function
+    for example (0, 0) -> (50, 50) -> (100, 0) -> (0, 100) ...
+
+    Exercise 3: write a function that moves two DOM elements around the screen in different random positions, in the same
+    time using moveDOMElement, and when both movement finished, turn the screen background to green
+
+    Tips:
+    - use Promise.all to check whether both animation is finished
+    - use async function for everything as blocking is not accepted at all
+
+-->
