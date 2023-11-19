@@ -1,6 +1,17 @@
 body {
+    width: 100%;
+    height: 100vh;
     background: linear-gradient(160deg, #000 45%, #222 65%, #333 80%);
     font-family: 'Verdana', arial, helvetica, sans-serif;
     z-index: 0;
+
+    img {
+        width: 400px;
+        height: auto;
+        border: 3px solid #c8e8ee;
+        position: fixed;
+        //top: 70px;
+        //left: 50px;
+    }
 }
 
