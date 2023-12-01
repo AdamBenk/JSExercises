@@ -13,7 +13,8 @@
         "http": "webpack --mode=development --config ./HTTP/webpack.config.js",
         "http:server": "nodemon ./HTTP/server/index.js",
         "pro": "nodemon ./Pro/index.js",
-        "async": "webpack --mode=development --config ./Async/webpack.config.js"
+        "async": "webpack --mode=development --config ./async/webpack.config.js",
+        "mixed": "webpack --mode=development --config ./mixed/webpack.config.js"
     },
     "repository": {
         "type": "git",

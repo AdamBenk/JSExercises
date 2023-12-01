@@ -1,0 +1,8 @@
+Exercise #2
+
+Use index.html, and implement a calculator seen on picture exercise2.jpg in this directory.
+
+1. Consider what you need to render components
+2. Create js, html, css for each
+3.
+

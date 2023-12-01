@@ -3,8 +3,8 @@ window.addEventListener("load", () => {
     //moveDOMElementPromise("picAnimated", {top:50, left:100}, {top:300, left:700}, 100);
     //moveDOMElementPromise("picAnimated", {top:50, left:50}, {top:500, left:100}, 10);
     //moveDOMElementAsync("picAnimated", {top:50, left:100}, {top:300, left:700}, 4);
-    moveAroundCorners({left:0, top:0}, 700, 500, 20);
-    //moveRandom({left:0, top:0}, {left:20, top:70});
+    //moveAroundCorners({left:0, top:0}, 700, 500, 20);
+    moveRandom({left:0, top:0}, {left:20, top:70});
 }); 
 
 
@@ -15,12 +15,11 @@ async function moveAroundCorners(startposition, leftstep, topstep, innersteps) {
     const p2 = {left: startposition.left, top: startposition.top + topstep};
     const p3 = {left: startposition.left + leftstep, top: startposition.top + topstep};
     const p4 = {left: startposition.left + leftstep, top: startposition.top};
-    const p5 = {left: startposition.left, top: startposition.top};
 
     await moveDOMElementPromise(img1ID, p1, p2, innersteps);
     await moveDOMElementPromise(img1ID, p2, p3, innersteps);
     await moveDOMElementPromise(img1ID, p3, p4, innersteps);
-    await moveDOMElementPromise(img1ID, p4, p5, innersteps);
+    await moveDOMElementPromise(img1ID, p4, p1, innersteps);
 }
 
 async function moveRandom(startPos1, startPos2) {
@@ -35,18 +34,33 @@ async function moveRandom(startPos1, startPos2) {
 
     const moveImg1 = moveDOMElementPromise(img1ID, startPos1, endPos1, steps);
     const moveImg2 = moveDOMElementPromise(img2ID, startPos2, endPos2, steps);
-    const bothMoving = Promise.all(moveImg1, moveImg2); 
-    await bothMoving;
+
+    console.info("1.");
+
+    await Promise.all([moveImg1, moveImg2]  );
+
+    console.info("2.");
+
     backGround.style.background = "rgb(101, 55, 117)"
 }
 
-function moveDOMElementPromise(imagename, startPos, endPos, steps) {
+function moveDOMElementPromise(imageName, startPos, endPos, steps) {
+    const sp = {
+        left: startPos.left,
+        top: startPos.top
+    };
+
+    const ep = {
+        left: endPos.left,
+        top: endPos.top
+    };
+
     return new Promise((resolve) => {
-        let imageobject = findElement(imagename);
+        let imageobject = findElement(imageName);
 
         setStartPosition(imageobject, startPos)
         const stepValue = setSteps(startPos, endPos, steps);
-        makeMoves(imageobject, startPos, endPos, stepValue, resolve);
+        makeMoves(imageobject, sp, ep, stepValue, resolve);
     });
 }
 
@@ -80,7 +94,7 @@ function setSteps(startPos, endPos, steps) {
 }
 
 function makeMoves(imageobject, startPos, endPos, stepValue, cb) {
-    let currPos = startPos;
+    const currPos = startPos;
     const moveIntervalID = setInterval(() => {
 
         currPos.left  += stepValue.left;

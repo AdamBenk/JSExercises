@@ -1,0 +1,111 @@
+Exercise #1:
+
+Use <root>/mixed/server/index.js
+Write a server application using Express.js
+Step #1 Install Express.js for the project (if already not installed)
+Step #2 Implement code that sets up express.js server
+Step #3 Implement all Entry points.
+Step #4 Write a simple frontend which calls local server and
+        check every enrty points work.
+
+Use Express.js documentation, examples from google and HTTP folder to check how to write entry points
+for express.js and implement operators and error handling!
+
+
+# ------------------------------------------------------------------------------
+Entry #1
+url:
+    GET /add
+
+Parameters:
+    a: number
+    b: number
+
+Action:
+    calculates a+b
+
+Returns
+    status 200 OK, if everything is ok,
+    JSON string, as the following structure:
+    {
+        result: <result of a+b>
+    }
+
+if error occured (a or b is not a number)
+    status 400 BAD REQUEST
+    {
+        error: "<error message>"
+    }
+
+# ------------------------------------------------------------------------------
+Entry #2
+url:
+    GET /substract
+
+Parameters:
+    a: number
+    b: number
+
+Action:
+    calculates a-b
+
+Returns
+    status 200 OK, if everything is ok,
+    JSON string, as the following structure:
+    {
+        result: <result of a-b>
+    }
+
+if error occured (a or b is not a number)
+    status 400 BAD REQUEST
+    {
+        error: "<error message>"
+    }
+
+
+
+# ------------------------------------------------------------------------------
+Entry #3
+url:
+    GET /multiply
+
+Parameters:
+    a: number
+    b: number
+
+Action:
+    calculates a*b
+
+Returns
+    status 200 OK, if everything is ok,
+    JSON string, as the following structure:
+    {
+        result: <result of a*b>
+    }
+
+if error occured (a or b is not a number)
+    status 400 BAD REQUEST
+    {
+        error: "<error message>"
+    }
+
+# ------------------------------------------------------------------------------
+Entry #4
+url:
+    GET /divide
+
+Parameters:
+    a: number
+    b: number
+
+Action:
+    calculates a/b
+
+Return: JSON
+    {
+        result: <result of a/b>
+    }
+
+
+
+
