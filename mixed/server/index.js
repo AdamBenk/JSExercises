@@ -10,20 +10,54 @@ app.use(bodyParser.urlencoded({ extended: true })); // Middleware to parse URL-e
 initServer();
 
 function initServer() {
-    console.info("route added: GET /");
-    app.get('/', (req, res) => res.send('alive'))
+    app.get("/", (req, res) => {
+        sendResult("ALIVE", res);
+    })
 
-    console.info("route added: POST /login");
-    app.get('/login', (req, res) => {
-        
+    app.get("/add", (req, res) => {
+        const [a,b ] = getParams(req);
+        const result = a + b;
+
+        if (checkIsNaN(a,b)) {
+            sendError("Either a or b is not a number");
+        } else {
+            sendResult(result, res);
+        }
     });
 
-    app.post('/login', (req, res) => {
-        
+    app.get("/subtract", (req, res) => {
+        const [a,b ] = getParams(req);
+        const result = a - b;
+
+        if (checkIsNaN(a,b)) {
+            sendError("Either a or b is not a number");
+        } else {
+            sendResult(result, res);
+        }
     });
 
-    app.get('/404', (req, res) => {
-        res.status(400);
+    app.get("/multiply", (req, res) => {
+        const [a,b ] = getParams(req);
+        const result = a * b;
+
+        if (checkIsNaN(a,b)) {
+            sendError("Either a or b is not a number");
+        } else {
+            sendResult(result, res);
+        }
+    });
+
+    app.get("/divide", (req, res) => {
+        const [a,b ] = getParams(req);
+        const result = a / b;
+
+        if (checkIsNaN(a,b)) {
+            sendError("Either a or b is not a number");
+        } else if (b === 0) {
+            sendError("Division by zero");
+        } else {
+            sendResult(result, res);
+        }
     });
 
     app.listen(port, () => {
@@ -31,39 +65,21 @@ function initServer() {
     });
 }
 
-/*function login(username, password, res) {
-    console.info("> login");
-
-    if (username === "admin" && password === "admin") {
-        console.info("> login successful");
-        sendJSONResponse(res, { message: "Login successful" });
-    } else {
-        console.info("> login failed");
-        sendErrorResponse(res, "Login failed", 401);
-    }
+function checkIsNaN(a,b) {
+    return (isNaN(a) || isNaN(b));
 }
 
-function timeout(username, password, res) {
-    console.info("> login timeout");
-    setTimeout(() => {
-
-        login(username, password, res);
-    }, 1000);
+function sendResult(result, res) {
+    res.setHeader("Content-Type", "application/json").status(200).send({ result });
 }
 
-function error(req, res) {
-    console.info("> internal server error");
-    sendErrorResponse(res, "Internal server error", 500);
+function sendError(errorMsg, res) {
+    res.setHeader("Content-Type", "application/json").status(400).send({ error: errorMsg });
 }
 
+function getParams(req) {
+    const a = parseInt(req.query["a"]);
+    const b = parseInt(req.query["b"]);
 
-function sendJSONResponse(res, obj) {
-    res.set('Content-Type', 'application/json');
-    res.set('Access-Control-Allow-Methods', 'OPTIONS,GET,HEAD,POST,PUT,DELETE');
-    res.send(JSON.stringify(obj));
+    return [a, b];
 }
-
-function sendErrorResponse(res, message, errNo = 400) {
-    res.status(errNo);
-    sendJSONResponse(res, { message });
-}*/

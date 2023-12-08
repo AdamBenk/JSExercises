@@ -40,7 +40,7 @@ if error occured (a or b is not a number)
 # ------------------------------------------------------------------------------
 Entry #2
 url:
-    GET /substract
+    GET /subtract
 
 Parameters:
     a: number

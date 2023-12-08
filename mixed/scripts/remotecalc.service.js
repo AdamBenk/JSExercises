@@ -1,15 +1,15 @@
 
 export class LocalCalculator {
     add(a, b) {
-        return a + b; //promise !!!!!
+        // axios call
     }
 
     subtract(a, b) {
-        return a - b;
+        // axios call
     }
 
     multiply(a, b) {
-        return a * b;
+
     }
 
     divide(a, b) {

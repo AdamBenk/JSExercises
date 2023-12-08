@@ -4,6 +4,14 @@ export class CalcButton {
     numbers;
     operators;
     display;
+
+    currentNumber; // string;
+    number1; // string
+    number2; // string
+    operator; // string
+
+
+
     constructor(containerNumbers, numbers, containerOperators, operators, display) {
         this.containerNumbers = containerNumbers;
         this.numbers = numbers;
@@ -52,4 +60,22 @@ export class CalcButton {
                 })
         }
     }
+
+
+    clearAll() {
+        // clears all numbers and operators to ""
+    }
+
+    addCharToCurrent(key /*character*/) { // called when a number or . pressed
+        // adds the key to the end of the currentNumber
+    }
+
+    setOperator(key) {
+        // if number1 not exist
+            // key -> operator
+            // currentNumber = ""
+    }
+
+
+
 }
