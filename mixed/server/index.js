@@ -19,7 +19,7 @@ function initServer() {
         const result = a + b;
 
         if (checkIsNaN(a,b)) {
-            sendError("Either a or b is not a number");
+            sendError("Either a or b is not a number", res);
         } else {
             sendResult(result, res);
         }
@@ -30,7 +30,7 @@ function initServer() {
         const result = a - b;
 
         if (checkIsNaN(a,b)) {
-            sendError("Either a or b is not a number");
+            sendError("Either a or b is not a number", res);
         } else {
             sendResult(result, res);
         }
@@ -41,7 +41,7 @@ function initServer() {
         const result = a * b;
 
         if (checkIsNaN(a,b)) {
-            sendError("Either a or b is not a number");
+            sendError("Either a or b is not a number", res);
         } else {
             sendResult(result, res);
         }
@@ -52,7 +52,7 @@ function initServer() {
         const result = a / b;
 
         if (checkIsNaN(a,b)) {
-            sendError("Either a or b is not a number");
+            sendError("Either a or b is not a number", res);
         } else if (b === 0) {
             sendError("Division by zero");
         } else {

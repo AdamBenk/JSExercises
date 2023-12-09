@@ -34,5 +34,5 @@ function sendRequest(operation, a, b) {
         case "/": url = "divide"; break;
     }
 
-    return axios("http://localhost:3004/" + url, { a, b });
+    return axios.get("http://localhost:3004/" + url, { params: { a, b } });
 }
