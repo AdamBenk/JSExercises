@@ -11,31 +11,43 @@ initServer();
 
 function initServer() {
     app.get('/add', (req, res) => {
-        const a = req.query.number1;
-        const b = req.query.number2;
+        const a = req.query.a;
+        const b = req.query.b;
+
         const result = a + b;
         sendJSONResponse(res, { result });
     })
 
     
     app.get('/substract', (req, res) => {
-        const a = req.query.number1;
-        const b = req.query.number2;
+        const a = req.query.a;
+        const b = req.query.b;
+
         const result = a - b;
         sendJSONResponse(res, { result });
     });
 
-    app.get('/mulitiply', (req, res) => {
-        const a = req.query.number1;
-        const b = req.query.number2;
-        const result = a / b;
+    app.get('/multiply', (req, res) => {
+        const a = req.query.a;
+        const b = req.query.b;
+
+        const result = a * b;
         sendJSONResponse(res, { result });
     });
 
     app.get('/divide', (req, res) => {
-        const a = req.query.number1;
-        const b = req.query.number2;
-        const result = a * b;
+        const a = req.query.a;
+        const b = req.query.b;
+
+        const result = a / b;
         sendJSONResponse(res, { result });
     });
+
+    app.listen(port, () => {
+        console.log(`Express is listening on port ${port}`);
+    });
+}
+function sendJSONResponse(res, data) {
+    res.setHeader("Content-type", "application/json");
+    res.send(data);
 }

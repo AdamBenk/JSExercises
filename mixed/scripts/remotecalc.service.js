@@ -1,62 +1,47 @@
 
+
 export class RemoteCalculator {
-    add(a, b, display) {
-        axios({
-            method: 'get',
-            url: 'http://localhost:3000/add',
-            data: {
-                number1: a,
-                number2: b
-              }
-          })
-            .then((response) => {
-                const result = JSON.parse(response)
-                display.value = result; 
-            });
+    add(a, b) {
+        return axios.get(
+            'http://localhost:3004/add',
+            {
+                params: { a, b }
+            }
+        ).then((response) => {
+            return response.data.result;
+        });
     }
 
     subtract(a, b) {
-        axios({
-            method: 'get',
-            url: 'http://localhost:3000/subtract',
-            data: {
-                number1: a,
-                number2: b
-              }
-          })
-            .then((response) => {
-                const result = JSON.parse(response)
-                display.value = result; 
-            });
+        return axios.get(
+            'http://localhost:3004/subtract',
+            {
+                params: { a, b }
+            }
+        ).then((response) => {
+            return response.data.result;
+        });
     }
 
     multiply(a, b) {
-        axios({
-            method: 'get',
-            url: 'http://localhost:3000/multiply',
-            data: {
-                number1: a,
-                number2: b
-              }
-          })
-            .then((response) => {
-                const result = JSON.parse(response)
-                display.value = result; 
-            });
+        return axios.get(
+            'http://localhost:3004/multiply',
+            {
+                params: { a, b }
+            }
+        ).then((response) => {
+            return response.data.result;
+        });
     }
 
     divide(a, b) {
-        axios({
-            method: 'get',
-            url: 'http://localhost:3000/divide',
-            data: {
-                number1: a,
-                number2: b
-              }
-          })
-            .then((response) => {
-                const result = JSON.parse(response)
-                display.value = result; 
-            });
+        return axios.get(
+            'http://localhost:3004/divide',
+            {
+                params: { a, b }
+            }
+        ).then((response) => {
+            return response.data.result;
+        });
     }
 }

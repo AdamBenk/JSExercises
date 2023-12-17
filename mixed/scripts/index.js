@@ -15,13 +15,15 @@ window.addEventListener("load", () => {
     calcButtons.render();
     calcButtons.addBtnFill();
 
-    const calculator = new LocalCalculator();
-    const result = calculator.add(1,3);
+    const calculator = new RemoteCalculator();
+    const result = calculator.multiply("x",3).then((result)=>{
+        console.log("Eredmeny: ", result);
+    });
 
-    const remoteCalculator = new RemoteCalculator();
+    /*const remoteCalculator = new RemoteCalculator();
     remoteCalculator.addEventListener("sendAB", (event) => {
         sendRequest(event.detail[0], event.detail[1], event.detail[2], displayField) 
-    })
+    })*/
 
     /*sendRequest("+", 10, 12).then((response) =>{
         console.info(response);
