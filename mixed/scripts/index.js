@@ -1,28 +1,32 @@
 import {CalcButton} from "./render.calc.button.js";
 import {LocalCalculator} from "./calc.service.js";
+import {RemoteCalculator} from "./remotecalc.service.js";
 import axios from "axios";
 
 
 window.addEventListener("load", () => {
-    const numberBtnContainer = document.querySelector(".numberBtnContainer");
-    const numbers = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, ".", "C"];
-    const operatorBtnContainer = document.querySelector(".operatorBtnContainer");
-    const operators = ["&#247", "&#177", "x", "&#8730", "-", "%", "+", "="];
+    const container = document.querySelector(".btnContainer");
+    const stencils = [7, 8, 9, "&#247", "&#177", 4, 5, 6, "x", "&#8730", 1, 2, 3, "-", "%", 0, ".", "C", "+", "="];
+    //const numbers = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, ".", "C"];
+    //const operators = ["&#247", "&#177", "x", "&#8730", "-", "%", "+", "="];
     const displayField = document.querySelector(".displayField");
 
-    const calcButtons = new CalcButton(numberBtnContainer, numbers, operatorBtnContainer, operators, displayField);
-    calcButtons.renderNumbers();
-    calcButtons.renderOperators();
+    const calcButtons = new CalcButton(container, stencils, displayField);
+    calcButtons.render();
     calcButtons.addBtnFill();
 
     const calculator = new LocalCalculator();
     const result = calculator.add(1,3);
 
-    sendRequest("+", 10, 12).then((response) =>{
-        console.info(response);
+    const remoteCalculator = new RemoteCalculator();
+    remoteCalculator.addEventListener("sendAB", (event) => {
+        sendRequest(event.detail[0], event.detail[1], event.detail[2], displayField) 
     })
-});
 
+    /*sendRequest("+", 10, 12).then((response) =>{
+        console.info(response);
+    })*/
+});
 
 function sendRequest(operation, a, b) {
     let url;

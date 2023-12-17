@@ -31,7 +31,7 @@ body {
             background: linear-gradient(rgb(139, 235, 187), rgb(219, 230, 222));
         }
 
-        .numberBtn, .operatorBtn {
+        .calcBtn {
             width: 55px;
             height: 55px;
             background-color: rgb(185, 201, 223);
@@ -41,19 +41,11 @@ body {
             margin: 2px;
         }
 
-        .numberBtnContainer {
+        .btnContainer {
             display: flex;
             flex-wrap: wrap;
-            justify-content: right;
-            width: 60%;
-            display: flex;
-        }
-
-        .operatorBtnContainer {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: left;
-            width: 40%;
+            justify-content: center;
+            width: 90%;
             display: flex;
         }
     }

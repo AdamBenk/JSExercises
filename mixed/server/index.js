@@ -10,76 +10,32 @@ app.use(bodyParser.urlencoded({ extended: true })); // Middleware to parse URL-e
 initServer();
 
 function initServer() {
-    app.get("/", (req, res) => {
-        sendResult("ALIVE", res);
+    app.get('/add', (req, res) => {
+        const a = req.query.number1;
+        const b = req.query.number2;
+        const result = a + b;
+        sendJSONResponse(res, { result });
     })
 
-    app.get("/add", (req, res) => {
-        const [a,b ] = getParams(req);
-        const result = a + b;
-
-        if (checkIsNaN(a,b)) {
-            sendError("Either a or b is not a number", res);
-        } else {
-            sendResult(result, res);
-        }
-    });
-
-    app.get("/subtract", (req, res) => {
-        const [a,b ] = getParams(req);
+    
+    app.get('/substract', (req, res) => {
+        const a = req.query.number1;
+        const b = req.query.number2;
         const result = a - b;
-
-        if (checkIsNaN(a,b)) {
-            sendError("Either a or b is not a number", res);
-        } else {
-            sendResult(result, res);
-        }
+        sendJSONResponse(res, { result });
     });
 
-    app.get("/multiply", (req, res) => {
-        const [a,b ] = getParams(req);
-        const result = a * b;
-
-        if (checkIsNaN(a,b)) {
-            sendError("Either a or b is not a number", res);
-        } else {
-            sendResult(result, res);
-        }
-    });
-
-    app.get("/divide", (req, res) => {
-        const [a,b ] = getParams(req);
+    app.get('/mulitiply', (req, res) => {
+        const a = req.query.number1;
+        const b = req.query.number2;
         const result = a / b;
-
-        if (checkIsNaN(a,b)) {
-            sendError("Either a or b is not a number", res);
-        } else if (b === 0) {
-            sendError("Division by zero");
-        } else {
-            sendResult(result, res);
-        }
+        sendJSONResponse(res, { result });
     });
 
-    app.listen(port, () => {
-        console.log(`http server is listening on port ${port}`);
+    app.get('/divide', (req, res) => {
+        const a = req.query.number1;
+        const b = req.query.number2;
+        const result = a * b;
+        sendJSONResponse(res, { result });
     });
-}
-
-function checkIsNaN(a,b) {
-    return (isNaN(a) || isNaN(b));
-}
-
-function sendResult(result, res) {
-    res.setHeader("Content-Type", "application/json").status(200).send({ result });
-}
-
-function sendError(errorMsg, res) {
-    res.setHeader("Content-Type", "application/json").status(400).send({ error: errorMsg });
-}
-
-function getParams(req) {
-    const a = parseInt(req.query["a"]);
-    const b = parseInt(req.query["b"]);
-
-    return [a, b];
 }
