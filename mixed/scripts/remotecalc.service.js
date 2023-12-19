@@ -8,6 +8,8 @@ export class RemoteCalculator {
                 params: { a, b }
             }
         ).then((response) => {
+            // implement error handling here
+
             return response.data.result;
         });
     }
@@ -19,6 +21,8 @@ export class RemoteCalculator {
                 params: { a, b }
             }
         ).then((response) => {
+            // implement error handling here
+
             return response.data.result;
         });
     }
@@ -30,6 +34,8 @@ export class RemoteCalculator {
                 params: { a, b }
             }
         ).then((response) => {
+            // implement error handling here
+
             return response.data.result;
         });
     }
@@ -41,7 +47,29 @@ export class RemoteCalculator {
                 params: { a, b }
             }
         ).then((response) => {
+            // implement error handling here
+
             return response.data.result;
         });
     }
+
+    /*
+
+    task 1: refactor: only 1 function with axios.get, all the operators call it with proper params
+
+    send(operator, a, b) {
+        return axios.get(`http://localhost:3004/${operator}`, { a, b });
+
+        // implement throw here;
+    }
+
+    add() {
+        return this.send("add", a, b);
+    }
+
+    ...
+
+    task 2: throw error if response.data.error is not empty
+
+    */
 }

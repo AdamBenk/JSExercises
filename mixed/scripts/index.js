@@ -16,8 +16,11 @@ window.addEventListener("load", () => {
     calcButtons.addBtnFill();
 
     const calculator = new RemoteCalculator();
+
     const result = calculator.multiply("x",3).then((result)=>{
         console.log("Eredmeny: ", result);
+    }, (error) => {
+        console.info("ERROR", error);
     });
 
     /*const remoteCalculator = new RemoteCalculator();

@@ -14,6 +14,29 @@ function initServer() {
         const a = req.query.a;
         const b = req.query.b;
 
+        /*
+          task 1:
+            verify whether a and b is number
+            if either a or b is not a number then send back an error message
+            write a sendError(message) function, that sends back the following structure:
+            {
+                error: message
+            }
+
+            ! set content type header
+            ! no need to json.stringify object in express js is content type is set
+
+          task 2:
+            process error message in browser (client side):
+
+            if response.data.error is not undefined then throw an error (use throw statement)
+
+
+          test: DOD:
+              if you provide wrong data, then client must throw an error with the error message from the server
+        */
+
+
         const result = a + b;
         sendJSONResponse(res, { result });
     })
@@ -51,3 +74,4 @@ function sendJSONResponse(res, data) {
     res.setHeader("Content-type", "application/json");
     res.send(data);
 }
+
