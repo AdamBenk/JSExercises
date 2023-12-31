@@ -6,6 +6,8 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+
+
 export default {
     mode: 'development',
     entry: {
@@ -33,8 +35,24 @@ export default {
                 'css-loader',
                 'sass-loader',
             ]
-        }]
+        },
+                {
+                    test: /\.(png|jpg|gif)$/i,
+                    dependency: { not: ['url'] },
+                    use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                        limit: 8192,
+                        },
+                    },
+                    ],
+                }
+        ],
+       
     },
+   
+   
     plugins: [
         new miniCss({
             filename: "[name].min.css"
@@ -49,5 +67,6 @@ export default {
             },
         })
     ],
+   
     watch: true
 };

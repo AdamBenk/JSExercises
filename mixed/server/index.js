@@ -11,9 +11,15 @@ initServer();
 
 function initServer() {
     app.get('/add', (req, res) => {
-        const a = req.query.a;
-        const b = req.query.b;
-
+        const a = parseFloat(req.query.a);
+        const b = parseFloat(req.query.b);
+        
+        if (checkIfValid(a, b)) {
+            sendErrorMessage(res, "Either a or b is not a number");
+        } else {
+            const result = a + b;
+            sendJSONResponse(res, { result });
+        }
         /*
           task 1:
             verify whether a and b is number
@@ -35,43 +41,67 @@ function initServer() {
           test: DOD:
               if you provide wrong data, then client must throw an error with the error message from the server
         */
-
-
-        const result = a + b;
-        sendJSONResponse(res, { result });
     })
 
     
-    app.get('/substract', (req, res) => {
-        const a = req.query.a;
-        const b = req.query.b;
-
-        const result = a - b;
-        sendJSONResponse(res, { result });
+    app.get('/subtract', (req, res) => {
+        const a = parseFloat(req.query.a);
+        const b = parseFloat(req.query.b);
+        
+        if (checkIfValid(a, b)) {
+            sendErrorMessage(res, "Either a or b is not a number");
+        } else {
+            const result = a - b;
+            sendJSONResponse(res, { result });
+        }
     });
 
     app.get('/multiply', (req, res) => {
-        const a = req.query.a;
-        const b = req.query.b;
-
-        const result = a * b;
-        sendJSONResponse(res, { result });
+        const a = parseFloat(req.query.a);
+        const b = parseFloat(req.query.b);
+        
+        if (checkIfValid(a, b)) {
+            sendErrorMessage(res, "Either a or b is not a number");
+        } else {
+            const result = a * b;
+            sendJSONResponse(res, { result });
+        }
     });
 
     app.get('/divide', (req, res) => {
-        const a = req.query.a;
-        const b = req.query.b;
-
-        const result = a / b;
-        sendJSONResponse(res, { result });
+        const a = parseFloat(req.query.a);
+        const b = parseFloat(req.query.b);
+        
+        if (checkIfValid(a, b)) {
+            sendErrorMessage(res, "Either a or b is not a number");
+        } if (b === 0) {
+            sendErrorMessage(res, "Dividion by zero");
+        } else {
+            const result = a / b;
+            sendJSONResponse(res, { result });
+        }
     });
 
     app.listen(port, () => {
         console.log(`Express is listening on port ${port}`);
     });
 }
+
 function sendJSONResponse(res, data) {
     res.setHeader("Content-type", "application/json");
     res.send(data);
+}
+
+function checkIfValid(a, b) {
+    return isNaN(a) || isNaN(b);
+}
+
+function sendErrorMessage(res, message) {
+    const error =  
+    {
+        error: message
+    }
+    res.setHeader("Content-type", "application/json");
+    res.status(400).send(error);
 }
 

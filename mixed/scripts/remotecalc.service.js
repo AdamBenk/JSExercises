@@ -2,57 +2,27 @@
 
 export class RemoteCalculator {
     add(a, b) {
-        return axios.get(
-            'http://localhost:3004/add',
-            {
-                params: { a, b }
-            }
-        ).then((response) => {
-            // implement error handling here
-
-            return response.data.result;
-        });
+        return this.send("add", a, b);
     }
-
     subtract(a, b) {
-        return axios.get(
-            'http://localhost:3004/subtract',
-            {
-                params: { a, b }
-            }
-        ).then((response) => {
-            // implement error handling here
-
-            return response.data.result;
-        });
+        return this.send("subtract", a, b);
     }
-
     multiply(a, b) {
-        return axios.get(
-            'http://localhost:3004/multiply',
-            {
-                params: { a, b }
-            }
-        ).then((response) => {
-            // implement error handling here
-
-            return response.data.result;
-        });
+        return this.send("multiply", a, b);
     }
-
     divide(a, b) {
-        return axios.get(
-            'http://localhost:3004/divide',
-            {
-                params: { a, b }
-            }
-        ).then((response) => {
-            // implement error handling here
-
-            return response.data.result;
-        });
+        return this.send("divide", a, b);
     }
-
+    
+    send(operator, a, b) {
+        return axios.get(`http://localhost:3004/${operator}`, { 
+            params: { a, b }
+        })
+        .then(response => response.data.result).catch(() => {
+            throw new Error("Failed at axios");
+        })
+    }
+} 
     /*
 
     task 1: refactor: only 1 function with axios.get, all the operators call it with proper params
@@ -72,4 +42,3 @@ export class RemoteCalculator {
     task 2: throw error if response.data.error is not empty
 
     */
-}

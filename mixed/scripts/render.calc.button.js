@@ -1,17 +1,17 @@
-export class CalcButton {
+export class Calculator {
     container;
-    stencils;
     display;
-
+    calculatorService;
+    stencils = [7, 8, 9, "&#247", "&#177", 4, 5, 6, "x", "&#8730", 1, 2, 3, "-", "%", 0, ".", "C", "+", "="];
     currentNumber = ""; // string;
-    number1 = ""; // string
+    number1 = "0"; // string
     number2 = ""; // string
     operator = ""; // string
 
-    constructor(container, stencils, display) {
+    constructor(container, display, calculatorService) {
         this.container = container;
-        this.stencils = stencils;
         this.display = display;
+        this.calculatorService = calculatorService; 
     }
 
     render() {
@@ -20,6 +20,7 @@ export class CalcButton {
             allBtns += `<button class="calcBtn">${this.stencils[i]}</button>`
             this.container.innerHTML = allBtns;
         }
+        this.display.value = "0";
     }
 
     addBtnFill() {
@@ -32,6 +33,9 @@ export class CalcButton {
                     calcBtns[i].classList.add("specBtn");
                     break;
                 case "=":
+                    calcBtns[i].classList.add("specBtn");
+                    break;
+                case "±":
                     calcBtns[i].classList.add("specBtn");
                     break;
                 case ".":
@@ -55,35 +59,29 @@ export class CalcButton {
         
         noBtns.forEach(element => {
             element.addEventListener("click", () => {
-                opBtns.forEach(element => {
-                    element.removeAttribute("disabled");
-                }); 
-                this.display.value += element.innerHTML;
                 this.addCharToCurrent(element.innerHTML);
-                console.info("pushed number button")
+                this.setDisplay(element.innerHTML);
             })
         })
         
         opBtns.forEach(element => {
             element.addEventListener("click", () => {
-                this.display.value += element.innerHTML;
-                this.closeNumber1(this.currentNumber);
+                this.storeNumber();
                 this.setOperator(element.innerHTML);
-                opBtns.forEach((element) => {
-                    element.setAttribute("disabled", "");
-                });
             })
         })
 
         specBtns.forEach(element => {
             element.addEventListener("click", () => {
                 switch(element.innerHTML) {
+                    case "±":
+                        this.changePlusMinus();
+                        break;
                     case "C":
                         this.clearAll();
                         break;
                     case "=":
-                        this.closeNumer2(this.currentNumber);
-                        element.dispatchEvent(new CustomEvent("sendAB", { detail: [this.operator, this.number1, this.number2] }));
+                        this.calcResult();
                         break;
                 }
             })
@@ -91,43 +89,89 @@ export class CalcButton {
     }
 
     findOperator(element) {
-        if (element.innerHTML !== "." && element.innerHTML !== "C" && element.innerHTML !== "=") {
+        if (element.innerHTML !== "." && element.innerHTML !== "C" && element.innerHTML !== "=" && element.innerHTML !== "±") {
             element.classList.add("operatorBtn");
         }
     }
 
     clearAll() {
-        this.display.value = ""; 
+        this.number1 = "0"; 
+        this.display.value = "0"; 
         this.currentNumber = "";
-        this.number1 = ""; 
         this.operator = "";
         this.number2 = "";
         // clears all numbers and operators to ""
     }
 
+    changePlusMinus() {
+        if (this.number1 !== "0") {
+            this.number1 = this.number1 * -1;
+            this.setDisplay(this.number1);
+        }
+        if (this.currentNumber !== "") {
+            this.currentNumber = parseInt(this.currentNumber) * -1;
+            this.display.value = "";
+            this.setDisplay(this.currentNumber);
+        }
+    }
+
     addCharToCurrent(key /*character*/) { // called when a number or . pressed
         this.currentNumber += key;
-        console.info("currentnumber:", this.currentNumber)
-        
         // adds the key to the end of the currentNumber
     }
 
-    closeNumber1(current) {
-        this.number1 = current; 
-        console.info("number1:", this.number1)
+    setDisplay(char) {
+        if (this.currentNumber.length < 2) {
+            this.display.value = "";
+        }
+        this.display.value += char;
     }
 
+    storeNumber() {
+        if (this.operator === "" && this.currentNumber !== "") {
+            this.number1 = this.currentNumber; 
+            this.currentNumber = "";
+        } 
+        if (this.operator !== "" ) {
+            this.number2 = this.currentNumber;
+            this.currentNumber = "";
+            this.callService().then(result => {
+                this.number1 = result;
+                this.display.value = result;
+            });
+        } 
+    }
 
     setOperator(key) {
         this.operator = key; 
-        this.currentNumber = ""; 
         
         // if number1 not exist
             // key -> operator
             // currentNumber = ""
     }
 
-    closeNumer2(current) {
-        this.number2 = current; 
+    calcResult() {
+        this.number2 = this.currentNumber;
+        this.callService().then(result => {
+            this.number1 = result;
+            this.display.value = result;
+            this.currentNumber = "";
+            this.operator = "";
+            this.number2 = "";
+        });
+    }
+
+    callService() {
+        console.log("Callservice:", this.operator, this.number1, this.number2)
+        switch(this.operator) {
+            case "+": 
+                return this.calculatorService.add(this.number1, this.number2);
+            case "-": 
+                return this.calculatorService.subtract(this.number1, this.number2);
+            case "x": 
+                return this.calculatorService.multiply(this.number1, this.number2);
+            case "÷": 
+                return this.calculatorService.divide(this.number1, this.number2);
+        }
     }
 }

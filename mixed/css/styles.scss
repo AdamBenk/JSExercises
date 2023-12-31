@@ -6,7 +6,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url(./white_grey_watercolour_background.jpg);
+    background-image: url(./images/mural-bgrd.jpg);
     font-family: 'Caprasimo-Regular';
 
     #calcContainer {
@@ -21,7 +21,7 @@ body {
         border-radius: 10px;
         box-shadow: rgb(81, 83, 87) 3.5px 3.5px 1.5px;
         padding: 20px;
-        background-image: url(./mural-bgrd.jpg);
+        background-image: url(./mural-bgrd.png);
 
         .displayField {
             width: 100%;
