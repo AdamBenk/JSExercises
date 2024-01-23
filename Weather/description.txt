@@ -1,0 +1,62 @@
+Design and Implement a Weather Application using native html, css and JS classes
+
+Do use SCSS, Webpack to make your application compact and fast loading
+Use tools for everything you can:
+- Images: Use Edge browser's Copilot
+- icons: https://icons8.com/icons/set/weather
+- fonts: https://fonts.google.com/
+- color gradient (fade from one color to another): https://cssgradient.io/
+- drop shadows:  https://www.cssmatic.com/box-shadow
+- grid generator: https://cssgrid-generator.netlify.app/
+- flex generator: https://angrytools.com/css-flex/
+
+And you can find thousands of generators here: https://www.cssportal.com/ under css generators
+But even if you use them, don't forget to understand what they are doing by checking the generators' output code
+and apply it propery before inserting into your css.
+
+You need to implement the webpage frontend and the server backend
+The server will collect data from free web weather APIs frequently and
+provides data for the frontend application using REST API (english: https://restfulapi.net/ , hungarian: https://testerlab.io/blog/hogyan-m%C5%B1k%C3%B6dik-egy-rest-api/)
+
+The following order of steps is the way, how you should implement your weather application. Don't switch steps!
+
+1. Implement Frontend
+1.1 Webpage design
+1.1.1 Preparation for the frontend
+Find one or more font sets for the web page
+Find or generate background images for different weathers, or you can use provided in src/images:
+- rainy day, sunshine, cloudy day, snowing, storm
+
+1.1.2 Build HTML Page
+Implement the whole webpage in one HTML and as many CSS files as you think needed
+The web page must work in PC monitor (Full HD (and above!)) and mobile phone, so you need 2 layouts, using 1 HTML.
+the FullHD layout you can find in src/images/webpage.jpg
+
+1.1.3 Break Down into components
+The page consists of 4 independent component:
+- search bar (on top, with search field)
+- current weather (left hand side, with current temp, icon, location, time, max and min temp for that day)
+- daily forecast in 1 hour resolution, displaying only 5 or 6 hours in a time, and scrollable with left and right arrows
+- 5-day forecast
+
+1.1.4 Implement Main Application
+Use Axios library for AJAX calls
+Figure out what components needed for the frontend application
+
+Main Application creates and renders all the components
+Updates all the components when needed and re-render
+Main application acquires data from the server by api call on Load
+When loading data from server, show an overlay, and a progress bar/loading indicator in the middle
+remove overlay and render components when data have arrived
+Provide data to components through render method and render them
+
+1.1.4 Implement components
+1.1.4.1 Search bar component
+...
+1.1.4.2 CurrentWeather component
+...
+1.1.4.3 Daily Forecast component
+...
+1.1.4.4 FiveDay Forecast component
+...
+1.1.5
