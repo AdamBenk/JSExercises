@@ -3,6 +3,14 @@ export class Calculator {
     display;
     calculatorService;
     stencils = [7, 8, 9, "&#247", "&#177", 4, 5, 6, "x", "&#8730", 1, 2, 3, "-", "%", 0, ".", "C", "+", "="];
+    buttonDescriptors =[
+        {
+            caption: "nulla",
+            value: "0",
+            className: "noBtn",
+            onClick: () => {},
+        }
+    ]
     currentNumber = ""; // string;
     number1 = "0"; // string
     number2 = ""; // string
@@ -21,6 +29,8 @@ export class Calculator {
             this.container.innerHTML = allBtns;
         }
         this.display.value = "0";
+
+        this.addBtnFill();
     }
 
     addBtnFill() {
