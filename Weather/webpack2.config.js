@@ -2,7 +2,6 @@ import miniCss from "mini-css-extract-plugin";
 import browserSyncPlugin from 'browser-sync-webpack-plugin';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -35,12 +34,18 @@ export default {
                 'sass-loader',
             ]
         }, {
-            test: /\.(png|svg|jpg|jpeg|gif)$/i,
-            type: 'asset/resource',
-        },]
+            test: /\.(woff(2)?|ttf|eot|svg|jpg|png|jpeg)(\?v=\d+\.\d+\.\d+)?$/,
+            use: [{
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]',
+                    outputPath: '/assets/',
+                    publicPath: '/dist/js/css'
+                }
+            }]
+        }]
     },
     plugins: [
-        new MiniCssExtractPlugin(),
         new miniCss({
             filename: "[name].min.css"
         }),
