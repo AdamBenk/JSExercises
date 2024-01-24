@@ -44,7 +44,7 @@ export default {
             test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
             type: 'asset',   // <-- Assets module - asset
             generator: {  //If emitting file, the file path is
-                filename: 'fonts/[hash][ext][query]'
+                filename: 'fonts/[name][ext][query]'
             }
         }, {
             test: /\.(?:ico|gif|png|jpg|jpeg)$/i,

@@ -1,4 +1,18 @@
+@font-face {
+    font-family: "RobotoCondensed-Italic";
+    src: url("../fonts/RobotoCondensed-Italic-VariableFont_wght.ttf") format("truetype");
+}
+
 body {
     background-color: brown;
     background-image: url("../images/rainy-day.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    min-height: 100vh;
+    background-position: center top;
+    font-family: "RobotoCondensed-Italic";
+
+    .title {
+        
+    }
 }

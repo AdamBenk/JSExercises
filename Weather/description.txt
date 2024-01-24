@@ -29,6 +29,8 @@ Find or generate background images for different weathers, or you can use provid
 
 1.1.2 Build HTML Page
 Implement the whole webpage in one HTML and as many CSS files as you think needed
+Choose colors you want to use, and create a separate file for it. You can use css variables for that, or the scss
+version of it.
 The web page must work in PC monitor (Full HD (and above!)) and mobile phone, so you need 2 layouts, using 1 HTML.
 the FullHD layout you can find in src/images/webpage.jpg
 
