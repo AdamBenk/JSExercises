@@ -1,18 +1,224 @@
-@font-face {
-    font-family: "RobotoCondensed-Italic";
-    src: url("../fonts/RobotoCondensed-Italic-VariableFont_wght.ttf") format("truetype");
-}
+@import "./narrowview.scss";
+@import "./fonts.scss";
+@import "../colors/colors.scss";
 
 body {
-    background-color: brown;
-    background-image: url("../images/rainy-day.jpg");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    min-height: 100vh;
-    background-position: center top;
-    font-family: "RobotoCondensed-Italic";
-
-    .title {
+    box-sizing: border-box;
+    height: 100vh;
+    margin: 0;
+    padding: 5%;
+    background-color: $main-bg-green;
+    font-family: "Merriweather-BlackItalic";
+    color: $font-color;
+    
+    .container {
+        box-sizing: border-box;
+        background-image: url("../images/rainy-day.jpg");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        height: 100%;
+        background-position: center top;
+        border-radius: 18px;   
+        padding: 6%; 
         
+        .innerContainer {
+            height: 100%;
+            
+            .headerLine {
+                display: flex;
+                justify-content: space-between;
+                min-width: max-content;
+
+                .pageTitle {
+                    
+                }
+                
+                .searchBarContainer {
+                    display: flex;
+                    min-width: max-content;
+                    
+                    .searchBar {
+                        height: 1.5em;
+                        width: 300px;
+                    }
+                    
+                    .searchButton {
+                        min-width: max-content;
+                        background: none;
+                        border: none;
+                        display: flex;
+                        align-items: center;
+                        padding: 0;
+                    
+                        &:hover {
+                            background-color: $hover-color;
+                        }
+                    
+                        &:active {
+                            background-color: $active-color;
+                        }
+                   
+                        img {
+                            width: 25px;
+                            height: auto;
+                            padding: 0 15px 0 15px;
+                        }
+                    }
+                }
+            }
+            
+            .weatherContent {
+                display: flex;
+                align-items: last baseline;
+                height: 100%;
+                
+                .currentWeather {
+                    flex: 1;
+                    min-width: max-content;
+
+                    .tempAndIcon {
+                        display: flex;
+
+                        .temp {
+                            font-size: 70px;
+                            margin-right: 25px;
+                        }
+
+                        .bigIcon {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
+                            img {
+                                height: 50px;
+                                width: auto;
+                            }
+                        }
+                    }
+
+                    .location {
+                        font-size: 35px
+                    }
+
+                    .currentTimeCoordinates {
+                        display: flex;
+
+                        .currentTime {
+                            border-right: solid 3px $font-color;
+                            padding-right: 20px;
+                            font-size: 25px;
+                        }
+                        .coordinates {
+                            font-size:18px;
+                            padding-left: 20px;
+                            font-size: 25px;
+                        }
+                    }
+                }
+                .forecastInfoContainer {
+                    flex: 2;
+                    display: flex;
+                    justify-content: center;
+                    
+                    .forecastInfo {
+                        max-width: 70%;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: stretch;
+                        justify-content: baseline;
+    
+                        .dailyForecast {
+                            font-size: 16px;
+                            backdrop-filter: blur(15px);
+                            padding: 20px;
+                            min-width: max-content;
+                            
+                            .alert {
+                                padding-bottom: 15px;
+                                border-bottom: solid 1px $font-color;
+                            }
+    
+                           .dailyFlow {
+                            display: flex;
+                            justify-content: space-between;
+                            min-width: max-content;
+    
+                                .hourlyReport {
+                                    margin-right: 20px; 
+                                    .hour {
+    
+                                    }
+                                    .smallIcon {
+                                        img {
+                                            height: 25px;
+                                        }
+                                    }
+                                    .currentTemp {
+    
+                                    }
+                                }
+                           }
+                        }
+    
+                        .fiveDayForecast {
+                            font-size: 16px;
+                            backdrop-filter: blur(15px);
+                            padding: 20px;
+                            margin-top: 25px;
+                            min-width: max-content;
+    
+                            .forecastHeader {
+                                padding-bottom: 15px;
+                                border-bottom: solid 1px $font-color;
+                            }
+    
+                            .forecastFlow {
+                                .dayForecast {
+                                    display: flex;
+                                    margin-bottom: 15px;
+                                    
+                                    .day {
+                                        padding-right: 10px;
+                                    }
+                                    .smallIcon {
+                                        padding-right: 10px;
+                                        
+                                        img {
+                                            height: 25px;
+                                        }
+                                    }
+                                    .lowTemp {
+                                        padding-right: 10px;
+                                    }
+    
+                                    meter::-webkit-meter-bar {
+                                        border-top-left-radius: 0;
+                                        border-bottom-left-radius: 0;
+                                        border: none;
+                                        background-color: $meter-background;
+                                        height: 6px;
+                                      }
+                                    
+                                    meter::-webkit-meter-optimum-value {
+                                        background: linear-gradient(to right, $meter-optimum-gradient-low, $meter-optimum-gradient-high);
+                                        border-radius: 0 3px 3px 0;
+                                    }
+    
+                                    .leftMeter {
+                                        transform: rotateZ(180deg);
+                                    }
+                                    //leftMeter value should be leftMeter.min + (leftMeter.max - actual daily low temp)
+    
+                                    .highTemp {
+                                        padding: 0 10px 0 10px;
+    
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
