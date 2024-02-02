@@ -1,0 +1,88 @@
+Tasks:
+- style search header bar (blur, style)
+- scroll arrows for hourly forecast , left, right
+- fix 5-day forecast glitches
+
+New tasks:
+Create Components
+
+- SearchBar (no extra data needed)
+- CurrentWeather (some values needed)
+- DailyForecast (array input needed)
+    - HourlyDisplay(hour, weather, temp)
+
+- FiveDayForecast (array input needed)
+    - OneDayForeCastDisplay (day name, weather, min temp, max temp, daily min temp, daily max temp)
+
+- create new files for each components
+    searchbar.component.js
+
+    class CurrentWeather {
+        temp,
+        location,
+        time,
+        date,
+        highTemp,
+        lowTemp,
+
+        constructor(propValues) {
+            this.setProps(propValues);
+        }
+        setProps(propValues) {
+            this.temp = propValues.temp
+                    ...
+        }
+        render() {
+            return "<div class="currentWeather">${this.temp}</div>";
+        }
+    }
+
+    index.js:
+
+    var currentWeatherCmp = new CurrentWeather({
+        temp: 12,
+        location: "",
+        ...
+    });
+
+    currentWeatherContainer.innerHtml = currentWeatherCmp.render();
+-----------------------------
+    class HourlyDisplay {
+        constructor(...data..) {
+            this.time = data......
+        }
+
+        render() {
+        }
+    }
+    class DailyForecast {
+        dailyData = [{
+            time: "11:00",
+            weather: "rainy",
+            temp: 12
+        }, {
+           time: "12:00",
+           weather: "rainy",
+           temp: 11
+        }];
+
+        constructor(dailyData) {
+            this.dailyData = dailyData;
+        }
+
+        render() {
+            let hourlyDisplays = [];
+
+            this.dailyData.forEach((oneDailyData) => {
+                hourlyDisplays.push(new HourlyDisplay(oneDailyData))
+            });
+
+            return "<div>" + hourlyDisplays.map(hourlyDisplay => hourlyDisplay.render()).join() + "</div>"
+
+        }
+    }
+
+
+-----------------------------
+
+
