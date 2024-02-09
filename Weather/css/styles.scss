@@ -28,6 +28,9 @@ body {
                 display: flex;
                 justify-content: space-between;
                 min-width: max-content;
+                backdrop-filter: blur(15px);
+                padding: 7px;
+                border-radius: 5px;
 
                 .pageTitle {
                     
@@ -108,7 +111,7 @@ body {
                             padding-right: 20px;
                             font-size: 25px;
                         }
-                        .coordinates {
+                        .highTemp, .lowTemp {
                             font-size:18px;
                             padding-left: 20px;
                             font-size: 25px;
@@ -131,33 +134,67 @@ body {
                             font-size: 16px;
                             backdrop-filter: blur(15px);
                             padding: 20px;
-                            min-width: max-content;
+                            width: 435px;
                             
                             .alert {
                                 padding-bottom: 15px;
                                 border-bottom: solid 1px $font-color;
+                                width: 100%
                             }
-    
-                           .dailyFlow {
-                            display: flex;
-                            justify-content: space-between;
-                            min-width: max-content;
-    
-                                .hourlyReport {
-                                    margin-right: 20px; 
-                                    .hour {
-    
-                                    }
-                                    .smallIcon {
-                                        img {
-                                            height: 25px;
-                                        }
-                                    }
-                                    .currentTemp {
-    
+                            .dailyFlowSlideContainer {
+                                display: flex;
+                                align-items: center;
+
+                                .slideArrow {
+                                    width: 30px;
+                                    height: 30px;
+                                    border: none;
+                                    border-radius: 15px;
+                                    background: transparent;
+                                    display: flex;
+                                    justify-content: center;    
+                                    align-items: center;                             
+                                    
+                                    img {
+                                        height: 20px;
+                                        width: 20px
                                     }
                                 }
-                           }
+
+                                .slideArrow:hover {
+                                    background-color: $hover-color;
+                                }
+
+                                .slideArrow:active {
+                                    background-color: $active-color;
+                                }
+
+                                .dailyFlow {
+                                    display: flex;
+                                    overflow: hidden;
+                                    margin: 20px;
+            
+                                        .hourlyReport {
+                                            min-width: 50px;
+                                            height: 80px;
+                                            margin-right: 20px; 
+                                           
+                                            .hour {
+            
+                                            }
+
+                                            .smallIcon {
+                                                img {
+                                                    height: 25px;
+                                                }
+                                            }
+                                            .currentTemp {
+            
+                                            }
+                                        }
+                                    }
+                            }
+                           
                         }
     
                         .fiveDayForecast {
@@ -165,7 +202,7 @@ body {
                             backdrop-filter: blur(15px);
                             padding: 20px;
                             margin-top: 25px;
-                            min-width: max-content;
+                            width: 435px;
     
                             .forecastHeader {
                                 padding-bottom: 15px;
@@ -178,23 +215,25 @@ body {
                                     margin-bottom: 15px;
                                     
                                     .day {
-                                        padding-right: 10px;
+                                        width: 90px;
+                                        padding-right: 15px;
                                     }
                                     .smallIcon {
-                                        padding-right: 10px;
+                                        padding-right: 15px;
                                         
                                         img {
                                             height: 25px;
                                         }
                                     }
                                     .lowTemp {
-                                        padding-right: 10px;
+                                        width: 40px;
+                                        padding-right: 15px;
                                     }
     
                                     meter::-webkit-meter-bar {
                                         border-top-left-radius: 0;
                                         border-bottom-left-radius: 0;
-                                        border: none;
+                                        border-width: 0;
                                         background-color: $meter-background;
                                         height: 6px;
                                       }
@@ -207,10 +246,10 @@ body {
                                     .leftMeter {
                                         transform: rotateZ(180deg);
                                     }
-                                    //leftMeter value should be leftMeter.min + (leftMeter.max - actual daily low temp)
     
                                     .highTemp {
-                                        padding: 0 10px 0 10px;
+                                        width: 40px;
+                                        padding: 0 15px 0 15px;
     
                                     }
                                 }
