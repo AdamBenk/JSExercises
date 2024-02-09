@@ -1,0 +1,16 @@
+New tasks:
+
+1. refactor arrow component, 
+- 1 component is responsible for 1 arrow! so your component will be more versatile
+- you can set container element
+- it has render
+- it triggers an event, when clicked, so other components can subscribe to it
+- render method: renders component into its container
+
+2. create an overlay component that will display a progress icon while operations happens (load data from server, etc.)
+   and it hides all the screen.
+- it has a container property that is the container element of it
+- render method
+- it has a show method that displays it
+- hide method that hide it
+
