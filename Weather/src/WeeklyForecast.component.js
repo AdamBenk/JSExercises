@@ -1,6 +1,6 @@
-import {OneDayForecast} from "./OneDayForecastDisplay.component.js";
+import {OneDayBlock} from "./OneDayBlock.component.js";
 
-export class FiveDayForecast {
+export class WeeklyForecast {
     fiveDayData;
     constructor(fiveDayData) {
         this.fiveDayData = fiveDayData;
@@ -26,7 +26,7 @@ export class FiveDayForecast {
         let daylyDisplays = [];
 
         this.fiveDayData.forEach((oneDailyData) => {
-            daylyDisplays.push(new OneDayForecast(oneDailyData, this.findWholeRangeLow(this.fiveDayData), this.findWholeRangeHigh(this.fiveDayData)))
+            daylyDisplays.push(new OneDayBlock(oneDailyData, this.findWholeRangeLow(this.fiveDayData), this.findWholeRangeHigh(this.fiveDayData)))
         });
 
         return daylyDisplays.map(daylyDisplay => daylyDisplay.render()).join('');

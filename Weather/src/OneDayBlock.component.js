@@ -1,4 +1,4 @@
-export class OneDayForecast {
+export class OneDayBlock {
     dayName;
     weather;
     wholeRangeLowTemp;
@@ -31,7 +31,6 @@ export class OneDayForecast {
     }
 
     render() { 
-        console.info(this.wholeRangeLowTemp, this.wholeRangeHighTemp)
         return `<div class="dayForecast">
                     <div class="day">${this.dayName}</div>
                     <div class="smallIcon">

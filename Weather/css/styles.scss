@@ -130,19 +130,21 @@ body {
                         align-items: stretch;
                         justify-content: baseline;
     
-                        .dailyForecast {
+                        .oneDayForecast {
                             font-size: 16px;
                             backdrop-filter: blur(15px);
                             padding: 20px;
                             width: 435px;
                             
-                            .alert {
+                            .hourlyAlert {
                                 padding-bottom: 15px;
                                 border-bottom: solid 1px $font-color;
                                 width: 100%
                             }
-                            .dailyFlowSlideContainer {
+
+                            .hourlyForecastContainer {
                                 display: flex;
+                                justify-content: space-between;
                                 align-items: center;
 
                                 .slideArrow {
@@ -153,7 +155,7 @@ body {
                                     background: transparent;
                                     display: flex;
                                     justify-content: center;    
-                                    align-items: center;                             
+                                    align-items: center;                         
                                     
                                     img {
                                         height: 20px;
@@ -169,32 +171,35 @@ body {
                                     background-color: $active-color;
                                 }
 
-                                .dailyFlow {
+                                .hourlyFlowSlideContainer {
                                     display: flex;
+                                    align-items: center;
                                     overflow: hidden;
-                                    margin: 20px;
-            
+                                    width: 350px;
+    
+                                    
+                                    .hourlyFlow {
+                                        display: flex;
+                                        margin: 10px 0 10px 0;
+                                        z-index: 0;
+                                        position: relative;
+                                        left: 0px;
+                                        transition: left 0.5s;     
+                
                                         .hourlyReport {
                                             min-width: 50px;
                                             height: 80px;
-                                            margin-right: 20px; 
+                                            padding: 0 10px 0 10px; 
                                            
-                                            .hour {
-            
-                                            }
-
                                             .smallIcon {
                                                 img {
                                                     height: 25px;
                                                 }
                                             }
-                                            .currentTemp {
-            
-                                            }
                                         }
                                     }
+                                }
                             }
-                           
                         }
     
                         .fiveDayForecast {
@@ -246,7 +251,7 @@ body {
                                     .leftMeter {
                                         transform: rotateZ(180deg);
                                     }
-    
+
                                     .highTemp {
                                         width: 40px;
                                         padding: 0 15px 0 15px;

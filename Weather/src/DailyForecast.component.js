@@ -1,5 +1,4 @@
-import {HourlyDisplay} from "./HourlyDisplay.component.js";
-import {SlideArrow} from "./SlideArrow.component.js";
+import {OneHourBlock} from "./OneHourBlock.component.js";
 
 export class DailyForecast {
     dailyData;
@@ -7,16 +6,12 @@ export class DailyForecast {
     constructor(dailyData) {
         this.dailyData = dailyData;
     }
-    addArrows(leftArrow, rightArrow) {
-        const arrows = new SlideArrow();
-        arrows.addListener(leftArrow, rightArrow);
-    }
 
     render() {
         let hourlyDisplays = [];
 
         this.dailyData.forEach((oneDailyData) => {
-            hourlyDisplays.push(new HourlyDisplay(oneDailyData));
+            hourlyDisplays.push(new OneHourBlock(oneDailyData));
         });
 
         return hourlyDisplays.map(hourlyDisplay => hourlyDisplay.render()).join('');

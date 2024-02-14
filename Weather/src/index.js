@@ -1,7 +1,8 @@
 import { SearchBar} from "./SearchBar.component.js";
 import { CurrentWeather} from "./CurrentWeather.component.js";
 import { DailyForecast } from "./DailyForecast.component.js";
-import { FiveDayForecast } from "./FiveDayForecast.component.js";
+import { WeeklyForecast } from "./WeeklyForecast.component.js";
+import { SlideArrow } from "./SlideArrow.component.js";
 
 window.addEventListener("load", onLoad);
 
@@ -64,14 +65,37 @@ function onLoad() {
         time: "8:00",
         weather: "icons/cloud-rain-icon.svg",
         temp: "15 C°"
-     }]; 
-    
-    const dailyFlow = document.querySelector(".dailyFlow")
+     },
+     {
+      time: "9:00",
+      weather: "icons/cloud-rain-icon.svg",
+      temp: "16 C°"
+   },{
+      time: "10:00",
+      weather: "icons/cloud-rain-icon.svg",
+      temp: "17 C°"
+   },
+   {
+      time: "11:00",
+      weather: "icons/cloud-rain-icon.svg",
+      temp: "18 C°"
+   },
+   {
+      time: "12:00",
+      weather: "icons/cloud-rain-icon.svg",
+      temp: "19 C°"
+   },]; 
+   
+    const hourlyFlow = document.querySelector(".hourlyFlow");
+    const dailyForecast = new DailyForecast(dailyData);
+    hourlyFlow.innerHTML = dailyForecast.render();
+
     const leftArrow = document.querySelector("#leftArrow")
     const rightArrow = document.querySelector("#rightArrow")
-    const dailyForecast = new DailyForecast(dailyData);
-    dailyForecast.addArrows(leftArrow, rightArrow); 
-    dailyFlow.innerHTML = dailyForecast.render();
+    const leftSlider = new SlideArrow(leftArrow, hourlyFlow, "left");
+    leftSlider.render();
+    const rightSlider = new SlideArrow(rightArrow, hourlyFlow, "right")
+    rightSlider.render();
 
     const fiveDayData = [{
         dayName: "Today",
@@ -105,7 +129,7 @@ function onLoad() {
     ];
 
     const forecastFlow = document.querySelector(".forecastFlow");
-    const fiveDayForecast = new FiveDayForecast(fiveDayData);
-    forecastFlow.innerHTML = fiveDayForecast.render();
+    const weeklyForecast = new WeeklyForecast(fiveDayData);
+    forecastFlow.innerHTML = weeklyForecast.render();
 }
 

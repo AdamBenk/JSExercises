@@ -1,4 +1,4 @@
-export class HourlyDisplay {
+export class OneHourBlock {
     time;
     weather;
     temp;
