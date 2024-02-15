@@ -1,0 +1,71 @@
+@import "./fonts.scss";
+@import "../colors/colors.scss";
+
+.oneDayForecast {
+    font-size: 16px;
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    width: 435px;
+    
+    .hourlyAlert {
+        padding-bottom: 15px;
+        border-bottom: solid 1px $font-color;
+        width: 100%
+    }
+
+    .hourlyForecastContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .slideArrow {
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 15px;
+            background: transparent;
+            display: flex;
+            justify-content: center;    
+            align-items: center;                         
+            
+            img {
+                height: 20px;
+                width: 20px
+            }
+        }
+
+        .slideArrow:hover {
+            background-color: $hover-color;
+        }
+
+        .slideArrow:active {
+            background-color: $active-color;
+        }
+
+        .hourlyFlowSlideContainer {
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            width: 350px;
+
+            .hourlyFlow {
+                display: flex;
+                margin: 10px 0 10px 0;
+                position: relative;
+                transition: left 0.5s; 
+
+                .hourlyReport {
+                    min-width: 50px;
+                    height: 80px;
+                    padding: 0 10px 0 10px; 
+                   
+                    .smallIcon {
+                        img {
+                            height: 25px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

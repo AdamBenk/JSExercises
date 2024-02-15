@@ -1,16 +1,43 @@
-@media (max-width: 870px) {
-    .headerLine {
-        display: block;
-    }
-    
-    .weatherContent {
-        display: block;
-    }               
-    
-    .forecastInfoContainer {
-        display: block;
+@media (max-width: 900px) {
+    body {
+      
+        
+        .container {
+            
+            
+            .innerContainer {
+               
+                
+                .headerLine {
+                    display: block;
+                    //justify-content: space-between;
+                    //min-width: max-content;
+                    //backdrop-filter: blur(15px);
+                    //padding: 7px;
+                    //border-radius: 5px;
+                }
+                
+                .weatherContent {
+                    display: block;
+                    //align-items: last baseline;
+                    //justify-content: space-around;
+                    //min-width: max-content;
+                    
+                    .forecastInfoContainer {
+                        display: flex;
+                        justify-content: center;
+                        margin: 30px;
+                        
+                        .forecastInfo {
+                            min-width: max-content;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: stretch;
+                            justify-content: baseline;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
-
-
-                    

@@ -2,38 +2,64 @@ export class SlideArrow {
     button;
     slider;
     direction; 
-    step; 
+    step;
 
     constructor(button, slider, direction) {
         this.button = button;
         this.slider = slider;
         this.direction = direction; 
-        this.step = slider.firstChild.clientWidth;
+        this.stepSetter(direction);
     }
 
-    render() {
-        this.slider.style.left = "0px";
+    init() {
+        if (this.step === "left" || "right") {
+            this.slider.style.left = "0px";
+            this.button.addEventListener("click", this.arrowClickHorizontal.bind(this));
+        } 
+        if (this.step === "top" || "down") {
+            this.slider.style.top = "0px";
+            this.button.addEventListener("click", this.arrowClickVertical.bind(this));
+        }
+    }
+
+    arrowClickHorizontal() {
         const maxLeftSlide = this.slider.clientWidth - this.slider.parentElement.clientWidth;
-        
-        this.button.addEventListener("click", () => {
-            let currentPos = parseInt(this.slider.style.left);
-            if (this.direction === "left" && currentPos > -maxLeftSlide) {
-                currentPos -= this.step;
-            } else if (this.direction === "right" && currentPos < 0) {
-                currentPos += this.step;
-            }
-            this.slider.style.left = currentPos + 'px';
-        });
+        let currentPos = parseInt(this.slider.style.left);
+        if (this.direction === "left" && currentPos > -maxLeftSlide) {
+            currentPos -= this.step;
+        } else if (this.direction === "right" && currentPos < 0) {
+            currentPos += this.step;
+        }
+        this.slider.style.left = currentPos + 'px';
     }
 
-        /*switch(direction) {
-            case "left":
-                slider.style.left -= step + 'px';
-            case "right":
-                slider.style.left += step + 'px';
-            case "up":
-                slider.style.top += step + 'px';
+    arrowClickVertical() {
+        const maxTopSlide = this.slider.clientHeight - this.slider.parentElement.clientHeight;
+        
+        let currentPos = parseInt(this.slider.style.top);
+        if (this.direction === "top" && currentPos > -maxTopSlide) {
+            currentPos -= this.step;
+        } else if (this.direction === "down" && currentPos < 0) {
+            currentPos += this.step;
+        }
+        this.slider.style.top = currentPos + 'px';
+        console.info(this.slider.style.top);
+    }
+
+    stepSetter(direction) {
+        switch(direction) {
+            case "left": 
+                this.step = this.slider.firstChild.clientWidth;
+            break;
+            case "right": 
+                this.step = this.slider.firstChild.clientWidth;
+            break;
+            case "top":
+                this.step = this.slider.firstChild.clientHeight; 
+            break;
             case "down":
-                slider.style.top -= step + 'px';
-        }*/
+                this.step = this.slider.firstChild.clientHeight; 
+            break;
+        }
+    }
 }

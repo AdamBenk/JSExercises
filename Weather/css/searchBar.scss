@@ -1,0 +1,35 @@
+@import "./fonts.scss";
+@import "../colors/colors.scss";
+
+.searchBarContainer {
+    display: flex;
+    min-width: max-content;
+    
+    .searchBar {
+        height: 1.5em;
+        width: 300px;
+    }
+    
+    .searchButton {
+        min-width: max-content;
+        background: none;
+        border: none;
+        display: flex;
+        align-items: center;
+        padding: 0;
+    
+        &:hover {
+            background-color: $hover-color;
+        }
+    
+        &:active {
+            background-color: $active-color;
+        }
+   
+        img {
+            width: 25px;
+            height: auto;
+            padding: 0 15px 0 15px;
+        }
+    }
+}

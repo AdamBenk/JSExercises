@@ -92,17 +92,12 @@ function onLoad() {
 
     const leftArrow = document.querySelector("#leftArrow")
     const rightArrow = document.querySelector("#rightArrow")
-    const leftSlider = new SlideArrow(leftArrow, hourlyFlow, "left");
-    leftSlider.render();
-    const rightSlider = new SlideArrow(rightArrow, hourlyFlow, "right")
-    rightSlider.render();
+    const leftSlider = new SlideArrow(leftArrow, hourlyFlow, "left", 4);
+    leftSlider.init();
+    const rightSlider = new SlideArrow(rightArrow, hourlyFlow, "right", 4)
+    rightSlider.init();
 
     const fiveDayData = [{
-        dayName: "Today",
-        weather: "icons/cloud-rain-icon.svg",
-        dailyLowTemp: 5,
-        dailyHighTemp: 15, 
-    }, {
         dayName: "Monday",
         weather: "icons/cloud-rain-icon.svg",
         dailyLowTemp: 7,
@@ -126,10 +121,41 @@ function onLoad() {
         dailyLowTemp: 2,
         dailyHighTemp: 10, 
      },
+     {
+      dayName: "Thursday",
+      weather: "icons/cloud-rain-icon.svg",
+      dailyLowTemp: 2,
+      dailyHighTemp: 10, 
+     },
+     {
+      dayName: "Friday",
+      weather: "icons/cloud-rain-icon.svg",
+      dailyLowTemp: 2,
+      dailyHighTemp: 10, 
+     },
+     {
+      dayName: "Saturday",
+      weather: "icons/cloud-rain-icon.svg",
+      dailyLowTemp: 2,
+      dailyHighTemp: 10, 
+     },
+     {
+      dayName: "Sunday",
+      weather: "icons/cloud-rain-icon.svg",
+      dailyLowTemp: 2,
+      dailyHighTemp: 10, 
+   }
     ];
 
-    const forecastFlow = document.querySelector(".forecastFlow");
+    const dailyFlow = document.querySelector(".dailyFlow");
     const weeklyForecast = new WeeklyForecast(fiveDayData);
-    forecastFlow.innerHTML = weeklyForecast.render();
+    dailyFlow.innerHTML = weeklyForecast.render();
+
+    const topArrow = document.querySelector("#topArrow")
+    const downArrow = document.querySelector("#downArrow")
+    const topSlider = new SlideArrow(topArrow, dailyFlow, "top", 6);
+    topSlider.init();
+    const downSlider = new SlideArrow(downArrow, dailyFlow, "down", 6)
+    downSlider.init();
 }
 

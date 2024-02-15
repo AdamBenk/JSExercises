@@ -1,0 +1,45 @@
+@import "./fonts.scss";
+@import "../colors/colors.scss";
+
+.currentWeather {
+    min-width: max-content;
+
+    .tempAndIcon {
+        display: flex;
+
+        .temp {
+            font-size: 70px;
+            margin-right: 25px;
+        }
+
+        .bigIcon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                height: 50px;
+                width: auto;
+            }
+        }
+    }
+
+    .location {
+        font-size: 35px
+    }
+
+    .currentTimeCoordinates {
+        display: flex;
+
+        .currentTime {
+            border-right: solid 3px $font-color;
+            padding-right: 20px;
+            font-size: 25px;
+        }
+        .highTemp, .lowTemp {
+            font-size:18px;
+            padding-left: 20px;
+            font-size: 25px;
+        }
+    }
+}

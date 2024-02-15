@@ -1,0 +1,103 @@
+@import "./fonts.scss";
+@import "../colors/colors.scss";
+
+.fiveDayForecast {
+    font-size: 16px;
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    margin-top: 25px;
+    width: 435px;
+
+    .forecastHeader {
+        padding-bottom: 15px;
+        border-bottom: solid 1px $font-color;
+    }
+    
+    .weeklyForecastContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: max-content;
+        
+        .slideArrow {
+            width: 30px;
+            height: 30px;
+            border: none;
+            border-radius: 15px;
+            background: transparent;
+            display: flex;
+            justify-content: center;    
+            align-items: center;                         
+            
+            img {
+                height: 20px;
+                width: 20px
+            }
+        }
+
+        .slideArrow:hover {
+            background-color: $hover-color;
+        }
+
+        .slideArrow:active {
+            background-color: $active-color;
+        }
+
+        .weeklyFlowSlideContainer {
+            overflow: hidden;
+            height: 215px;
+            width: 450px;
+            margin: 10px 0 10px 0; 
+            
+            .dailyFlow {
+                position: relative;
+                transition: top 0.5s;   
+
+                .dayForecast {
+                    display: flex;
+                    padding: 7px 0 7px 0; 
+                    
+                    .day {
+                        width: 90px;
+                        padding-right: 15px;
+                    }
+                    .smallIcon {
+                        padding-right: 15px;
+                        
+                        img {
+                            height: 25px;
+                        }
+                    }
+                    .lowTemp {
+                        width: 40px;
+                        padding-right: 15px;
+                    }
+
+                    meter::-webkit-meter-bar {
+                        border-top-left-radius: 0;
+                        border-bottom-left-radius: 0;
+                        border-width: 0;
+                        background-color: $meter-background;
+                        height: 6px;
+                      }
+                    
+                    meter::-webkit-meter-optimum-value {
+                        background: linear-gradient(to right, $meter-optimum-gradient-low, $meter-optimum-gradient-high);
+                        border-radius: 0 3px 3px 0;
+                    }
+
+                    .leftMeter {
+                        transform: rotateZ(180deg);
+                    }
+
+                    .highTemp {
+                        width: 40px;
+                        padding: 0 15px 0 15px;
+
+                    }
+                }
+            }
+        }
+    }
+    
+}
