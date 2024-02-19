@@ -1,6 +1,6 @@
 import {OneDayBlock} from "./OneDayBlock.component.js";
 
-export class WeeklyForecast {
+export default class WeeklyForecast {
     fiveDayData;
     constructor(fiveDayData) {
         this.fiveDayData = fiveDayData;

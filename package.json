@@ -17,7 +17,8 @@
         "mixed": "webpack --mode=development --config ./mixed/webpack.config.js",
         "mixed:server": "nodemon ./mixed/server/index.js",
         "we": "webpack --mode=development --config ./Weather/webpack2.config.js",
-        "we:server": "nodemon ./Weather/server/index.js"
+        "we:server": "nodemon ./Weather/server/index.js",
+        "we:test": "jest --config ./Weather/jest.config.json" 
     },
     "repository": {
         "type": "git",
