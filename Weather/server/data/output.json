@@ -1,0 +1,32 @@
+{
+    "currentWeather": {
+        "locationName": "Budapest",
+        "currentTemperature": 15,
+        "maxTemperature": 21,
+        "minTemperature": 12,
+        "currentTime": "10:13"
+    }, 
+    "dailyForecast": {
+       "forecast": "Thunderstorms expected around 0:00",
+       "hourlyData": [
+            {
+                "00:00": 12,
+                "01:00": 13,
+                "02:00": 13,
+                "03:00": 13.5
+            }
+       ]
+    },
+    "weeklyForecast": {
+        "minTemp": 10,
+        "maxTemp": 29,
+        "weeklyData": [
+            {
+                "nameOfDay": "Monday",
+                "forecast": "rainy",
+                "minTemp": 13,
+                "maxTemp": 27
+            }
+        ]
+    }
+}
