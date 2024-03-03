@@ -2,7 +2,7 @@ import { SearchBar} from "./SearchBar.component.js";
 import { CurrentWeather} from "./CurrentWeather.component.js";
 import { DailyForecast } from "./DailyForecast.component.js";
 import WeeklyForecast from "./WeeklyForecast.component.js";
-import { SlideArrow } from "./SlideArrow.component.js";
+import SlideArrow from "./SlideArrow.component.js";
 
 window.addEventListener("load", onLoad);
 

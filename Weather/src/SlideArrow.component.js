@@ -1,4 +1,4 @@
-export class SlideArrow {
+export default class SlideArrow {
     button;
     slider;
     direction; 
@@ -8,15 +8,15 @@ export class SlideArrow {
         this.button = button;
         this.slider = slider;
         this.direction = direction; 
-        this.stepSetter(direction);
+        this.stepSetter();
     }
 
     init() {
-        if (this.step === "left" || "right") {
+        if (["left", "right"].includes(this.direction)) {
             this.slider.style.left = "0px";
             this.button.addEventListener("click", this.arrowClickHorizontal.bind(this));
         } 
-        if (this.step === "top" || "down") {
+        if (["top", "down"].includes(this.direction)) {
             this.slider.style.top = "0px";
             this.button.addEventListener("click", this.arrowClickVertical.bind(this));
         }
@@ -35,7 +35,6 @@ export class SlideArrow {
 
     arrowClickVertical() {
         const maxTopSlide = this.slider.clientHeight - this.slider.parentElement.clientHeight;
-        
         let currentPos = parseInt(this.slider.style.top);
         if (this.direction === "top" && currentPos > -maxTopSlide) {
             currentPos -= this.step;
@@ -43,11 +42,10 @@ export class SlideArrow {
             currentPos += this.step;
         }
         this.slider.style.top = currentPos + 'px';
-        console.info(this.slider.style.top);
     }
 
-    stepSetter(direction) {
-        switch(direction) {
+    stepSetter() {
+        switch(this.direction) {
             case "left": 
                 this.step = this.slider.firstChild.clientWidth;
             break;

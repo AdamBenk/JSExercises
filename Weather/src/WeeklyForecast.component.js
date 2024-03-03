@@ -1,4 +1,4 @@
-import {OneDayBlock} from "./OneDayBlock.component.js";
+import OneDayBlock from "./OneDayBlock.component.js";
 
 export default class WeeklyForecast {
     fiveDayData;
@@ -6,16 +6,16 @@ export default class WeeklyForecast {
         this.fiveDayData = fiveDayData;
     }
 
-    findWholeRangeLow(fiveDayData) {
-        const weeklyLows = fiveDayData.map((oneDayData) => {
+    findWholeRangeLow() {
+        const weeklyLows = this.fiveDayData.map((oneDayData) => {
             return oneDayData.dailyLowTemp;
         })
         const sortedWeeklyLows = weeklyLows.sort((a, b) => a-b);
         return sortedWeeklyLows[0]
     }
 
-    findWholeRangeHigh(fiveDayData) {
-        const weeklyHighs = fiveDayData.map((oneDayData) => {
+    findWholeRangeHigh() {
+        const weeklyHighs = this.fiveDayData.map((oneDayData) => {
             return oneDayData.dailyHighTemp;
         })
         const sortedWeeklyHighs = weeklyHighs.sort((a, b) => a-b);
@@ -26,7 +26,7 @@ export default class WeeklyForecast {
         let daylyDisplays = [];
 
         this.fiveDayData.forEach((oneDailyData) => {
-            daylyDisplays.push(new OneDayBlock(oneDailyData, this.findWholeRangeLow(this.fiveDayData), this.findWholeRangeHigh(this.fiveDayData)))
+            daylyDisplays.push(new OneDayBlock(oneDailyData, this.findWholeRangeLow(), this.findWholeRangeHigh()))
         });
 
         return daylyDisplays.map(daylyDisplay => daylyDisplay.render()).join('');
