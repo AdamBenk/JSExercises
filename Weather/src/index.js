@@ -7,6 +7,10 @@ import SlideArrow from "./SlideArrow.component.js";
 window.addEventListener("load", onLoad);
 
 function onLoad() {
+
+   const day = new Date("2024-03-07T00:00");
+   console.info(day, day.getDay())
+
     const searchBarContainer = document.querySelector(".headerLine");
     const searchBar = new SearchBar(searchBarContainer); 
     searchBarContainer.innerHTML = searchBar.render(); 
@@ -16,7 +20,7 @@ function onLoad() {
         temp: "13 C°",
         icon: "icons/cloud-rain-icon.svg",
         location: "Bundy Drive",
-        time: "10:45°",
+        time: "10:45",
         highTemp: "15 C°", 
         lowTemp: "5 C°",
     });
