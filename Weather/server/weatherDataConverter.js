@@ -5,6 +5,7 @@ export default class WeatherDataConverter {
 
     convert(rawData) {
         this.rawData = rawData;
+
         return {
             currentWeather: this.getCurrentWeatherData(),
             dailyForecast: this.getDailyForecast(),
@@ -13,8 +14,9 @@ export default class WeatherDataConverter {
     }
 
     getCurrentWeatherData() {
+        return {};
         const date = new Date;
-        const dateConverted = date.getUTCMilliseconds().slice(10, 15);
+        const dateConverted = String(date.getUTCMilliseconds()).slice(10, 15);
         const hourandMinute = dateConverted.slice(10, 15);
         const allDateValues = Object.values(this.rawData.hourly.time);
         let position; 
@@ -42,7 +44,8 @@ export default class WeatherDataConverter {
     }
 
     getDailyForecast() {
-        let dailyData = new Array; 
+        return {};
+        let dailyData = new Array; // missing (), or use [] instead!
         const allDateValues = Object.values(this.rawData.hourly.time);
         allDateValues.forEach(date => {
             let oneHourBlock = {
@@ -62,6 +65,7 @@ export default class WeatherDataConverter {
     }
 
     getWeeklyForecast() {
+        return {};
         let weeklyData = new Array;
         const allDateKeys = Object.keys(this.rawData.hourly.time);
         const allTempValues = Object.values(this.rawData.hourly.temperature_2m);

@@ -1,13 +1,14 @@
-import fs from "node:fs/promises";
+
+import sampleData from "./data/sample-data.js";
 
 export default class WeatherDataFetcher {
     weatherData;
 
     async fetch(params) {
         try {
-            return await fs.readFile("./data/sample-data.json");
+            return sampleData
         } catch(err) {
-            throw "Read Error";
+            throw "Read Error: "+ err.message;
         }
     }
 }
