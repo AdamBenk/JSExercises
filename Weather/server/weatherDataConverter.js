@@ -1,11 +1,8 @@
-import { all } from "axios";
-
 export default class WeatherDataConverter {
     rawData;
 
     convert(rawData) {
         this.rawData = rawData;
-
         return {
             currentWeather: this.getCurrentWeatherData(),
             dailyForecast: this.getDailyForecast(),
@@ -14,7 +11,7 @@ export default class WeatherDataConverter {
     }
 
     getCurrentWeatherData() {
-        return {};
+        //return {};
         const date = new Date;
         const dateConverted = String(date.getUTCMilliseconds()).slice(10, 15);
         const hourandMinute = dateConverted.slice(10, 15);
@@ -28,7 +25,7 @@ export default class WeatherDataConverter {
         const allTempValues = Object.values(this.rawData.hourly.temperature_2m);
         const currentTemp = allTempValues[position];
 
-        let tempsForDay; 
+        let tempsForDay = []; 
         for(let i = position; i < 23; i--) {
             tempsForDay += allTempValues[i]; 
         }
@@ -44,8 +41,8 @@ export default class WeatherDataConverter {
     }
 
     getDailyForecast() {
-        return {};
-        let dailyData = new Array; // missing (), or use [] instead!
+        //return {};
+        let dailyData = []; // missing (), or use [] instead!
         const allDateValues = Object.values(this.rawData.hourly.time);
         allDateValues.forEach(date => {
             let oneHourBlock = {
@@ -65,8 +62,8 @@ export default class WeatherDataConverter {
     }
 
     getWeeklyForecast() {
-        return {};
-        let weeklyData = new Array;
+        //return {};
+        let weeklyData = [];
         const allDateKeys = Object.keys(this.rawData.hourly.time);
         const allTempValues = Object.values(this.rawData.hourly.temperature_2m);
         allDateKeys.forEach(day => {

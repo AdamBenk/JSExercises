@@ -28,9 +28,9 @@ const composer = new ResponseComposer();
 app.use(bodyParser.json()); // Middleware to parse JSON bodies
 app.use(bodyParser.urlencoded({ extended: true })); // Middleware to parse URL-encoded bodies
 
-app.get("/weather-data", (req, res) => {
-    const rawData = fetcher.fetch();
-    const convertedData = converter.convert();
+app.get("/weather-data", async (req, res) => {
+    const rawData = await fetcher.fetch();
+    const convertedData = converter.convert(rawData);
     const response = composer.compose(res, convertedData);
 
     res.send(response);
