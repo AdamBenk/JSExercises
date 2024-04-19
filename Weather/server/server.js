@@ -31,6 +31,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // Middleware to parse URL-e
 app.get("/weather-data", async (req, res) => {
     const rawData = await fetcher.fetch();
     const convertedData = converter.convert(rawData);
+    //console.info("convertedData:", convertedData);
     const response = composer.compose(res, convertedData);
 
     res.send(response);

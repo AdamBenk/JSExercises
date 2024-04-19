@@ -1,8 +1,13 @@
 export default class WeatherDataConverter {
     rawData;
+    timeRange; 
+    tempValues;
 
     convert(rawData) {
         this.rawData = rawData;
+        console
+        this.timeRange = Object.values(this.rawData.hourly.time);
+        this.tempValues = Object.values(this.rawData.hourly.temperature_2m);
         return {
             currentWeather: this.getCurrentWeatherData(),
             dailyForecast: this.getDailyForecast(),
@@ -11,104 +16,97 @@ export default class WeatherDataConverter {
     }
 
     getCurrentWeatherData() {
-        //return {};
-        const date = new Date;
-        const dateConverted = String(date.getUTCMilliseconds()).slice(10, 15);
-        const hourandMinute = dateConverted.slice(10, 15);
-        const allDateValues = Object.values(this.rawData.hourly.time);
-        let position; 
-        allDateValues.forEach(date => {
-            if (date === dateConverted) {
-                position = allDateValues.indexOf(date);
-            }
-        })
-        const allTempValues = Object.values(this.rawData.hourly.temperature_2m);
-        const currentTemp = allTempValues[position];
-
-        let tempsForDay = []; 
-        for(let i = position; i < 23; i--) {
-            tempsForDay += allTempValues[i]; 
-        }
+        const currentTime = new Date(Date.now()).toISOString().slice(0, 13);
+        const position = this.getPositionInTimeRange(currentTime);
+        const currentTemp = this.tempValues[position];
+        const tempsForDay = this.getTempsForCalendarDay(position)
         
         return {
-            temp: currentTemp,
+            temp: `${currentTemp} C°`,
             icon: "icons/cloud-rain-icon.svg",
             location: "Bundy Drive",
-            time: hourandMinute,
-            highTemp: Math.max(...tempsForDay).toString(),
-            lowTemp: Math.min(...tempsForDay).toString()
+            time: new Date(Date.now()).toISOString().slice(11, 16),
+            highTemp: `H: ${Math.max(...tempsForDay).toString()} C°`,
+            lowTemp: `L: ${Math.min(...tempsForDay).toString()} C°`
         };
     }
 
     getDailyForecast() {
-        //return {};
-        let dailyData = []; // missing (), or use [] instead!
-        const allDateValues = Object.values(this.rawData.hourly.time);
-        allDateValues.forEach(date => {
-            let oneHourBlock = {
-                time: "",
+        let dailyData = []; 
+        this.timeRange.forEach(date => {
+            dailyData.push({
+                time: `${date.slice(12, 16)}`,
                 weather: "icons/cloud-rain-icon.svg", 
                 temp: "",
-            }
-            oneHourBlock.time = date.slice(10, 15);
-            dailyData.push(oneHourBlock);
+            });
         })
-        const allTempValues = Object.values(this.rawData.hourly.temperature_2m);
+        
         dailyData.forEach(day => {
-            day.temp = allTempValues[dailyData.indexOf(day)];
+            day.temp = `${this.tempValues[dailyData.indexOf(day)]} C°`;
         })
-
         return dailyData.slice(0,23);
     }
 
     getWeeklyForecast() {
-        //return {};
         let weeklyData = [];
-        const allDateKeys = Object.keys(this.rawData.hourly.time);
-        const allTempValues = Object.values(this.rawData.hourly.temperature_2m);
-        allDateKeys.forEach(day => {
-            let oneDayBlock = {
-                dayName: "",
-                weather: "icons/cloud-rain-icon.svg",
-                dailyLowTemp: "",
-                dailyHighTemp: "", 
-            };
-            if(day.slice(-2) === "23") {
-                oneDayBlock.dayName = this.getDayName(day);
-                const dayTemps = allTempValues.slice(allDateKeys.indexOf(day) - 23, allDateKeys.indexOf(day));
-                oneDayBlock.dailyLowTemp = Math.min(...dayTemps).toString();
-                oneDayBlock.dailyHighTemp = Math.max(...dayTemps).toString();
-                weeklyData.push(oneDayBlock);
-            };
-        });
         
+        const days = this.timeRange.reduce((prev, curr, index)=> {
+
+            const dateStr = curr.slice(0,10);
+        
+            if (prev[dateStr]) {
+                prev[dateStr].push(this.tempValues[index]);
+            } else {
+                prev[dateStr] = [this.tempValues[index]];
+            }
+            return prev;
+        }, {});
+
+        const dayTemps = Object.entries(days)
+
+        dayTemps.forEach(day => {
+            console.info("This is a day:", day[0])
+            const date = new Date(day[0]);
+            weeklyData.push({
+                dayName: `${this.getDayName(date.getDay())}`,
+                weather: "icons/cloud-rain-icon.svg",
+                dailyLowTemp: `${Math.max(...Object.values(day[1])).toString()}`,
+                dailyHighTemp: `${Math.min(...Object.values(day[1])).toString()}` 
+            });
+        })
         return weeklyData; 
     }
 
     getDayName(day) {
-            const date = new Date(day);
-            switch(date.getDay()) {
-                    case 0: 
-                        return "Sunday";
-                    break;
-                    case 1: 
-                        return "Monday";
-                    break;
-                    case 2:
-                        return "Tuesday";
-                    break;
-                    case 3:
-                        return "Wednesday";
-                    break;
-                    case 4:
-                        return "Thursday";
-                    break;
-                    case 5:
-                        return "Friday";
-                    break;
-                    case 6:
-                        return "Saturday";
-                    break;
+        return [
+         "Sunday",
+         "Monday", 
+         "Tesday", 
+         "Wednesday", 
+         "Thursday", 
+         "Friday", 
+         "Saturday"
+        ][day] 
+    }
+
+    getPositionInTimeRange(timeToBeFound) {
+        let position;
+        this.timeRange.forEach(time => {
+            if (time.slice(0, 13) === timeToBeFound) {
+                position = this.timeRange.indexOf(time);  
             }
+        })
+        return position;
+    }
+
+    getTempsForCalendarDay(pos) {
+        let tempsForDay = []; 
+        for(let i = pos; i >= 0; i--) {
+            tempsForDay.push(this.tempValues[i]); 
+        }
+        for(let i = pos + 1; i <= 23; i++) {
+            tempsForDay.push(this.tempValues[i]); 
+        }
+        return tempsForDay;
     }
 }

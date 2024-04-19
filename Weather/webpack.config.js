@@ -22,7 +22,21 @@ export default {
         hashFunction: "xxhash64"
     },
     module: {
-        rules: [{
+        rules: [
+            {
+              test: /\.s[ac]ss$/i,
+              use: [
+                // Creates `style` nodes from JS strings
+                "style-loader",
+                // Translates CSS into CommonJS
+                "css-loader",
+                // Compiles Sass to CSS
+                "sass-loader",
+              ],
+            },
+          ], 
+        
+        /*[{
             test: /\.(s*)css$/,
             use: [
                 {
@@ -37,7 +51,7 @@ export default {
         }, {
             test: /\.(png|svg|jpg|jpeg|gif)$/i,
             type: 'asset/resource',
-        },]
+        },]*/
     },
     plugins: [
         new MiniCssExtractPlugin(),

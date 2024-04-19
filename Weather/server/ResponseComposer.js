@@ -7,7 +7,7 @@ export default class ResponseComposer {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Methods': 'OPTIONS,GET,HEAD,POST,PUT,DELETE'
         });
-
+        //console.info("This is res:", res)
         return body;
     }
 }

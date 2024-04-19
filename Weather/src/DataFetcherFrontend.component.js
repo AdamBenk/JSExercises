@@ -8,4 +8,6 @@ export default class DataFetcherFrontend {
             return response.data;
         });
     }
+
+    
 }
